@@ -1,0 +1,121 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="GENERATOR" content="VIM [en] (X11; I; Linux 2.4.21 i686)">
+  <TITLE>Cellular Body (No Time To Fly)</TITLE>
+
+  <link rel='stylesheet' href='../project.css'>
+<!--  <style type="text/css">
+    * {font-family: Optima, Calibri, 'Segoe UI', Candara, Calibri, sans-serif;}
+    table { font-size: 14px }
+    a:link { color: #4040d0 ; text-decoration: none }
+    a:active { color: #4040d0 ; text-decoration: none }
+    a:visited { color: #4040d0; text-decoration: none }
+    a:hover { color: white; background: #4040d0 ; }
+    #main  {position: absolute; width: 90%; margin-top: 20px; margin-left: 40px}
+    #header {position: absolute; top: 0px; left: 0px; width: 100%; }
+    #profile {position: absolute; top: 0px; right: 10px; }
+    #flickr {position: absolute; top: 250px; right: 0px; }
+    #namej  {font-size:24px; position: absolute; top: 9px; left: 0px; font-weight:bold; line-height: 1.2;}
+    #namej2 {font-size:24px; position: absolute; top: 75px; left: 0px; font-weight:bold; line-height: 1.2;}
+    #hira {font-size:8px; position: absolute; top: 2px; font-weight:bold; line-height: 1.5;}
+    #hira2 {font-size:8px; position: absolute; top: 36px; font-weight:bold; line-height: 1.5;}
+    #roma {font-family: 'Times New Roman'; font-size:64px; position: absolute; top: 0px; left: 40px; font-weight:bold;}
+    
+    #content {position: absolute; top: 30px; width: 75%; padding-bottom: 50px;  }
+    li {font-size: 20px; margin-bottom:80px; margin-top:50px; list-style-type: none }
+    #loc {font-size: 14px}
+    h2 {font-size: 32px }
+    h3 {font-size: 28px }
+    p {font-size: 18px }
+    img { border: 1px #c0c0c0 solid; }
+    .imhere { color: #202020 }
+    .imnothere { color: #e0e0e0 }
+    body {color: #000000; background-color: #fdfdfd}
+  </style> -->
+</head>
+<body>
+<div id="main">
+<div id="content">
+
+<h1>Cellular Body (No Time To Fly)</h1>
+
+<div class="row">
+
+<div class="f">
+<img alt="ccl" width="560" height="315" src="../img/ccl4smalt.png">
+</div>
+
+<div class="f">
+<img alt="ccl" width="560" height="315" src="../img/ccl4.png">
+</div>
+
+</div>
+
+<p>
+At the 4th Choreographic Coding Lab (New York City, 2015),
+the participants were provided with motion data and videos of No Time To Fly (2012),
+choreographed by Deborah Hay and performed individually by
+Jeanine Durning, Juliette Mapp and Ros Warby.<br />
+<br />
+Deborah's choreography score consists of questions, which makes each dancer perform uniquely.
+Extensive research has been done on each dancer's motion, particularly, the travel path 
+to understand their <a href="http://scores.motionbank.org/dh/#/set/movement-character" target="_blank">movement characteristics</a> by Florian Jenett and others.<br />
+</p>
+
+<blockquote>
+"My body is limited in what it can do so I'm not interested in what it can do. I'm interested in how I can raise the threshold of my attention and energy when I break it down to the cellular body. And it's the whole body at once. All that cellular body is contained, like in a silhouette, of the human body. (...) And it's the multi-cellular body I attend to when I'm dancing."<br />
+<br />
+-- <a href="http://scores.motionbank.org/dh/#/set/sets" target="_blank">Deborah Hay lecture to score team February 2011</a><br />
+</blockquote>
+
+<p>
+In response to Deborah's comments, I decided to build a real-life particle system
+as a metaphor for a cellular body. Since visualization of the body movement
+has been done already, I focused on interpretation of the choreography in a
+different dimension, real-life particles. Particles are scattered by
+SPIDAR-mouse, originally designed as a haptic device but modified to respond to
+dancer's movement. Several kinds of material are tested:
+flour, ground seeds, ice, sugar and black glass pieces, and I ended up
+using glass on white paper and sugar on black paper with videos performed by
+Jeanine Durning and Ros Warby, respectively.<br />
+<br />
+As for implementation, the dancer's position provided by Motion Bank
+is input to a Kalman filter to compute a smoothed velocity.
+A force proportional to the velocity is applied to a pin by the haptic device
+to scatter the particles. The position of the pin is not measured by the system
+and is affected by the applied force, the size of the device and friction
+between the pin and paper, which blurs the correlation between the performer
+appears in the video and pin movement.<br />
+<br />
+Thanks to the organizers of the Choregraphic Coding Lab, and special thanks to all the participants at CCL for giving me valuable comments.
+
+</p>
+
+
+<div class="row">
+
+<div class="f">
+<iframe src="https://player.vimeo.com/video/138406465" width="560" height="315" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+</div>
+
+<div class="f">
+<iframe src="https://player.vimeo.com/video/138406671" width="560" height="315" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+</div>
+
+</div>
+
+<h2>Links</h2>
+
+Github: <a href="https://github.com/micuat/cellularBody" target="_blank">https://github.com/micuat/cellularBody</a><br />
+Motion Bank: <a href="http://motionbank.org/en/content/deborah-hay" target="_blank">http://motionbank.org/en/content/deborah-hay</a><br />
+<br />
+
+<a href="..">Back</a>
+
+</div>
+</div>
+
+</body>
+</html>
