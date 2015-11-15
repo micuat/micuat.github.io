@@ -6,34 +6,6 @@
   <TITLE>Mémoire Liquide</TITLE>
 
   <link rel='stylesheet' href='../project.css'>
-<!--  <style type="text/css">
-    * {font-family: Optima, Calibri, 'Segoe UI', Candara, Calibri, sans-serif;}
-    table { font-size: 14px }
-    a:link { color: #4040d0 ; text-decoration: none }
-    a:active { color: #4040d0 ; text-decoration: none }
-    a:visited { color: #4040d0; text-decoration: none }
-    a:hover { color: white; background: #4040d0 ; }
-    #main  {position: absolute; width: 90%; margin-top: 20px; margin-left: 40px}
-    #header {position: absolute; top: 0px; left: 0px; width: 100%; }
-    #profile {position: absolute; top: 0px; right: 10px; }
-    #flickr {position: absolute; top: 250px; right: 0px; }
-    #namej  {font-size:24px; position: absolute; top: 9px; left: 0px; font-weight:bold; line-height: 1.2;}
-    #namej2 {font-size:24px; position: absolute; top: 75px; left: 0px; font-weight:bold; line-height: 1.2;}
-    #hira {font-size:8px; position: absolute; top: 2px; font-weight:bold; line-height: 1.5;}
-    #hira2 {font-size:8px; position: absolute; top: 36px; font-weight:bold; line-height: 1.5;}
-    #roma {font-family: 'Times New Roman'; font-size:64px; position: absolute; top: 0px; left: 40px; font-weight:bold;}
-    
-    #content {position: absolute; top: 30px; width: 75%; padding-bottom: 50px;  }
-    li {font-size: 20px; margin-bottom:80px; margin-top:50px; list-style-type: none }
-    #loc {font-size: 14px}
-    h2 {font-size: 32px }
-    h3 {font-size: 28px }
-    p {font-size: 18px }
-    img { border: 1px #c0c0c0 solid; }
-    .imhere { color: #202020 }
-    .imnothere { color: #e0e0e0 }
-    body {color: #000000; background-color: #fdfdfd}
-  </style> -->
 </head>
 <body>
 <div id="main">
@@ -50,36 +22,43 @@
 <iframe width="560" height="315" src="https://www.youtube.com/embed/xAWZ4DOHXgM?rel=0" frameborder="0" allowfullscreen></iframe>
 </div>
 <div class="f">
-<iframe id='iframe' src='http://flickrit.com/slideshowholder.php?height=315&width=560&size=medium&setId=72157651042271506&thumbnails=0&transition=0&layoutType=fixed&sort=0' scrolling='no' frameborder='0' width='560' height='315'></iframe>
+<iframe id="iframe" src="http://flickrit.com/slideshowholder.php?height=315&width=560&size=medium&setId=72157651042271506&thumbnails=0&transition=0&layoutType=fixed&sort=0" scrolling="no" frameborder="0" width="560" height="315"></iframe>
 </div>
 
 </div>
 
-<h2>Links</h2>
+<p>
+The installation includes three computers: a body projection PC, a front projection PC and a back projection PC.
+</p>
 
-Facebook: <a href="https://www.facebook.com/Memoireliquideart" target="_blank">https://www.facebook.com/Memoireliquideart</a><br />
-SAT: <a href="https://sat.qc.ca/fr/evenements/nuit-blanche-2015" target="_blank">https://sat.qc.ca/fr/evenements/nuit-blanche-2015</a>
-
-<h2>System Description</h2>
-
-The installation includes three computers: a body projection PC, a front projection PC and a back projection PC. <br />
-<br />
+<p>
 Participants stand on the stage, and their skeletons are tracked by Kinect and OpenNI+NiTE (<a href="https://github.com/SolitaryCipher/ofxOpenNI" target="_blank">ofxOpenNI</a>)
 on the body projection PC.
 The body projection PC is connected to a projector facing to the stage which is calibrated by <a href="https://github.com/micuat/mapamokinect" target="_blank">customized mapamok</a>.
 Tracked hand coordinates are warped to the projector coordinate system,
 and fluid is generated on the warped position with an initial velocity corresponding to the hand velocity (<a href="https://github.com/patriciogonzalezvivo/ofxFluid" target="_blank">ofxFluid</a>).
 Thus, virtual fluid is projected on the hands and the residual can be projected onto the body.
-To avoid projection on faces, black masks are overlaid on the faces tracked by NiTE.<br />
-<br />
+To avoid projection on faces, black masks are overlaid on the faces tracked by NiTE.
+</p>
+
+<p>
 The hand coordinates are sent to the front projection PC through OSC for projection on a sculpture.
 This PC renders similar fluid simulation.
 OSC is proxied to a Unity3d app which renders ripples by a customized water asset.
 The scuplture projection PC blends fluid and ripples by Syphon and Resolume, which can be easily controlled by the artists.
-Finally, the blended video is warped by MadMapper for projection.<br />
-<br />
-The back projection PC projects user contributed videos and images on the other side of the sculpture.<br />
-<br />
+Finally, the blended video is warped by MadMapper for projection.
+</p>
+
+<p>
+The back projection PC projects user contributed videos and images on the other side of the sculpture.
+</p>
+
+<h2>Links</h2>
+
+<p>
+Facebook: <a href="https://www.facebook.com/Memoireliquideart" target="_blank">https://www.facebook.com/Memoireliquideart</a><br />
+SAT: <a href="https://sat.qc.ca/fr/evenements/nuit-blanche-2015" target="_blank">https://sat.qc.ca/fr/evenements/nuit-blanche-2015</a>
+</p>
 
 <a href="..">Back</a>
 
