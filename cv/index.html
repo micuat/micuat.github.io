@@ -14,7 +14,7 @@
 }
 
 body {
-  padding: 20px 20px 20px 20px;
+  padding: 0px 10px 0px 10px;
   background: white;
   color: black;
   font-family: serif;
@@ -25,7 +25,15 @@ body {
   display: none;
 }
 
-
+  .right-align {
+    float: right;
+  }
+  .left-align {
+    float: left;
+  }
+  .clear {
+    clear: both;
+  }
   a, a:visited {
     color: black;
     text-decoration: none;
@@ -47,29 +55,35 @@ body {
   h2 {
     font-size: 150%;
     border-top:3px solid #E0E0E0;
-    margin-left: 15px;
+    margin-left: 5px;
   }
 
   h3 {
     margin-top: 0.6em;
-    font-size: 130%;
-    border-top:3px solid #F0F0F0;
+    font-size: 110%;
+    <!--border-top:3px solid #F0F0F0;-->
     margin-bottom: 0;
-    margin-left: 30px;
+    font-weight: normal;
+  }
+
+  .weight-bold-left {
+    margin-left: 10px;
+    font-weight: bold;
+    float: left;
   }
 
   h4 {
     font-weight: normal;
     margin-top: 0.6em;
-    font-size: 115%;
+    font-size: 105%;
     margin-bottom: 0;
-    margin-left: 60px;
+    margin-left: 15px;
   }
 
   p {
     margin: 0.6em 0;
     line-height: 1.5em;
-    margin-left: 60px;
+    margin-left: 40px;
   }
 
   blockquote {
@@ -84,7 +98,7 @@ body {
 
   ul, ol {
     margin: 1em 0 1em 2em;
-    margin-left: 80px;
+    margin-left: 40px;
 
     li {
       margin-top: .5em;
@@ -159,24 +173,26 @@ body {
 
 <ul>
 <li>naotohieda.com</li>
-<li>nhieda@cim.mcgill.ca</li>
-<li>302 Rue du Square Sir George Etienne Cartier, Montréal, QC H4C 3A2</li>
-<li>+1&#8211;514&#8211;560&#8211;0389</li>
+<li>mail@naotohieda.com</li>
+<li>302 Rue du Square Sir-George-Étienne-Cartier, Montréal, QC H4C 3A2</li>
+<li>+1-514-560-0389</li>
 </ul>
 
-<p>Last updated: Sep 7, 2015</p>
+<p>Last updated: Dec 10, 2015</p>
 
 <h2 id="education">Education</h2>
 
-<h3 id="mcgilluniversitymontralqccanada">McGill University, Montréal, QC, Canada</h3>
-
-<h4 id="masterofengineeringexpectedaugust2015">Master of Engineering - 2012 to 2015</h4>
+<h3 class="weight-bold-left" id="mcgilluniversitymontralqccanada">Master of Engineering</h3>
+<h3 class="left-align">, McGill University (Montréal, QC, Canada)</h3>
+<h4 class="right-align">Sep 2012 - Aug 2015</h4>
+<div class="clear"></div>
 
 <p><em>Relevant Coursework</em>: Topics in Vision and Robotics, Statistical Computer Vision</p>
 
-<h3 id="tokyoinstituteoftechnologytokyojapan">Tokyo Institute of Technology, Tokyo, Japan</h3>
-
-<h4 id="bachelorofelectricalandelectronicengineering-2008to2012">Bachelor of Electrical and Electronic Engineering - 2008 to 2012</h4>
+<h3 class="weight-bold-left" id="tokyoinstituteoftechnologytokyojapan">Bachelor of Engineering</h3>
+<h3 class="left-align">, Tokyo Institute of Technology (Tokyo, Japan)</h3>
+<h4 class="right-align">Apr 2008 - Mar 2012</h4>
+<div class="clear"></div>
 
 <p><em>Relevant Coursework</em>: Special Course on Media Art, Analog and Digital Electronic Circuits</p>
 
@@ -186,110 +202,73 @@ body {
 
 <h2 id="experience">Experience</h2>
 
-<h3 id="ocad">OCAD University, Toronto, ON, Canada
-</h3>
-
-<h4 id="raocad"><strong>Research Assitant</strong>, SMAC Lab - April 2015 to present</h4>
-
-<ul>
-<li>Development of &#8220;Lively Objects,&#8221; an interactive media installation using Kinect for point cloud visualization</li>
-</ul>
-
-<h3 id="ocad">McGill University, Montréal, QC, Canada
-</h3>
-
-<h4 id="masters">Research Assistant, Shared Reality Lab - 2012 to present</h4>
+<h3 class="weight-bold-left" id="mcgillra">Research Assistant</h3>
+<h3 class="left-align">, Shared Reality Lab, McGill University (Montréal, QC, Canada)</h3>
+<h4 class="right-align">Sep 2015 - present</h4>
+<div class="clear"></div>
 
 <ul>
-<li>Research of &#8220;Bizarrege/sharedFace,&#8221; interactive face projection mapping systems</li>
-<li>Experiment of a Unity3d virtual environment for a Natural Interactive Walking, an 8x8 foot haptic floor platform</li>
+<li>Create &#8220;Bizarrege/sharedFace,&#8221; interactive face projection mapping systems</li>
+<li>Experiment a virtual environment for a Natural Interactive Walking, an immersive vibrotactile floor platform</li>
 </ul>
 
-<h3 id="google">Google Summer of Code 2015
-</h3>
-
-<h4 id="OpenCV"><strong>Student Programmer</strong>, OpenCV - May 2015 to August 2015</h4>
+<h3 class="weight-bold-left" id="ocad">Research Assitant</h3>
+<h3 class="left-align">, Social Media and Collaboration Lab, OCAD University (Toronto, ON, Canada)</h3>
+<h4 class="right-align">Apr 2015 - present</h4>
+<div class="clear"></div>
 
 <ul>
-<li>Implementation of an open-source projection mapping toolkit on OpenCV and Unity3d</li>
+<li>Develop &#8220;Lively Objects,&#8221; an interactive media installation using Kinect for point cloud visualization</li>
 </ul>
 
-<h3 id="ocad">Graphics, Animation and New Media 2014, Ottawa, ON, Canada
-</h3>
+<h3 class="weight-bold-left" id="google">Student Programmer</h3>
+<h3 class="left-align">, OpenCV, Google Summer of Code 2015</h3>
+<h4 class="right-align">May 2015 - Aug 2015</h4>
+<div class="clear"></div>
 
-<h4 id="organizergrandgraphicsanimationandnewmedia2014kinectworkshop">Organizer/Speaker, Kinect Workshop - May 2014</h4>
+<ul>
+<li>Implemented open-source projection mapping toolkit on OpenCV and Unity3d</li>
+</ul>
+
+<h3 class="weight-bold-left" id="ocad">Organizer of Kinect Workshop</h3>
+<h3 class="left-align">, Graphics, Animation and New Media 2014, (Ottawa, ON, Canada)</h3>
+<h4 class="right-align">May 2014</h4>
+<div class="clear"></div>
 
 <ul>
 <li>Presented introduction to Kinect, Point Cloud Library, and openFrameworks and demonstrated real-time 3D point cloud processing</li>
 </ul>
 
-
-<h3 id="rice">Rice University, Houston, TX
-</h3>
-
-<h4 id="studentinterndepartmentofelectricalandcomputerengineering-summer2011">Internship, Kono Laboratory, Department of Electrical and Computer Engineering - Summer 2011</h4>
-
-<ul>
-<li>Evaluation of single-walled carbon nanotube films (metal-semiconductor material)</li>
-</ul>
-
-<h3 id="tokyoinstituteoftechnologytokyojapan">Tokyo Institute of Technology, Tokyo, Japan</h3>
-
-<h4 id="electricalandmagneticpropertyofspin-ledtunnelbarrierbachelorthesisresearchmunekatalaboratory-2011to2012">Bachelor Thesis Research, Munekata Laboratory - 2011 to 2012</h4>
-
-<ul>
-<li>Fabrication and evaluation of Spin-LED (an experimental semiconductor device)</li>
-</ul>
-
-<h3 id="cmscorporationtokyojapan">CMS Corporation, Tokyo, Japan
-</h3>
-
-<h4 id="engineerparttimeemployment-2009to2012"><strong>Engineer (Part time employment)</strong> - 2009 to 2012</h4>
-
-<ul>
-<li>Set up ARM embedded Linux servers for remote surveillance system using cameras with ffmpeg and Bluetooth modules</li>
-</ul>
-
-<h3 id="heartbeatscorporationtokyojapan">Heartbeats Corporation, Tokyo, Japan
-</h3>
-
-<h4 id="networkengineerparttimeemployment-2009to2012"><strong>Network Engineer (Part time employment)</strong> - 2009 to 2012</h4>
-
-<ul>
-<li>Management and tuning of network servers running Apache, MySQL and PHP etc. including Gizmodo.jp</li>
-</ul>
-
 <h2 id="publications">Conference Proceedings</h2>
 
 <ul>
-<li><strong>Digital Facial Augmentation for Interactive Entertainment</strong> Hieda, N.; and Cooperstock, J. R. In <em>Proceedings of the 7th International Conference on Intelligent Technologies for Interactive Entertainment</em>, Torino, Italy, June 2015.</li>
+<li><strong>Digital Facial Augmentation for Interactive Entertainment</strong> Hieda, N.; and Cooperstock, J. R. In <em>Proceedings of the 7th International Conference on Intelligent Technologies for Interactive Entertainment</em>, Turin, Italy, June 2015.</li>
 <li><strong>sharedFace: Interactive Facial Projection Mapping.</strong> Hieda, N.; and Cooperstock, J. R. In <em>Proceedings of the 2015 Virtual Reality International Conference</em>, Laval, France, April 2015.</li>
 </ul>
 
 <h2 id="selectedworks">Selected Works</h2>
 
 <ul>
-<li><strong>Bizarrege</strong>, Maker Festival Toronto 2015 (Toronto, Canada)</li>
-<li><strong>Digital Facial Augmentation for Interactive Entertainment</strong>, INTETAIN (International Conference on Intelligent Technologies for Interactive Entertainment) 2015 (Torino, Italy)</li>
+<li><strong>Digital Facial Augmentation for Interactive Entertainment</strong>, INTETAIN (International Conference on Intelligent Technologies for Interactive Entertainment) 2015 (Turin, Italy)</li>
 <li><strong>sharedFace2</strong>, Laval Virtual ReVolution 2015 (Laval, France)</li>
 <li><strong>sharedFace</strong>, IVRC (International Collegiate Virtual Reality Contest) 2014 (Tokyo, Japan)</li>
 <li><strong>Kinetic Video Projection for Theatre Lighting</strong>, GRAND (Graphics, Animation and New Media) 2014 Experiences (Ottawa, Canada)</li>
-<li><strong>Toward a Simplified Method for Digital Video Illumination</strong>, GRAND (Graphics, Animation and New Media) 2014 Poster (Toronto, Canada)</li>
 </ul>
 
 <h2 id="collaborativework">Collaborative Works</h2>
 
 <ul>
-<li><strong>Lively Objects</strong> (with Judith Doyle), ISEA (International Symposium on Electronic Art) 2015 (Vancouver, Canada)</li>
-<li><strong>Mémoire Liquide</strong> (with Marcella França), VideoAtaq Brasil 2015 (Rio de Janeiro, Brazil)</li>
-<li><strong>Mémoire Liquide</strong> (with Marcella França), Nuit Blanche à Montréal 2015 (Montréal, Canada)</li>
+<li><strong>Lively Objects</strong> (with Judith Doyle), ISEA (International Symposium on Electronic Art) 2015 (Vancouver, BC, Canada)</li>
+<li><strong>Mémoire Liquide</strong> (with Marcella França), Nuit Blanche à Montréal 2015 (Montréal, QC, Canada)</li>
 </ul>
 
-<h2 id="press">Press</h2>
+<h2 id="otherexhibitions">Other Exhibitions</h2>
 
 <ul>
-<li>Makery: <a target="_blank" href="http://www.makery.info/2015/04/14/la-generation-vr-sexpose-au-salon-laval-virtual/">La génération VR s’expose au salon Laval Virtual (Apr 14, 2015)</a></li>
-<li>DMM.make: <a target="_blank" href="https://media.dmm-make.com/item/2687/">IVRC2014東京本選フォトレポート (Oct 24, 2014)</a></li>
+<li><strong>MINIW</strong>, TEDxMontréal 2015 (Montréal, QC, Canada)</li>
+<li><strong>Bizarrege (Play)</strong>, TEDxMontréal 2015 (Montréal, QC, Canada)</li>
+<li><strong>Cellular Body (No Time To Fly)</strong>, 4th Choreographic Coding Lab (New York City, NY, US)</li>
+<li><strong>Bizarrege</strong>, Maker Festival Toronto 2015 (Toronto, ON, Canada)</li>
 </ul>
 
 <h2 id="honors">Honors</h2>
@@ -300,14 +279,10 @@ body {
 <li><strong>Graduate Excellence Fellowship</strong>, Department of Electrical and Computer Engineering, McGill University - 2012 to 2013</li>
 </ul>
 
-<h2 id="activities">Activities</h2>
+<h2 id="press">Press</h2>
 
 <ul>
-<li><strong>Participation in the 4th Choreographic Coding Lab</strong>, New York, US - August 2015</li>
-<li><strong>SPIDAR-mouse Developer</strong> (Open software and hardware project with Sato Laboratory, Tokyo Institute of Technology) - 2012</li>
-<li><strong>Volunteer Interpreter</strong>, Tsukuba Cultural Foundation, Tsukuba, Japan - Summer 2012</li>
-<li><strong>Volunteer of Science Workshops</strong>, National Research Institute for Earth Science and Disaster Prevention, Tsukuba, Japan - 2000 to 2012
-</li>
+<li>Makery: <a target="_blank" href="http://www.makery.info/2015/04/14/la-generation-vr-sexpose-au-salon-laval-virtual/">La génération VR s’expose au salon Laval Virtual (Apr 14, 2015)</a></li>
 </ul>
 
   </div>
