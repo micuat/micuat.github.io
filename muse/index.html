@@ -13,13 +13,20 @@
 <h1>Muse Experiments</h1>
 
 <div class="row">
-
 <div class="f">
 <img class="projects" alt="muse" width="560" height="560" src="./diybio.jpg">
 </div>
 <div class="f">
 <img class="projects" alt="muse" width="560" height="315" src="../img/muse.png">
 </div>
+</div>
+
+<p>
+I built an EEG (brain wave) drawing demo and exhibited at DIYBio/NeuroTechTO. I use Muse, an EEG headset, which cannot read your mind but at least can tell how focused you are. During a one-minute training session, people are asked to do several activities (close eyes / stare at something / look around / talk) to get samples with different focus levels, and then FFT-ed samples are mapped on a 2D plane as dots, inspired by Kyle Mcdonald's <a href="https://vimeo.com/135511186" target="_blank">t-SNE demo</a>. After the training session, real-time data is mapped on the same plane but this time they form lines - in short, the participant can shift their focus level to move where lines are drawn. Surprisingly most of the participants understood the interaction between their focus level and visual, which is an encouraging result. Data acquisition / signal processing / machine learning is done on Python, and ofxNumpy and Open Sound Control is used to read data on openFrameworks for visualization.
+</p>
+
+<div class="row">
+
 <div class="f">
 <iframe src="https://player.vimeo.com/video/143948462" width="560" height="315" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
 </div>
