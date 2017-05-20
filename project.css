@@ -32,10 +32,12 @@ body {color: #000000; background-color: #fdfdfd; border: 0px; padding: 0px; marg
 .row {margin: auto;
   display: flex;
   display: -webkit-flex; /* Safari 8 */
-  flex-wrap: wrap;
-  -webkit-flex-wrap: wrap;         /* Safari 8 */
-  justify-content: center;
-  -webkit-justify-content: center;       /* Safari 8 */}
+  -webkit-flex-direction: column;
+  flex-direction: column;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  justify-content: center;}
 blockquote {
     padding: 0 15px;
     color: #555;
