@@ -11,7 +11,7 @@
     a:link { color: #202090 ; text-decoration: none }
     a:active { color: #202090 ; text-decoration: none }
     a:visited { color: #202090; text-decoration: none }
-    a:hover { color: white; background: #202090 ; }
+    a:not(.nohover):hover { color: white; background: #202090 ; }
     #main  {position: absolute; width: 100%; margin-top: 20px; }
     #header {position: absolute; top: 0px; left: 0px; width: 100%; }
     #roma {font-size:42px; position: absolute; top: 0px; left: 0px; margin-left: 40px;}
@@ -21,6 +21,14 @@
     #content {position: absolute; top: 100px; padding-bottom: 50px; margin: auto }
     div.projects {width: 560px; height: 320px; font-size: 20px; border:0px; padding:0px; margin:15px 15px 15px 15px; list-style-type: none }
     div.projectsdummy {width: 560px; height: 10px; font-size: 20px; border:0px; padding:0px; margin:15px 15px 15px 15px; list-style-type: none }
+    div.sponsors {width: 75%; margin: 50px auto;
+  display: flex;
+  display: -webkit-flex; /* Safari 8 */
+  flex-wrap: wrap;
+  -webkit-flex-wrap: wrap;         /* Safari 8 */
+  justify-content: center;
+  -webkit-justify-content: center;       /* Safari 8 */}
+    div.sponsors img {margin: 5px 15px}
     div.bib {width: 75%; margin-left: 40px;margin: auto;
   display: flex;
   display: -webkit-flex; /* Safari 8 */
@@ -47,7 +55,7 @@
     img.projects { padding-top: 5px; color: #c0c0c0 solid; }
     .imhere { color: #202020 }
     .imnothere { color: #e0e0e0 }
-    body {color: #000000; background-color: #fdfdfd; border: 0px; padding: 0px; margin: 0px}
+    body {color: #000000; background-color: #ffffff; border: 0px; padding: 0px; margin: 0px}
   </style>
 
 </head>
@@ -145,6 +153,13 @@
 
 </div>
 
+<div class="sponsors">
+<a class="nohover" href="http://www.pola-art-foundation.jp/" target="_blank"><img src="img/logo/pola.png" width="197" height="49" alt="pola art foundation logo" /></a>
+<a class="nohover" href="http://infusionsystems.com/" target="_blank"><img src="img/logo/icubex.png" width="117" height="49" alt="I-CubeX logo" /></a>
+<a class="nohover" href="http://www.lifelongburning.eu/" target="_blank"><img src="img/logo/llb_logo.png" width="123" height="49" alt="lifelongburning logo" />
+<img src="img/logo/eucult.png" width="123" height="40" alt="eu culture logo" /></a>
+</div>
+
 <h2>Calendar</h2>
 
 <div class="schfuture">
@@ -193,7 +208,6 @@ Bachelor of Engineering - <a href="http://www.isl.titech.ac.jp/~munelab/" target
 <div class="bib">
 <script src="http://bibbase.org/show?bib=naotohieda.com/publications.bib&jsonp=1"></script>
 </div>
-
 
 <div class="copyright">
 2012-2017 Naoto Hieda
