@@ -17,9 +17,13 @@ a:hover { color: white; background: #4040d0 ; }
 #content {position: absolute; top: 5px; width: 100%; padding-bottom: 50px;  }
 li {font-size: 20px; margin-bottom:80px; margin-top:50px; list-style-type: none }
 #loc {font-size: 14px}
-h2 {clear: left; font-size: 28px }
-h3 {clear: left; font-size: 24px }
-p {font-size: 17px; width: 750px; text-align: justify}
+h1 {width: 750px;margin-left: auto; margin-right: auto; text-align: center}
+h2 {clear: left; font-size: 28px; width: 750px;margin-left: auto; margin-right: auto }
+h3 {clear: left; font-size: 24px; width: 750px;margin-left: auto; margin-right: auto }
+p {font-size: 17px; width: 750px; text-align: justify; margin-left: auto; margin-right: auto;
+}
+.right {font-size: 17px; width: 750px; text-align: right; margin-left: auto; margin-right: auto;
+}
 img { border: 0px #c0c0c0 solid; }
 .imhere { color: #202020 }
 .imnothere { color: #e0e0e0 }
@@ -37,4 +41,6 @@ blockquote {
     color: #555;
     border-left: 4px solid #ddd;
     width: 700px;
+    margin-left: auto;
+    margin-right: auto;
 }

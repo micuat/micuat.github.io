@@ -12,13 +12,19 @@
     a:hover { color: white; background: #202090 ; }
     #main  {position: absolute; width: 100%; margin-top: 20px; }
     #header {position: absolute; top: 0px; left: 0px; width: 100%; }
-    #roma {font-size:42px; position: absolute; top: 0px; left: 0px}
+    #roma {font-size:42px; position: absolute; top: 0px; left: 0px; margin-left: 40px;}
     #link {position: absolute; top: 0px; right: 30px; }
     p.headline {text-align: center; font-size: 26px;}
 
     #content {position: absolute; top: 100px; padding-bottom: 50px; margin: auto }
     div.projects {width: 560px; height: 320px; font-size: 20px; border:0px; padding:0px; margin:15px 15px 15px 15px; list-style-type: none }
-    div.bib {width: 75%}
+    div.bib {width: 75%; margin-left: 40px;margin: auto;
+  display: flex;
+  display: -webkit-flex; /* Safari 8 */
+  flex-wrap: wrap;
+  -webkit-flex-wrap: wrap;         /* Safari 8 */
+  justify-content: center;
+  -webkit-justify-content: center;       /* Safari 8 */}
     div.copyright {font-size:12px; text-align:center; padding-top: 30px}
     .desc {position:absolute; width: 540px; padding:10px 10px 5px 10px; margin: 0; background-color:rgba(255, 255, 255, 0.8);}
     .row {margin: auto;
@@ -28,13 +34,13 @@
   -webkit-flex-wrap: wrap;         /* Safari 8 */
   justify-content: center;
   -webkit-justify-content: center;       /* Safari 8 */}
-    .occ {font-size: 18px; margin-left: 20px; margin-bottom: 10px}
-    .schpast {font-size: 18px; margin-left: 20px; margin-bottom: 10px; color: #909090}
-    .schfuture {font-size: 18px; margin-left: 20px; margin-bottom: 10px}
+    .occ {font-size: 18px; margin-left: 60px; margin-bottom: 10px}
+    .schpast {font-size: 18px; margin-left: 60px; margin-bottom: 10px; color: #909090}
+    .schfuture {font-size: 18px; margin-left: 60px; margin-bottom: 10px}
     #loc {font-size: 14px}
-    h2 {clear: left; font-size: 28px; margin-top: 20px }
-    h3 {clear: left; font-size: 24px; margin-left: 5px }
-    p {font-size: 18px }
+    h2 {clear: left; font-size: 28px; margin-top: 20px; margin-left: 40px;}
+    h3 {clear: left; font-size: 24px; margin-left: 45px }
+    p {font-size: 18px; margin-left: 40px }
     img.projects { padding-top: 5px; color: #c0c0c0 solid; }
     .imhere { color: #202020 }
     .imnothere { color: #e0e0e0 }
@@ -71,7 +77,7 @@
       <div id="loc"><a href="http://choreographiccoding.org/" target="_blank">8th Choreographic Coding Lab, 2017</a> (Amsterdam, Netherlands)</div>
       <div id="loc"><a href="http://www.lifelongburning.eu/projects/events/e/danceweb-scholarship-programme-2016.html" target="_blank">danceWEB 2016</a> (Vienna, Austria)</div>
     </div>
-      <img class="projects" alt="eeg" width="560" height="315" src="./img/eegccl.jpg">
+      <a href="eegex"><img class="projects" alt="eeg" width="560" height="315" src="./img/eegccl.jpg"></a>
   </div>
 
   <div class="projects">
