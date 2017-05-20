@@ -1,4 +1,4 @@
-* {font-family: Optima, Calibri, 'Segoe UI', Candara, Calibri, sans-serif;}
+* {font-family: Optima, Calibri, Helvetica, sans-serif; font-weight:lighter}
 table { font-size: 14px }
 a:link { color: #4040d0 ; text-decoration: none }
 a:active { color: #4040d0 ; text-decoration: none }
@@ -23,9 +23,15 @@ p {font-size: 17px; width: 750px; text-align: justify}
 img { border: 0px #c0c0c0 solid; }
 .imhere { color: #202020 }
 .imnothere { color: #e0e0e0 }
-body {color: #000; background-color: #fdfdfd}
-.f {float: left; width: 560px; margin: 5px 5px 5px 5px}
-.row { width: 100%; display: table}
+body {color: #000000; background-color: #fdfdfd; border: 0px; padding: 0px; margin: 0px}
+.f {width: 560px; margin: 5px 5px 5px 5px}
+.row {margin: auto;
+  display: flex;
+  display: -webkit-flex; /* Safari 8 */
+  flex-wrap: wrap;
+  -webkit-flex-wrap: wrap;         /* Safari 8 */
+  justify-content: center;
+  -webkit-justify-content: center;       /* Safari 8 */}
 blockquote {
     padding: 0 15px;
     color: #555;

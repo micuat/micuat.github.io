@@ -10,27 +10,35 @@
     a:active { color: #202090 ; text-decoration: none }
     a:visited { color: #202090; text-decoration: none }
     a:hover { color: white; background: #202090 ; }
-    #main  {position: absolute; width: 95%; margin-top: 20px; margin-left: 40px; margin-right: 40px}
+    #main  {position: absolute; width: 100%; margin-top: 20px; }
     #header {position: absolute; top: 0px; left: 0px; width: 100%; }
-    #roma {font-size:42px; position: absolute; top: 0px; left: 0px; font-family: Helvetica, sans-serif}
-    #link {position: absolute; top 0px; right: 30px; }
+    #roma {font-size:42px; position: absolute; top: 0px; left: 0px}
+    #link {position: absolute; top: 0px; right: 30px; }
     p.headline {text-align: center; font-size: 26px;}
 
-    #content {position: absolute; top: 100px; width: 100%; padding-bottom: 50px; margin: 0px }
-    div.projects {float: left; width: 560px; height: 320px; font-size: 20px; border:0px; padding:0px; margin:15px 15px 15px 15px; list-style-type: none }
+    #content {position: absolute; top: 100px; padding-bottom: 50px; margin: auto }
+    div.projects {width: 560px; height: 320px; font-size: 20px; border:0px; padding:0px; margin:15px 15px 15px 15px; list-style-type: none }
     div.bib {width: 75%}
     div.copyright {font-size:12px; text-align:center; padding-top: 30px}
     .desc {position:absolute; width: 540px; padding:10px 10px 5px 10px; margin: 0; background-color:rgba(255, 255, 255, 0.8);}
-    .row {width: 100%; margin: auto}
+    .row {margin: auto;
+  display: flex;
+  display: -webkit-flex; /* Safari 8 */
+  flex-wrap: wrap;
+  -webkit-flex-wrap: wrap;         /* Safari 8 */
+  justify-content: center;
+  -webkit-justify-content: center;       /* Safari 8 */}
     .occ {font-size: 18px; margin-left: 20px; margin-bottom: 10px}
+    .schpast {font-size: 18px; margin-left: 20px; margin-bottom: 10px; color: #909090}
+    .schfuture {font-size: 18px; margin-left: 20px; margin-bottom: 10px}
     #loc {font-size: 14px}
     h2 {clear: left; font-size: 28px; margin-top: 20px }
     h3 {clear: left; font-size: 24px; margin-left: 5px }
     p {font-size: 18px }
-    img.projects { padding-top: 5px; #c0c0c0 solid; }
+    img.projects { padding-top: 5px; color: #c0c0c0 solid; }
     .imhere { color: #202020 }
     .imnothere { color: #e0e0e0 }
-    body {color: #000000; background-color: #ffffff}
+    body {color: #000000; background-color: #fdfdfd; border: 0px; padding: 0px; margin: 0px}
   </style>
 
 </head>
@@ -58,7 +66,7 @@
 <div class="row">
   <div class="projects">
     <div class="desc">
-      EEG Experiments (Phase 2)<br />
+      <a href="eegex">EEG Experiments</a><br />
       <!-- <div id="loc">Studio 303 Artist in Residence, 2017 (Montréal, Canada)</div> -->
       <div id="loc"><a href="http://choreographiccoding.org/" target="_blank">8th Choreographic Coding Lab, 2017</a> (Amsterdam, Netherlands)</div>
       <div id="loc"><a href="http://www.lifelongburning.eu/projects/events/e/danceweb-scholarship-programme-2016.html" target="_blank">danceWEB 2016</a> (Vienna, Austria)</div>
@@ -68,11 +76,11 @@
 
   <div class="projects">
     <div class="desc">
-      <a href="https://www.youtube.com/watch?v=BOyIbQ8B70I" target="_blank">Composite Particles (with DJ Mini)</a><br />
+      <a href="comp">Composite Particles (with DJ Mini)</a><br />
       <div id="loc"><a href="http://ix.sat.qc.ca" target="_blank">IX Symposium 2016</a> (Montréal, Canada)</div>
       <div id="loc"><a href="http://sat.qc.ca/fr/nouvelles/concours-animation-google-cardboards-nuit-blanche-sat-2016" target="_blank">Nuit Blanche SAT 2016</a> (Montréal, Canada)</div>
     </div>
-    <a href="https://www.youtube.com/watch?v=BOyIbQ8B70I" target="_blank"><img class="projects" width="560" height="315" src="./img/composite.png"></a>
+    <a href="comp"><img class="projects" width="560" height="315" src="./img/composite.png"></a>
   </div>
   
   <div class="projects">
@@ -85,7 +93,7 @@
 
   <div class="projects">
     <div class="desc">
-      <a href="muse">EEG Experiments (Phase 1)</a><br />
+      <a href="muse">EEG Drawing</a><br />
       <div id="loc"><a href="http://tedxmontreal.com" target="_blank">TEDxMontréal 2016</a> (Montréal, Canada)</div>
       <div id="loc"><a href="http://makerfaire.com/new-york/" target="_blank">World Maker Faire 2016</a> (New York City, US)</div>
       <!--<div id="loc"><a href="http://hackinghealth.ca/event/hh-montreal-hacking-memory-exploring-tech-in-neuroscience/" target="_blank">Hacking Memory: Exploring Tech in Neuroscience, 2016</a> (Montréal, Canada)</div>-->
@@ -135,6 +143,48 @@
 
 </div>
 
+<h2>Calendar</h2>
+
+<div class="schfuture">
+<a href="http://www.pola-art-foundation.jp/" target="_blank">Pola Art Foundation Fellowship</a> / Visiting Researcher at 
+<a href="http://topologicalmedialab.net" target="_blank">
+Topological Media Lab</a>, Concordia University (Montreal, Canada; April 2017 - March 2018)<br />
+</div>
+
+<div class="schpast">
+<a href="http://tangentedanse.ca/en/event/virtually-in-the-flesh/" target="_blank">Transenses</a> (Montreal, Canada; April 27 - 30 2017)<br />
+</div>
+
+<div class="schpast">
+<a href="http://choreographiccoding.org/" target="_blank">8th Choreographic Coding Lab</a> (Amsterdam, Netherlands; May 6 - 10 2017)<br />
+</div>
+
+<div class="schfuture">
+Topological Media Lab - Open Lab and Exhibition (Montreal, Canada; June 2017)<br />
+</div>
+
+<div class="schfuture">
+<a href="https://dublin.sciencegallery.com/page/hackbraindublin" target="_blank">Hack the Brain Dublin</a> (Dublin, Ireland; June 10 - 11 2017)<br />
+</div>
+
+<div class="schfuture">
+Studio 303 Artist in Residence (Montreal, Canada; December 2017)<br />
+</div>
+
+<div class="schfuture">
+<a href="http://geumcheon.blogspot.com" target="_blank">Seoul Art Space Geumcheon</a> Artist in Residence (Seoul, Korea; July - September 2018)
+</div>
+
+<h2>About</h2>
+
+<div class="occ">
+Master of Engineering - <a href="http://srl.mcgill.ca" target="_blank">
+Shared Reality Lab</a>, McGill University (2012-2015)<br />
+</div>
+
+<div class="occ">
+Bachelor of Engineering - <a href="http://www.isl.titech.ac.jp/~munelab/" target="_blank">Munekata Group</a>, Tokyo Institute of Technology (2008-2012)<br />
+</div>
 
 <h2>Publications</h2>
 
@@ -142,36 +192,6 @@
 <script src="http://bibbase.org/show?bib=naotohieda.com/publications.bib&jsonp=1"></script>
 </div>
 
-<h2>About</h2>
-
-<div class="occ">
-Current Position: Pola Art Foundation Fellowship / Visiting Researcher at 
-<a href="http://topologicalmedialab.net" target="_blank">
-Topological Media Lab</a>, Concordia University (2017-)<br />
-</div>
-
-<!--
-<h3>Research Assistant</h3>
-<div class="occ">
-International Laboratory for Brain, Music and Sound Research, McGill University (2016)<br />
-</div>
-<div class="occ">
-<a href="http://srl.mcgill.ca" target="_blank">
-Shared Reality Lab</a>, McGill University (2015-2016)<br />
-</div>
-<div class="occ">
-Social Media and Collaboration Lab, OCAD University (2015-2016)<br />
-</div>
--->
-
-<div class="occ">
-Master of Engineering: <a href="http://srl.mcgill.ca" target="_blank">
-Shared Reality Lab</a>, McGill University (2012-2015)<br />
-</div>
-
-<div class="occ">
-Bachelor of Engineering: <a href="http://www.isl.titech.ac.jp/~munelab/" target="_blank">Munekata Group</a>, Tokyo Institute of Technology (2008-2012)<br />
-</div>
 
 <div class="copyright">
 2012-2017 Naoto Hieda
