@@ -15,7 +15,22 @@ a:hover { color: white; background: #4040d0 ; }
 #roma {font-family: 'Times New Roman'; font-size:64px; position: absolute; top: 0px; left: 40px; font-weight:bold;}
 
 #content {position: absolute; top: 5px; width: 100%; padding-bottom: 50px;  }
-li {font-size: 20px; margin-bottom:80px; margin-top:50px; list-style-type: none }
+/*li {font-size: 20px; margin-bottom:80px; margin-top:50px; list-style-type: none }*/
+ul li {font-size: 17px; width: 750px; text-align: justify; margin-left: auto; margin-right: auto; list-style-type: none}
+ol li {font-size: 17px; width: 750px; text-align: justify; margin-left: auto; margin-right: auto}
+
+/* https://stackoverflow.com/questions/3200249/html-list-style-type-dash */
+ul.dashed {
+  list-style-type: none;
+}
+ul.dashed > li {
+  text-indent: -5px;
+}
+ul.dashed > li:before {
+  content: "- ";
+  text-indent: -5px;
+}
+b {font-weight: bold;}
 #loc {font-size: 14px}
 h1 {width: 750px;margin-left: auto; margin-right: auto; text-align: center}
 h2 {clear: left; font-size: 28px; width: 750px;margin-left: auto; margin-right: auto }
