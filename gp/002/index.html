@@ -1,0 +1,47 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <TITLE>2017-08-31 Piecemaker2 and Piecemeta (2)</TITLE>
+  <link rel='stylesheet' href='../../project.css'>
+
+</head>
+<body>
+<div id="main">
+<div id="content">
+
+<h1>2017-08-31 Piecemaker2 and Piecemeta (2)</h1>
+
+<p>
+After writing <a href="../001">the last article</a>, I found a solution for the sync problems. The principle is to make sure that the internal clocks of all the equipment is synchronized (for example, check <a href="http://time.is" target="_blank">time.is</a> before recording). This is tricky for action cameras or camcorders but you can always correct the offset later. For video recordings, you can access the metadata of the video file by <a href="https://mediaarea.net/en/MediaInfo" target="_blank">MediaInfo</a> to check the "Encoded Date." Convert this date and time into epoch timestamp on <a href="https://unixtimestamp.com" target="_blank">Epech Unix Time Stamp Converter</a> and use the converted value on Piecemaker2. Now the video's timestamp is aligned to the time in the real world (up to a second of precision). I am planning to write a Python script to automate this process if I can find an appropriate library (<b>TODO1</b>).
+</p>
+
+<p>
+The rest of the procedure is quite simple as we only need to stick to the epoch timestamp and no need to correct offsets. I edited Pathrefinder on <a href="https://github.com/micuat/Pathrefinder" target="_blank">the dev branch</a> so that it stores the geometry data every frame with epoch timestamp. This can be further processed by <a href="https://gist.github.com/micuat/79872a575f244332bb0c84fd84b6aafe" target="_blank">a Python script</a> to format into TRAC file, which can be read by Piecemeta. Note that Piecemeta does not store timestamps, so do not forget to set the timestamp on Piecemaker2. To do this, take the timestamp of the first frame of the geometry data and use this timestamp for the score scene on Piecemaker2.
+</p>
+
+<p>
+For Kinect tracking, use <a href="https://github.com/micuat/OSCeleton-KinectSDK2/tree/piecemeta" target="_blank">OSCeleton</a> to output the joint data. Before, I recorded the Kinect stream by Kinect Studio, but then, it is more difficult to recover the original timestamps from the recording. Rather I recommend to output the data in real-time so that no adjustment is needed. The log file can be converted by <a href="https://gist.github.com/micuat/b57a6becc4943eebfb8b2aa206a7a1c4" target="_blank">this script</a> to TRAC file ready to be uploaded to Piecemeta. Note that I could not find a way to output csv from Pandas library with epoch timestamp so the timestamp is formated as hour-minute-second-milisecond and not epoch. When you set the timestamp on Piecemaker2, please use the value from the original OSCeleton log file (note that its timestamps are epoch but in milliseconds not seconds).
+</p>
+
+<p>
+At last, you can use 
+<a href="https://gist.github.com/micuat/9b95841b4702008035fe073534a48f3d" target="_blank">a Processing sketch</a> to play back the video, skeletal tracking and Pathfinder score data in sync. The current Processing sketch is a quick and dirty hack so it should be simplified (<b>TODO2</b>).</p>
+
+<div class="row">
+<blockquote class="instagram-media" data-instgrm-version="7" style=" background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:658px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"><div style="padding:8px;"> <div style=" background:#F8F8F8; line-height:0; margin-top:40px; padding:50.0% 0; text-align:center; width:100%;"> <div style=" background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACwAAAAsCAMAAAApWqozAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAMUExURczMzPf399fX1+bm5mzY9AMAAADiSURBVDjLvZXbEsMgCES5/P8/t9FuRVCRmU73JWlzosgSIIZURCjo/ad+EQJJB4Hv8BFt+IDpQoCx1wjOSBFhh2XssxEIYn3ulI/6MNReE07UIWJEv8UEOWDS88LY97kqyTliJKKtuYBbruAyVh5wOHiXmpi5we58Ek028czwyuQdLKPG1Bkb4NnM+VeAnfHqn1k4+GPT6uGQcvu2h2OVuIf/gWUFyy8OWEpdyZSa3aVCqpVoVvzZZ2VTnn2wU8qzVjDDetO90GSy9mVLqtgYSy231MxrY6I2gGqjrTY0L8fxCxfCBbhWrsYYAAAAAElFTkSuQmCC); display:block; height:44px; margin:0 auto -44px; position:relative; top:-22px; width:44px;"></div></div><p style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;"><a href="https://www.instagram.com/p/BYeH1pUldia/" style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:normal; line-height:17px; text-decoration:none;" target="_blank">A post shared by Naoto Hiéda (@micuat)</a> on <time style=" font-family:Arial,sans-serif; font-size:14px; line-height:17px;" datetime="2017-08-31T19:55:25+00:00">Aug 31, 2017 at 12:55pm PDT</time></p></div></blockquote> <script async defer src="//platform.instagram.com/en_US/embeds.js"></script>
+</div>
+
+<p class="right">
+<a href="..">Back</a>
+</p>
+
+<div class="copyright">
+2012-2017 Naoto Hieda
+</div>
+
+</div>
+</div>
+
+</body>
+</html>
