@@ -1,10 +1,10 @@
-* {font-family: Optima, Calibri, Helvetica, sans-serif; font-weight:lighter}
+* {font-family: "HelveticaNeue-Thin", "Helvetica Neue Thin", Calibri, Helvetica, sans-serif; font-weight:lighter}
 table { font-size: 14px }
 a:link { color: #4040d0 ; text-decoration: none }
 a:active { color: #4040d0 ; text-decoration: none }
 a:visited { color: #4040d0; text-decoration: none }
 a:hover { color: white; background: #4040d0 ; }
-#main  {position: absolute; width: 100%; margin-top: 10px; margin-left: 20px}
+#main  {position: absolute; width: 100%; margin-top: 10px;}
 #header {position: absolute; top: 0px; left: 0px; width: 100%; }
 #profile {position: absolute; top: 0px; right: 10px; }
 #flickr {position: absolute; top: 250px; right: 0px; }

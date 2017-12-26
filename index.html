@@ -13,14 +13,15 @@
     a:visited { color: #202090; text-decoration: none }
     a:not(.nohover):hover { color: white; background: #202090 ; }
     #main  {position: absolute; width: 100%; margin-top: 20px; }
-    #header {position: absolute; top: 0px; left: 0px; width: 100%; }
-    #roma {font-size:42px; position: absolute; top: 0px; left: 0px; margin-left: 40px;}
-    #link {position: absolute; top: 0px; right: 30px; }
+    #header {width: 100%; }
+    #roma {font-size:42px; text-align: center}
+    #link {text-align: center }
     p.headline {text-align: center; font-size: 26px;}
 
-    #content {position: absolute; top: 100px; padding-bottom: 50px; margin: auto }
-    div.projects {width: 560px; height: 320px; font-size: 20px; border:0px; padding:0px; margin:15px 15px 15px 15px; list-style-type: none }
+    #content {padding-bottom: 50px; margin: auto }
+    div.projects {width: 560px; height: 320px; font-size: 20px; border:0px; padding:0px; margin:55px 15px 15px 15px; list-style-type: none }
     div.projectsdummy {width: 560px; height: 10px; font-size: 20px; border:0px; padding:0px; margin:15px 15px 15px 15px; list-style-type: none }
+    div.calendar, div.about {width: 80%; margin: 0 auto;}
     div.sponsors {width: 75%; margin: 50px auto;
   display: flex;
   display: -webkit-flex; /* Safari 8 */
@@ -49,9 +50,9 @@
     .schpast {font-size: 18px; margin-left: 60px; margin-bottom: 10px; color: #909090}
     .schfuture {font-size: 18px; margin-left: 60px; margin-bottom: 10px}
     #loc {font-size: 14px}
-    h2 {clear: left; font-size: 28px; margin-top: 20px; margin-left: 40px;}
+    h2 {clear: left; font-size: 28px; margin-top: 100px; text-align: center}
     h3 {clear: left; font-size: 24px; margin-left: 45px }
-    p {font-size: 18px; margin-left: 40px }
+    p {font-size: 18px; }
     img.projects { padding-top: 5px; color: #c0c0c0 solid; }
     .imhere { color: #202020 }
     .imnothere { color: #e0e0e0 }
@@ -75,8 +76,6 @@
 
 </div>
 <div id="content">
-
-<h2>Projects</h2>
 
 <div class="row">
   <div class="projects">
@@ -169,16 +168,9 @@
 <a href="projects">more...</a>
 </div>
 
-<div class="sponsors">
-<a class="nohover" href="http://www.pola-art-foundation.jp/" target="_blank"><img src="img/logo/pola.png" width="190" height="50" alt="pola art foundation logo" /></a>
-<a class="nohover" href="https://dublin.sciencegallery.com" target="_blank"><img src="img/logo/sciencegallery.png" width="103" height="50" alt="science gallery logo" /></a>
-<a class="nohover" href="http://infusionsystems.com/" target="_blank"><img src="img/logo/icubex.png" width="145" height="50" alt="I-CubeX logo" /></a>
-<a class="nohover" href="http://www.lifelongburning.eu/" target="_blank"><img src="img/logo/llb_logo.png" width="125" height="50" alt="lifelongburning logo" />
-<img src="img/logo/eucult.png" width="140" height="50" alt="eu culture logo" /></a>
-</div>
-
 <h2>Calendar</h2>
 
+<div class="calendar">
 <div class="schfuture">
 <a href="https://www.mappmtl.com/invisible" target="_blank">MAPP_MTL Invisible Exhibition Micro-Mapping</a> (Montréal, Canada; October 5, 2017 - January 6, 2018)<br />
 </div>
@@ -187,8 +179,15 @@
 <a href="http://geumcheon.blogspot.com" target="_blank">Seoul Art Space Geumcheon</a> (Seoul, South Korea; July - September 2018)
 </div>
 
+<div class="schfuture">
+<a href="http://www.teammtl.ca/" target="_blank">Solar Decathlon</a> (Dezhou, China; July - October 2018)
+</div>
+
+</div>
+
 <h2>About</h2>
 
+<div class="about">
 <div class="occ">
 <a href="http://www.pola-art-foundation.jp/" target="_blank">Pola Art Foundation Fellowship</a> - 
 <a href="http://topologicalmedialab.net" target="_blank">
@@ -207,6 +206,15 @@ Shared Reality Lab</a>, McGill University (2012 - 2015)<br />
 
 <div class="occ">
 Bachelor of Engineering - <a href="http://www.isl.titech.ac.jp/~munelab/" target="_blank">Munekata Group</a>, Tokyo Institute of Technology (2008 - 2012)<br />
+</div>
+</div>
+
+<div class="sponsors">
+<a class="nohover" href="http://www.pola-art-foundation.jp/" target="_blank"><img src="img/logo/pola.png" width="190" height="50" alt="pola art foundation logo" /></a>
+<a class="nohover" href="https://dublin.sciencegallery.com" target="_blank"><img src="img/logo/sciencegallery.png" width="103" height="50" alt="science gallery logo" /></a>
+<a class="nohover" href="http://infusionsystems.com/" target="_blank"><img src="img/logo/icubex.png" width="145" height="50" alt="I-CubeX logo" /></a>
+<a class="nohover" href="http://www.lifelongburning.eu/" target="_blank"><img src="img/logo/llb_logo.png" width="125" height="50" alt="lifelongburning logo" />
+<img src="img/logo/eucult.png" width="140" height="50" alt="eu culture logo" /></a>
 </div>
 
 <h2>Publications</h2>
