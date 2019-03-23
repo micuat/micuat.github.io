@@ -184,20 +184,6 @@ let render = function () {
     renderer.render(scene, camera);
 };
 
-setTimeout(() => {
-    for(let i = 0; i < 4; i++) {
-        if (document.getElementById('defaultCanvas' + i) != null) {
-            textures[i] = new THREE.Texture(document.getElementById('defaultCanvas' + i));
-            if(textures[i].image.width < 256)
-                textures[i].minFilter = THREE.NearestFilter;
-            plane_materials[i].map = textures[i];
-        }
-    }
-
-    render();
-}, 500)
-
-
 let checkExist = setInterval(function() {
     let failed = true;
     for(let i = 0; i < 4; i++) {
@@ -210,6 +196,7 @@ let checkExist = setInterval(function() {
         }
     }
     if (failed == false) {
-       clearInterval(checkExist);
+        render();
+        clearInterval(checkExist);
     }
  }, 100);
