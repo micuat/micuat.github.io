@@ -9,6 +9,30 @@ const camera_target = new THREE.Vector3(0, 0, 0);
 const plane_width = 1.8;
 const plane_position = { x: 0, y: 0, z: 0 };
 
+class Sketch {
+    constructor({color, words}) {
+        this.colors = [];
+        {
+            let cs = color.split("-");
+            for(let i in cs) {
+                this.colors.push(parseInt("0x" + cs[i]));
+            }
+        }
+        this.words = words;
+        console.log(this)
+    }
+
+    color (i) {
+        return this.colors[i];
+    }
+}
+
+const sketches = [
+    new Sketch({color: "ea8c55-c75146-bb0a21-81171b-540804", words: ["lava", "blood", "emergence", "脈"]}),
+    new Sketch({color: "d6e681-fcfcfc-f6f930-2f2f2f-000000", words: ["orbit", "axis", "stability", "回転"]}),
+    new Sketch({color: "104f55-93e1d8-32746d-01200f-011502", words: ["rubber", "sticky", "執着"]}),
+];
+
 // New renderer
 let renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.shadowMap.enabled = true;
@@ -80,7 +104,8 @@ const plane_geometry = new THREE.PlaneGeometry(plane_width, plane_width, 40, 40)
 const plane_materials = [];
 
 for(let i = 0; i < numSketches; i++) {
-    plane_materials[i] = new THREE.MeshStandardMaterial({ color: 0xffffff, displacementBias: 1.5, displacementScale: -2 });
+    plane_materials[i] = new THREE.MeshStandardMaterial({ color: sketches[i].color(0), displacementBias: 0.5, displacementScale: -0.5 });
+    // plane_materials[i] = new THREE.MeshStandardMaterial({ color: 0xffffff, displacementBias: 1.5, displacementScale: -2 });
 }
 
 for(let i = -2.5; i <= 2.5; i++) {
