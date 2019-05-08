@@ -18,11 +18,98 @@ class Sketch {
             }
         }
         this.words = words;
-        console.log(this)
     }
 
     color (i) {
         return this.colors[i];
+    }
+
+    mesh () {
+        var triangles = 100;
+        var geometry = new THREE.BufferGeometry();
+        var positions = new Float32Array( triangles * 3 * 3 );
+        var normals = new Float32Array( triangles * 3 * 3 );
+        var colors = new Float32Array( triangles * 3 * 3 );
+        var color = new THREE.Color();
+        var n = 800, n2 = n / 2;	// triangles spread in the cube
+        var d = 250, d2 = d / 2;	// individual triangle size
+        var pA = new THREE.Vector3();
+        var pB = new THREE.Vector3();
+        var pC = new THREE.Vector3();
+        var cb = new THREE.Vector3();
+        var ab = new THREE.Vector3();
+        for ( var i = 0; i < positions.length; i += 9 ) {
+            // positions
+            var x = Math.random() * n - n2;
+            var y = Math.random() * n - n2;
+            var z = Math.random() * n - n2;
+            var ax = x + Math.random() * d - d2;
+            var ay = y + Math.random() * d - d2;
+            var az = z + Math.random() * d - d2;
+            var bx = x + Math.random() * d - d2;
+            var by = y + Math.random() * d - d2;
+            var bz = z + Math.random() * d - d2;
+            var cx = x + Math.random() * d - d2;
+            var cy = y + Math.random() * d - d2;
+            var cz = z + Math.random() * d - d2;
+            positions[ i ] = ax;
+            positions[ i + 1 ] = ay;
+            positions[ i + 2 ] = az;
+            positions[ i + 3 ] = bx;
+            positions[ i + 4 ] = by;
+            positions[ i + 5 ] = bz;
+            positions[ i + 6 ] = cx;
+            positions[ i + 7 ] = cy;
+            positions[ i + 8 ] = cz;
+            // flat face normals
+            pA.set( ax, ay, az );
+            pB.set( bx, by, bz );
+            pC.set( cx, cy, cz );
+            cb.subVectors( pC, pB );
+            ab.subVectors( pA, pB );
+            cb.cross( ab );
+            cb.normalize();
+            var nx = cb.x;
+            var ny = cb.y;
+            var nz = cb.z;
+            normals[ i ] = nx;
+            normals[ i + 1 ] = ny;
+            normals[ i + 2 ] = nz;
+            normals[ i + 3 ] = nx;
+            normals[ i + 4 ] = ny;
+            normals[ i + 5 ] = nz;
+            normals[ i + 6 ] = nx;
+            normals[ i + 7 ] = ny;
+            normals[ i + 8 ] = nz;
+            // colors
+            var vx = ( x / n ) + 0.5;
+            var vy = ( y / n ) + 0.5;
+            var vz = ( z / n ) + 0.5;
+            let ci = Math.floor(vx*5);
+            color.setHex(this.colors[ci]);
+            colors[ i ] = color.r;
+            colors[ i + 1 ] = color.g;
+            colors[ i + 2 ] = color.b;
+            colors[ i + 3 ] = color.r;
+            colors[ i + 4 ] = color.g;
+            colors[ i + 5 ] = color.b;
+            colors[ i + 6 ] = color.r;
+            colors[ i + 7 ] = color.g;
+            colors[ i + 8 ] = color.b;
+        }
+        geometry.addAttribute( 'position', new THREE.BufferAttribute( positions, 3 ) );
+        geometry.addAttribute( 'normal', new THREE.BufferAttribute( normals, 3 ) );
+        geometry.addAttribute( 'color', new THREE.BufferAttribute( colors, 3 ) );
+        geometry.computeBoundingSphere();
+        var material = new THREE.MeshPhongMaterial( {
+            color: 0xaaaaaa, specular: 0xffffff, shininess: 250,
+            side: THREE.DoubleSide, vertexColors: THREE.VertexColors
+        } );
+        let mesh = new THREE.Mesh( geometry, material );
+        mesh.scale.set(0.001,0.001,0.001);
+        mesh.castShadow = true;
+        mesh.receiveShadow = true;
+        return mesh;
     }
 }
 
@@ -104,7 +191,8 @@ const plane_geometry = new THREE.PlaneGeometry(plane_width, plane_height, 40, 40
 const plane_materials = [];
 
 for(let i = 0; i < sketches.length; i++) {
-    plane_materials[i] = new THREE.MeshStandardMaterial({ color: sketches[i].color(0), displacementBias: 0.5, displacementScale: -0.5 });
+    plane_materials[i] = new THREE.MeshStandardMaterial({ color: 0xffffff, displacementBias: 0.5, displacementScale: -0.5 });
+    // plane_materials[i] = new THREE.MeshStandardMaterial({ color: sketches[i].color(0), displacementBias: 0.5, displacementScale: -0.5 });
 }
 
 for(let i = -2.5; i <= 2.5; i++) {
@@ -118,20 +206,31 @@ for(let i = -2.5; i <= 2.5; i++) {
             scene.add(box_mesh);
 
             {
-                const plane_mesh = new THREE.Mesh(plane_geometry, plane_materials[Math.floor(Math.random() * plane_materials.length)]);
+                const index = Math.floor(Math.random() * plane_materials.length);
+                const plane_mesh = new THREE.Mesh(plane_geometry, plane_materials[index]);
                 plane_mesh.position.set(j * 2, i * 2 - 0.1, 0.5);
                 plane_mesh.rotation.x = Math.PI / 2;
                 // plane_mesh.rotation.y = Math.PI / 2;
                 plane_mesh.receiveShadow = false;//true;
                 scene.add(plane_mesh);
+                const mesh = sketches[index].mesh();
+                mesh.rotation.x = Math.PI / 2;
+                mesh.position.set(j * 2, i * 2 - 0.5, 0.5);
+                scene.add(mesh)
             }
             {
-                const plane_mesh = new THREE.Mesh(plane_geometry, plane_materials[Math.floor(Math.random() * plane_materials.length)]);
+                const index = Math.floor(Math.random() * plane_materials.length);
+                const plane_mesh = new THREE.Mesh(plane_geometry, plane_materials[index]);
                 plane_mesh.position.set(j * 2, i * 2 + 0.1, 0.5);
                 plane_mesh.rotation.x = Math.PI / 2;
                 plane_mesh.rotation.y = -Math.PI;
                 plane_mesh.receiveShadow = false;//true;
                 scene.add(plane_mesh);
+                const mesh = sketches[index].mesh();
+                mesh.rotation.x = Math.PI / 2;
+                mesh.rotation.y = -Math.PI;
+                mesh.position.set(j * 2, i * 2 + 0.5, 0.5);
+                scene.add(mesh)
             }
         }
     }
@@ -148,20 +247,32 @@ for(let i = -2; i <= 2; i++) {
             scene.add(box_mesh);
 
             {
-                const plane_mesh = new THREE.Mesh(plane_geometry, plane_materials[Math.floor(Math.random() * plane_materials.length)]);
+                const index = Math.floor(Math.random() * plane_materials.length);
+                const plane_mesh = new THREE.Mesh(plane_geometry, plane_materials[index]);
                 plane_mesh.position.set(j * 2 - 0.1, i * 2, 0.5);
                 plane_mesh.rotation.x = Math.PI / 2;
                 plane_mesh.rotation.y = -Math.PI / 2;
                 plane_mesh.receiveShadow = false;//true;
                 scene.add(plane_mesh);
+                const mesh = sketches[index].mesh();
+                mesh.rotation.x = Math.PI / 2;
+                mesh.rotation.y = -Math.PI / 2;
+                mesh.position.set(j * 2 - 0.5, i * 2, 0.5);
+                scene.add(mesh)
             }
             {
-                const plane_mesh = new THREE.Mesh(plane_geometry, plane_materials[Math.floor(Math.random() * plane_materials.length)]);
+                const index = Math.floor(Math.random() * plane_materials.length);
+                const plane_mesh = new THREE.Mesh(plane_geometry, plane_materials[index]);
                 plane_mesh.position.set(j * 2 + 0.1, i * 2, 0.5);
                 plane_mesh.rotation.x = Math.PI / 2;
                 plane_mesh.rotation.y = Math.PI / 2;
                 plane_mesh.receiveShadow = false;//true;
                 scene.add(plane_mesh);
+                const mesh = sketches[index].mesh();
+                mesh.rotation.x = Math.PI / 2;
+                mesh.rotation.y = Math.PI / 2;
+                mesh.position.set(j * 2 + 0.5, i * 2, 0.5);
+                scene.add(mesh)
             }
         }
     }
