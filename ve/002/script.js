@@ -25,6 +25,8 @@ class Sketch {
     }
 
     generateTriangle (i) {
+        let ni = 20;
+        let nj = 10;
         let II = Math.floor(i / 2) % 20;
         let JJ = Math.floor(i / 2 / 20);
         let second = i % 2 == 1;
@@ -42,8 +44,8 @@ class Sketch {
                 if(i==1) J += 1;
                 else if(i==2) I += 1;
             }
-            let phi = J / 10 * Math.PI;
-            let theta = I / 20 * Math.PI * 2;
+            let phi = J / nj * Math.PI;
+            let theta = I / ni * Math.PI * 2;
             let x = r * Math.cos(theta) * Math.sin(phi);
             let y = r * Math.sin(theta) * Math.sin(phi);
             let z = r * Math.cos(phi);
@@ -61,8 +63,6 @@ class Sketch {
         var normals = new Float32Array( triangles * 3 * 3 );
         var colors = new Float32Array( triangles * 3 * 3 );
         var color = new THREE.Color();
-        var n = 800, n2 = n / 2;	// triangles spread in the cube
-        var d = 250, d2 = d / 2;	// individual triangle size
         var pA = new THREE.Vector3();
         var pB = new THREE.Vector3();
         var pC = new THREE.Vector3();
@@ -110,10 +110,8 @@ class Sketch {
             normals[ i + 7 ] = ny;
             normals[ i + 8 ] = nz;
             // colors
-            var vx = ( ax / n ) + 0.5;
-            var vy = ( ay / n ) + 0.5;
-            var vz = ( az / n ) + 0.5;
-            let ci = Math.floor(vx*5);
+            let ci;
+            ci = Math.floor(ax / 300 + 0.5);
             color.setHex(this.colors[ci]);
             colors[ i ] = color.r;
             colors[ i + 1 ] = color.g;
@@ -129,8 +127,8 @@ class Sketch {
         geometry.addAttribute( 'normal', new THREE.BufferAttribute( normals, 3 ) );
         geometry.addAttribute( 'color', new THREE.BufferAttribute( colors, 3 ) );
         geometry.computeBoundingSphere();
-        var material = new THREE.MeshPhongMaterial( {
-            color: 0xaaaaaa, specular: 0xffffff, shininess: 250,
+        var material = new THREE.MeshStandardMaterial( {
+            color: 0xffffff,
             side: THREE.DoubleSide, vertexColors: THREE.VertexColors
         } );
         let mesh = new THREE.Mesh( geometry, material );
@@ -151,7 +149,7 @@ const sketches = [
 ];
 
 // New renderer
-let renderer = new THREE.WebGLRenderer({ antialias: true });
+const renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 renderer.setSize(window.innerWidth, window.innerHeight);
@@ -161,8 +159,8 @@ renderer.setClearColor(0x247ba0, 1);
 document.body.appendChild(renderer.domElement);
 
 // Create the scene
-let scene = new THREE.Scene();
-scene.fog = new THREE.FogExp2( 0xffffff, 0.05 );
+const scene = new THREE.Scene();
+scene.fog = new THREE.FogExp2( 0x000000, 0.05 );
 
 let camera;
 {
@@ -235,17 +233,17 @@ const makeWall = ({j, i}) => {
     return box_mesh;
 }
 
-const installPiece = ({box_mesh, yRot}) => {
+const installPiece = ({yRot}) => {
     const index = Math.floor(Math.random() * plane_materials.length);
     const plane_mesh = new THREE.Mesh(plane_geometry, plane_materials[index]);
-    plane_mesh.position.set(0, -0.2, 0);
+    plane_mesh.position.set(0, 0, 0);
     plane_mesh.rotation.x = Math.PI / 2;
     plane_mesh.rotation.y = yRot;
     plane_mesh.receiveShadow = false;//true;
-    box_mesh.add(plane_mesh);
     const mesh = sketches[index].mesh();
     mesh.position.set(0, 0, 0.8);
     plane_mesh.add(mesh)
+    return plane_mesh;
 }
 
 for(let i = -2.5; i <= 2.5; i++) {
@@ -253,8 +251,8 @@ for(let i = -2.5; i <= 2.5; i++) {
         if(Math.random() > 0.875) {
             const box_mesh = makeWall({j, i})
             scene.add(box_mesh);
-            installPiece({box_mesh, yRot: 0});
-            installPiece({box_mesh, yRot: -Math.PI});
+            box_mesh.add(installPiece({box_mesh, yRot: 0}));
+            box_mesh.add(installPiece({box_mesh, yRot: -Math.PI}));
         }
     }
 }
@@ -265,8 +263,8 @@ for(let i = -2; i <= 2; i++) {
             const box_mesh = makeWall({j, i})
             box_mesh.rotation.z = -Math.PI / 2;
             scene.add(box_mesh);
-            installPiece({box_mesh, yRot: 0});
-            installPiece({box_mesh, yRot: -Math.PI});
+            box_mesh.add(installPiece({box_mesh, yRot: 0}));
+            box_mesh.add(installPiece({box_mesh, yRot: -Math.PI}));
         }
     }
 }
@@ -282,7 +280,7 @@ for(let i = -2; i <= 2; i++) {
 
 // Render loop
 const textures = [];
-const render = function () {
+const render = () => {
     for(tex of textures)
         tex.needsUpdate = true;
 
@@ -298,7 +296,7 @@ const render = function () {
 };
 
 
-const checkExist = setInterval(function() {
+const checkExist = setInterval(() => {
     let failed = true;
     for(let i = 0; i < sketches.length; i++) {
         if (document.getElementById('webm_element' + i) != null) {
@@ -316,7 +314,7 @@ const checkExist = setInterval(function() {
     }
 }, 100);
 
-function onWindowResize() {
+const onWindowResize = () => {
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
     renderer.setSize( window.innerWidth, window.innerHeight );
