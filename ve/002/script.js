@@ -226,40 +226,35 @@ for(let i = 0; i < sketches.length; i++) {
     // plane_materials[i] = new THREE.MeshStandardMaterial({ color: sketches[i].color(0), displacementBias: 0.5, displacementScale: -0.5 });
 }
 
+const makeWall = ({j, i}) => {
+    const box_geometry = new THREE.BoxGeometry(2, 0.125, 3);
+    const box_mesh = new THREE.Mesh(box_geometry, tile_material);
+    box_mesh.castShadow = true;
+    box_mesh.receiveShadow = true;
+    box_mesh.position.set(j * 2, i * 2, 0.5);
+    return box_mesh;
+}
+
+const installPiece = ({box_mesh, yRot}) => {
+    const index = Math.floor(Math.random() * plane_materials.length);
+    const plane_mesh = new THREE.Mesh(plane_geometry, plane_materials[index]);
+    plane_mesh.position.set(0, -0.2, 0);
+    plane_mesh.rotation.x = Math.PI / 2;
+    plane_mesh.rotation.y = yRot;
+    plane_mesh.receiveShadow = false;//true;
+    box_mesh.add(plane_mesh);
+    const mesh = sketches[index].mesh();
+    mesh.position.set(0, 0, 0.8);
+    plane_mesh.add(mesh)
+}
+
 for(let i = -2.5; i <= 2.5; i++) {
     for(let j = -2; j <= 2; j++) {
         if(Math.random() > 0.875) {
-            const box_geometry = new THREE.BoxGeometry(2, 0.125, 3);
-            const box_mesh = new THREE.Mesh(box_geometry, tile_material);
-            box_mesh.castShadow = true;
-            box_mesh.receiveShadow = true;
-            box_mesh.position.set(j * 2, i * 2, 0.5);
+            const box_mesh = makeWall({j, i})
             scene.add(box_mesh);
-
-            {
-                const index = Math.floor(Math.random() * plane_materials.length);
-                const plane_mesh = new THREE.Mesh(plane_geometry, plane_materials[index]);
-                plane_mesh.position.set(0, -0.1, 0);
-                plane_mesh.rotation.x = Math.PI / 2;
-                plane_mesh.rotation.y = 0;
-                plane_mesh.receiveShadow = false;//true;
-                box_mesh.add(plane_mesh);
-                const mesh = sketches[index].mesh();
-                mesh.position.set(0, 0, 1);
-                plane_mesh.add(mesh)
-            }
-            {
-                const index = Math.floor(Math.random() * plane_materials.length);
-                const plane_mesh = new THREE.Mesh(plane_geometry, plane_materials[index]);
-                plane_mesh.position.set(0, -0.1, 0);
-                plane_mesh.rotation.x = Math.PI / 2;
-                plane_mesh.rotation.y = -Math.PI;
-                plane_mesh.receiveShadow = false;//true;
-                box_mesh.add(plane_mesh);
-                const mesh = sketches[index].mesh();
-                mesh.position.set(0, 0, 1);
-                plane_mesh.add(mesh)
-            }
+            installPiece({box_mesh, yRot: 0});
+            installPiece({box_mesh, yRot: -Math.PI});
         }
     }
 }
@@ -267,38 +262,11 @@ for(let i = -2.5; i <= 2.5; i++) {
 for(let i = -2; i <= 2; i++) {
     for(let j = -2.5; j <= 2.5; j++) {
         if(Math.random() > 0.875) {
-            const box_geometry = new THREE.BoxGeometry(2, 0.125, 3);
-            const box_mesh = new THREE.Mesh(box_geometry, tile_material);
-            box_mesh.castShadow = true;
-            box_mesh.receiveShadow = true;
-            box_mesh.position.set(j * 2, i * 2, 0.5);
+            const box_mesh = makeWall({j, i})
             box_mesh.rotation.z = -Math.PI / 2;
             scene.add(box_mesh);
-
-            {
-                const index = Math.floor(Math.random() * plane_materials.length);
-                const plane_mesh = new THREE.Mesh(plane_geometry, plane_materials[index]);
-                plane_mesh.position.set(0, -0.1, 0);
-                plane_mesh.rotation.x = Math.PI / 2;
-                plane_mesh.rotation.y = 0;
-                plane_mesh.receiveShadow = false;//true;
-                box_mesh.add(plane_mesh);
-                const mesh = sketches[index].mesh();
-                mesh.position.set(0, 0, 1);
-                plane_mesh.add(mesh)
-            }
-            {
-                const index = Math.floor(Math.random() * plane_materials.length);
-                const plane_mesh = new THREE.Mesh(plane_geometry, plane_materials[index]);
-                plane_mesh.position.set(0, -0.1, 0);
-                plane_mesh.rotation.x = Math.PI / 2;
-                plane_mesh.rotation.y = -Math.PI;
-                plane_mesh.receiveShadow = false;//true;
-                box_mesh.add(plane_mesh);
-                const mesh = sketches[index].mesh();
-                mesh.position.set(0, 0, 1);
-                plane_mesh.add(mesh)
-            }
+            installPiece({box_mesh, yRot: 0});
+            installPiece({box_mesh, yRot: -Math.PI});
         }
     }
 }
