@@ -118,6 +118,8 @@ const sketches = [
     new Sketch({color: "d6e681-fcfcfc-f6f930-2f2f2f-000000", words: ["orbit", "axis", "stability", "回転"]}),
     new Sketch({color: "104f55-93e1d8-32746d-01200f-011502", words: ["rubber", "sticky", "執着"]}),
     new Sketch({color: "668586-82aeb1-93c6d6-a7acd9-9e8fb2", words: ["metal", "unaligned", "rotation", "齟齬"]}),
+    new Sketch({color: "78c0e0-449dd1-192bc2-150578-0e0e52", words: ["curve", "cold", "sting", "貫通"]}),
+    new Sketch({color: "ffcab1-ecdcb0-c1d7ae-8cc084-968e85", words: ["landscape", "artificial", "calm", "整然"]}),
 ];
 
 // New renderer
