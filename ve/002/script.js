@@ -24,8 +24,38 @@ class Sketch {
         return this.colors[i];
     }
 
+    generateTriangle (i) {
+        let II = Math.floor(i / 2) % 20;
+        let JJ = Math.floor(i / 2 / 20);
+        let second = i % 2 == 1;
+        let a = [];
+        let r = 300;
+        for(let i = 0; i < 3; i++) {
+            let I = II;
+            let J = JJ;
+            if(second) {
+                if(i==0) I += 1;
+                else if(i==1) J += 1;
+                else if(i==2) {I += 1; J += 1;}
+            }
+            else {
+                if(i==1) J += 1;
+                else if(i==2) I += 1;
+            }
+            let phi = J / 10 * Math.PI;
+            let theta = I / 20 * Math.PI * 2;
+            let x = r * Math.cos(theta) * Math.sin(phi);
+            let y = r * Math.sin(theta) * Math.sin(phi);
+            let z = r * Math.cos(phi);
+            a.push(x);
+            a.push(y);
+            a.push(z);
+        }
+        return a;
+    }
+
     mesh () {
-        var triangles = 100;
+        var triangles = 2 * 20 * 10;
         var geometry = new THREE.BufferGeometry();
         var positions = new Float32Array( triangles * 3 * 3 );
         var normals = new Float32Array( triangles * 3 * 3 );
@@ -40,18 +70,16 @@ class Sketch {
         var ab = new THREE.Vector3();
         for ( var i = 0; i < positions.length; i += 9 ) {
             // positions
-            var x = Math.random() * n - n2;
-            var y = Math.random() * n - n2;
-            var z = Math.random() * n - n2;
-            var ax = x + Math.random() * d - d2;
-            var ay = y + Math.random() * d - d2;
-            var az = z + Math.random() * d - d2;
-            var bx = x + Math.random() * d - d2;
-            var by = y + Math.random() * d - d2;
-            var bz = z + Math.random() * d - d2;
-            var cx = x + Math.random() * d - d2;
-            var cy = y + Math.random() * d - d2;
-            var cz = z + Math.random() * d - d2;
+            let pos = this.generateTriangle(i/9);
+            var ax = pos[0];
+            var ay = pos[1];
+            var az = pos[2];
+            var bx = pos[3];
+            var by = pos[4];
+            var bz = pos[5];
+            var cx = pos[6];
+            var cy = pos[7];
+            var cz = pos[8];
             positions[ i ] = ax;
             positions[ i + 1 ] = ay;
             positions[ i + 2 ] = az;
@@ -82,9 +110,9 @@ class Sketch {
             normals[ i + 7 ] = ny;
             normals[ i + 8 ] = nz;
             // colors
-            var vx = ( x / n ) + 0.5;
-            var vy = ( y / n ) + 0.5;
-            var vz = ( z / n ) + 0.5;
+            var vx = ( ax / n ) + 0.5;
+            var vy = ( ay / n ) + 0.5;
+            var vz = ( az / n ) + 0.5;
             let ci = Math.floor(vx*5);
             color.setHex(this.colors[ci]);
             colors[ i ] = color.r;
@@ -134,6 +162,7 @@ document.body.appendChild(renderer.domElement);
 
 // Create the scene
 let scene = new THREE.Scene();
+scene.fog = new THREE.FogExp2( 0xffffff, 0.05 );
 
 let camera;
 {
@@ -217,7 +246,7 @@ for(let i = -2.5; i <= 2.5; i++) {
                 scene.add(plane_mesh);
                 const mesh = sketches[index].mesh();
                 mesh.rotation.x = Math.PI / 2;
-                mesh.position.set(j * 2, i * 2 - 0.5, 0.5);
+                mesh.position.set(j * 2, i * 2 - 1, 0.5);
                 scene.add(mesh)
             }
             {
@@ -231,7 +260,7 @@ for(let i = -2.5; i <= 2.5; i++) {
                 const mesh = sketches[index].mesh();
                 mesh.rotation.x = Math.PI / 2;
                 mesh.rotation.y = -Math.PI;
-                mesh.position.set(j * 2, i * 2 + 0.5, 0.5);
+                mesh.position.set(j * 2, i * 2 + 1, 0.5);
                 scene.add(mesh)
             }
         }
@@ -259,7 +288,7 @@ for(let i = -2; i <= 2; i++) {
                 const mesh = sketches[index].mesh();
                 mesh.rotation.x = Math.PI / 2;
                 mesh.rotation.y = -Math.PI / 2;
-                mesh.position.set(j * 2 - 0.5, i * 2, 0.5);
+                mesh.position.set(j * 2 - 1, i * 2, 0.5);
                 scene.add(mesh)
             }
             {
@@ -273,7 +302,7 @@ for(let i = -2; i <= 2; i++) {
                 const mesh = sketches[index].mesh();
                 mesh.rotation.x = Math.PI / 2;
                 mesh.rotation.y = Math.PI / 2;
-                mesh.position.set(j * 2 + 0.5, i * 2, 0.5);
+                mesh.position.set(j * 2 + 1, i * 2, 0.5);
                 scene.add(mesh)
             }
         }
@@ -323,4 +352,10 @@ const checkExist = setInterval(function() {
         render();
         clearInterval(checkExist);
     }
- }, 100);
+}, 100);
+
+function onWindowResize() {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize( window.innerWidth, window.innerHeight );
+}
