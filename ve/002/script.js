@@ -60,6 +60,7 @@ class Sketch {
         var triangles = 2 * 20 * 10;
         var geometry = new THREE.BufferGeometry();
         var positions = new Float32Array( triangles * 3 * 3 );
+        var positions0 = new Float32Array( triangles * 3 * 3 );
         var normals = new Float32Array( triangles * 3 * 3 );
         var colors = new Float32Array( triangles * 3 * 3 );
         var color = new THREE.Color();
@@ -89,6 +90,15 @@ class Sketch {
             positions[ i + 6 ] = cx;
             positions[ i + 7 ] = cy;
             positions[ i + 8 ] = cz;
+            positions0[ i ] = Math.random() * 1000 - 500;
+            positions0[ i + 1 ] = Math.random() * 1000 - 500;
+            positions0[ i + 2 ] = Math.random() * 1000 - 500;
+            positions0[ i + 3 ] = positions0[ i ] + Math.random() * 50;
+            positions0[ i + 4 ] = positions0[ i + 1] + Math.random() * 50;
+            positions0[ i + 5 ] = positions0[ i + 2] + Math.random() * 50;
+            positions0[ i + 6 ] = positions0[ i ] + Math.random() * 50;
+            positions0[ i + 7 ] = positions0[ i + 1] + Math.random() * 50;
+            positions0[ i + 8 ] = positions0[ i + 2] + Math.random() * 50;
             // flat face normals
             pA.set( ax, ay, az );
             pB.set( bx, by, bz );
@@ -126,9 +136,14 @@ class Sketch {
         geometry.addAttribute( 'position', new THREE.BufferAttribute( positions, 3 ) );
         geometry.addAttribute( 'normal', new THREE.BufferAttribute( normals, 3 ) );
         geometry.addAttribute( 'color', new THREE.BufferAttribute( colors, 3 ) );
+        geometry.morphTargets = [];
+        geometry.morphTargets.push( 0 );
+        geometry.morphAttributes.position = [];
+        geometry.morphAttributes.position.push( new THREE.BufferAttribute( positions0, 3 ) );
         geometry.computeBoundingSphere();
         var material = new THREE.MeshStandardMaterial( {
             color: 0xffffff,
+            morphTargets: true,
             side: THREE.DoubleSide, vertexColors: THREE.VertexColors
         } );
         let mesh = new THREE.Mesh( geometry, material );
@@ -142,11 +157,15 @@ class Sketch {
 const sketches = [
     new Sketch({color: "ea8c55-c75146-bb0a21-81171b-540804", words: ["lava", "blood", "emergence", "脈"]}),
     new Sketch({color: "d6e681-fcfcfc-f6f930-2f2f2f-000000", words: ["orbit", "axis", "stability", "回転"]}),
-    new Sketch({color: "104f55-93e1d8-32746d-01200f-011502", words: ["rubber", "sticky", "執着"]}),
-    new Sketch({color: "668586-82aeb1-93c6d6-a7acd9-9e8fb2", words: ["metal", "unaligned", "rotation", "齟齬"]}),
-    new Sketch({color: "78c0e0-449dd1-192bc2-150578-0e0e52", words: ["curve", "cold", "sting", "貫通"]}),
-    new Sketch({color: "ffcab1-ecdcb0-c1d7ae-8cc084-968e85", words: ["landscape", "artificial", "calm", "整然"]}),
+    // new Sketch({color: "104f55-93e1d8-32746d-01200f-011502", words: ["rubber", "sticky", "執着"]}),
+    // new Sketch({color: "668586-82aeb1-93c6d6-a7acd9-9e8fb2", words: ["metal", "unaligned", "rotation", "齟齬"]}),
+    // new Sketch({color: "78c0e0-449dd1-192bc2-150578-0e0e52", words: ["curve", "cold", "sting", "貫通"]}),
+    // new Sketch({color: "ffcab1-ecdcb0-c1d7ae-8cc084-968e85", words: ["landscape", "artificial", "calm", "整然"]}),
+    // new Sketch({color: "88a2aa-ada296-e2856e-0f1a20-ff1b1c", words: ["space", "visual", "expansion", "free", "空白"]}),
 ];
+
+const container = document.createElement( 'div' );
+document.body.appendChild( container );
 
 // New renderer
 const renderer = new THREE.WebGLRenderer({ antialias: true });
@@ -156,7 +175,11 @@ renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.setClearColor(0x247ba0, 1);
 
 // Add the renderer to the DOM
-document.body.appendChild(renderer.domElement);
+// document.body.appendChild(renderer.domElement);
+container.appendChild( renderer.domElement );
+
+stats = new Stats();
+container.appendChild( stats.dom );
 
 // Create the scene
 const scene = new THREE.Scene();
@@ -233,6 +256,7 @@ const makeWall = ({j, i}) => {
     return box_mesh;
 }
 
+const meshes = [];
 const installPiece = ({yRot}) => {
     const index = Math.floor(Math.random() * plane_materials.length);
     const plane_mesh = new THREE.Mesh(plane_geometry, plane_materials[index]);
@@ -243,6 +267,7 @@ const installPiece = ({yRot}) => {
     const mesh = sketches[index].mesh();
     mesh.position.set(0, 0, 0.8);
     plane_mesh.add(mesh)
+    meshes.push(mesh);
     return plane_mesh;
 }
 
@@ -280,6 +305,7 @@ for(let i = -2; i <= 2; i++) {
 
 // Render loop
 const textures = [];
+let t = 0;
 const render = () => {
     for(tex of textures)
         tex.needsUpdate = true;
@@ -290,9 +316,15 @@ const render = () => {
     camera.up.set(0, 0, 1);
     camera.lookAt(camera_target);
 
+    t = (t + 0.01);
+    for(m of meshes)
+        m.morphTargetInfluences = [EasingFunctions.easeInOutCubic(Math.sin(t) * 0.5 + 0.5)];
+
     requestAnimationFrame(render);
 
     renderer.render(scene, camera);
+
+    stats.update();
 };
 
 
