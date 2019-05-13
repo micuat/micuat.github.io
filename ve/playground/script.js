@@ -130,57 +130,113 @@ setInterval(() => {
   }
 }, 5);
 
-{
-// three.js animataed line using BufferGeometry
+// Camera Properties
+let camera_angle = 0;
+const camera_range = -10;
+const camera_speed = 0.05 * Math.PI / 180;
+const camera_target = new THREE.Vector3(0, 0, 0);
 
-let renderer, scene, camera;
+const plane_width = 1.8;
+const plane_height = 1.8 * 240/320;
+const plane_position = { x: 0, y: 0, z: 0 };
+
+// New renderer
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.setClearColor(0x247ba0, 1);
+
+// Add the renderer to the DOM
+document.body.appendChild(renderer.domElement);
+// container.appendChild( renderer.domElement );
+
+// stats = new Stats();
+// container.appendChild( stats.dom );
+
+// Create the scene
+const scene = new THREE.Scene();
+scene.fog = new THREE.FogExp2( 0x000000, 0.05 );
+
+let camera;
+{
+    const camera_focal = 70;
+    const camera_near = 0.1;
+    const camera_far = 50;
+    // Set some camera defaults
+    camera = new THREE.PerspectiveCamera(camera_focal, window.innerWidth / window.innerHeight, camera_near, camera_far);
+    camera.position.set(0, camera_range, 0);
+    camera.lookAt(camera_target);
+}
+
+scene.add(new THREE.AmbientLight(0xffffff));
+
+// Add directional light
+const light_spot_positions = [{ x: -2, y: -2, z: 1.5 },{ x: 3, y: 1, z: 1.5 }]
+for(let i = 0; i < 2; i++) {
+    let spot_light = new THREE.SpotLight(0xDDDDDD, 0.5);
+    spot_light.position.set(light_spot_positions[i].x, light_spot_positions[i].y, light_spot_positions[i].z);
+    spot_light.target = scene;
+    spot_light.castShadow = true;
+    spot_light.receiveShadow = true;
+    spot_light.shadow.camera.near = 0.5;
+    spot_light.shadow.mapSize.width = 1024 * 2; // default is 512
+    spot_light.shadow.mapSize.height = 1024 * 2; // default is 512	
+    scene.add(spot_light);
+}
+
+const tile_material = new THREE.MeshLambertMaterial({ color: 0xdddddd });
+
+for(let i = -5; i <= 5; i++) {
+    for(let j = -5; j <= 5; j++) {
+        {
+            const plane_geometry = new THREE.PlaneGeometry(2, 2, 1, 1);
+            const plane_mesh = new THREE.Mesh(plane_geometry, tile_material);
+            plane_mesh.position.set(j * 2, i * 2, -1);
+            plane_mesh.receiveShadow = true;
+            scene.add(plane_mesh);
+        }
+    }
+}
+for(let i = -2.5; i <= 2.5; i++) {
+    for(let j = -2.5; j <= 2.5; j++) {
+        if(Math.random() > 0.75) {
+            const box_geometry = new THREE.BoxGeometry(0.25, 0.25, 3);
+            const box_mesh = new THREE.Mesh(box_geometry, tile_material);
+            box_mesh.castShadow = true;
+            box_mesh.receiveShadow = true;
+            box_mesh.position.set(j * 2, i * 2, 0.5);
+            scene.add(box_mesh);
+        }
+    }
+}
 
 let line;
 const MAX_POINTS = 500;
 let drawCount;
 let tween = 0;
 
-init();
-animate();
+// geometry
+var geometry = new THREE.BufferGeometry();
 
-function init() {
-	// renderer
-	renderer = new THREE.WebGLRenderer();
-	renderer.setPixelRatio( window.devicePixelRatio );
-	renderer.setSize( window.innerWidth, window.innerHeight );
-	document.body.appendChild( renderer.domElement );
+// attributes
+var positions = new Float32Array( MAX_POINTS * 3 ); // 3 vertices per point
+geometry.addAttribute( 'position', new THREE.BufferAttribute( positions, 3 ) );
 
-	// scene
-	scene = new THREE.Scene();
+// drawcalls
+drawCount = 2; // draw the first 2 points, only
+geometry.setDrawRange( 0, drawCount );
 
-	// camera
-	camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 1, 10000 );
-	camera.position.set( 0, 0, 1000 );
+// material
+var material = new THREE.LineBasicMaterial( { color: 0xff0000, linewidth: 2 } );
 
-	// geometry
-	var geometry = new THREE.BufferGeometry();
-
-	// attributes
-	var positions = new Float32Array( MAX_POINTS * 3 ); // 3 vertices per point
-	geometry.addAttribute( 'position', new THREE.BufferAttribute( positions, 3 ) );
-
-	// drawcalls
-	drawCount = 2; // draw the first 2 points, only
-	geometry.setDrawRange( 0, drawCount );
-
-	// material
-	var material = new THREE.LineBasicMaterial( { color: 0xff0000, linewidth: 2 } );
-
-	// line
-	line = new THREE.Line( geometry,  material );
-	scene.add( line );
-
-	// update positions
-	updatePositions();
-
-}
+// line
+line = new THREE.Line( geometry,  material );
+scene.add( line );
 
 // update positions
+updatePositions();
+
 function updatePositions() {
   tween = seq[index1] * 0.5 + 0.5 * tween;
 	let positions = line.geometry.attributes.position.array;
@@ -188,9 +244,9 @@ function updatePositions() {
 	let x = y = z = index = 0;
 
 	for ( let i = 0, l = MAX_POINTS; i < l; i ++ ) {
-		x = Math.cos(i*0.1+drawCount*0.1) * 50 * tween;
-		y = Math.sin(i*0.1+drawCount*0.1) * 50 * tween;
-		z = 0;
+		x = Math.cos(i*0.1+drawCount*0.1) * 0.2 * tween;
+		z = Math.sin(i*0.1+drawCount*0.1) * 0.2 * tween;
+		y = 0;
 
 		positions[ index ++ ] = x;//*0.01+0.99*positions[ index ];
 		positions[ index ++ ] = y;//*0.01+0.99*positions[ index ];
@@ -201,34 +257,33 @@ function updatePositions() {
 
 }
 
-// render
-function render() {
+// Render loop
+const render = () => {
+    camera_angle += camera_speed;
+    camera.position.x = Math.cos(camera_angle) * camera_range;
+    camera.position.y = Math.sin(camera_angle) * camera_range;
+    camera.up.set(0, 0, 1);
+    camera.lookAt(camera_target);
 
-	renderer.render( scene, camera );
+    drawCount = ( drawCount + 1 ) % MAX_POINTS;
 
-}
+    line.geometry.setDrawRange( 0, MAX_POINTS );
+  
+  
+    // periodically, generate new data
+    updatePositions();
+    line.geometry.attributes.position.needsUpdate = true; // required after the first render
+    line.material.color.setHSL( 0.7, 1, 0.5 );
+  
+    requestAnimationFrame(render);
 
-// animate
-function animate() {
+    renderer.render(scene, camera);
+};
 
-	requestAnimationFrame( animate );
+render();
 
-	drawCount = ( drawCount + 1 ) % MAX_POINTS;
-
-	line.geometry.setDrawRange( 0, MAX_POINTS );
-
-
-		// periodically, generate new data
-
-		updatePositions();
-
-		line.geometry.attributes.position.needsUpdate = true; // required after the first render
-
-		line.material.color.setHSL( 0.7, 1, 0.5 );
-
-	
-
-	render();
-
-}
+const onWindowResize = () => {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize( window.innerWidth, window.innerHeight );
 }
