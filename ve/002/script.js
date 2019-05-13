@@ -157,11 +157,14 @@ class Sketch {
 const sketches = [
     new Sketch({color: "ea8c55-c75146-bb0a21-81171b-540804", words: ["lava", "blood", "emergence", "脈"]}),
     new Sketch({color: "d6e681-fcfcfc-f6f930-2f2f2f-000000", words: ["orbit", "axis", "stability", "回転"]}),
-    // new Sketch({color: "104f55-93e1d8-32746d-01200f-011502", words: ["rubber", "sticky", "執着"]}),
-    // new Sketch({color: "668586-82aeb1-93c6d6-a7acd9-9e8fb2", words: ["metal", "unaligned", "rotation", "齟齬"]}),
-    // new Sketch({color: "78c0e0-449dd1-192bc2-150578-0e0e52", words: ["curve", "cold", "sting", "貫通"]}),
-    // new Sketch({color: "ffcab1-ecdcb0-c1d7ae-8cc084-968e85", words: ["landscape", "artificial", "calm", "整然"]}),
-    // new Sketch({color: "88a2aa-ada296-e2856e-0f1a20-ff1b1c", words: ["space", "visual", "expansion", "free", "空白"]}),
+    new Sketch({color: "104f55-93e1d8-32746d-01200f-011502", words: ["rubber", "sticky", "執着"]}),
+    new Sketch({color: "668586-82aeb1-93c6d6-a7acd9-9e8fb2", words: ["metal", "unaligned", "rotation", "齟齬"]}),
+    new Sketch({color: "78c0e0-449dd1-192bc2-150578-0e0e52", words: ["curve", "cold", "sting", "貫通"]}),
+    new Sketch({color: "ffcab1-ecdcb0-c1d7ae-8cc084-968e85", words: ["landscape", "artificial", "calm", "整然"]}),
+    new Sketch({color: "88a2aa-ada296-e2856e-0f1a20-ff1b1c", words: ["space", "visual", "expansion", "free", "空白"]}),
+    new Sketch({color: "010001-2b0504-874000-bc5f04-fd151b", words: ["spikes", "excitement", "不安"]}),
+    new Sketch({color: "010001-2b0504-874000-bc5f04-fd151b", date: 190512, words: ["spikes", "excitement", "不安"]}),
+    new Sketch({color: "b7ad99-ff4365-030301-07beb8-15b097", date: 190513, words: ["trench", "drop", "marble", "海溝"]}),
 ];
 
 const container = document.createElement( 'div' );
