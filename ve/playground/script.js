@@ -3,6 +3,8 @@ let osc = null;
 const gainNode = ac.createGain();
 const gainNode2 = ac.createGain();
 
+const masterGain = 0.0;
+
 const bufferSize = 2 * ac.sampleRate,
     noiseBuffer = ac.createBuffer(1, bufferSize, ac.sampleRate),
     output = noiseBuffer.getChannelData(0);
@@ -94,7 +96,7 @@ setInterval(() => {
       osc.start();
       osc.frequency.value = 400 + seq[index1] / 6 * 3000;
       if(seq[index1] > 0)
-        gainNode.gain.value = 0.3;
+        gainNode.gain.value = 0.3 * masterGain;
       else
         gainNode.gain.value = 0;
       index1 = (index1 + 1) % seq.length;
@@ -113,7 +115,7 @@ setInterval(() => {
     lastT2 = t;
     if(whiteNoise) {
       if(seq2[index2] > 0)
-        gainNode2.gain.value = 0.3;
+        gainNode2.gain.value = 0.3 * masterGain;
       else
         gainNode2.gain.value = 0;
       index2 = (index2 + 1) % seq2.length;
