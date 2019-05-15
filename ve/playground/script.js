@@ -23,39 +23,6 @@ gainNode.gain.value = 0;
 gainNode2.connect(ac.destination);
 gainNode2.gain.value = 0;
 
-// var distortion = ac.createWaveShaper();
-// distortion.connect(gainNode);
-
-// function makeDistortionCurve(amount) {
-//   var k = typeof amount === 'number' ? amount : 50,
-//     n_samples = 44100,
-//     curve = new Float32Array(n_samples),
-//     deg = Math.PI / 180,
-//     i = 0,
-//     x;
-//   for ( ; i < n_samples; ++i ) {
-//     x = i * 2 / n_samples - 1;
-//     curve[i] = ( 3 + k ) * x * 20 * deg / ( Math.PI + k * Math.abs(x) );
-//   }
-//   return curve;
-// };
-// function makeDistortionCurve(amount) {
-//   var k = amount,
-//       n_samples = typeof sampleRate === 'number' ? sampleRate : 44100,
-//       curve = new Float32Array(n_samples),
-//       deg = Math.PI / 180,
-//       i = 0,
-//       x;
-//   for ( ; i < n_samples; ++i ) {
-//       x = i * 2 / n_samples - 1;
-//       curve[i] = (3 + k)*Math.atan(Math.sinh(x*0.25)) / (Math.PI + k * Math.abs(x));
-//   }
-//   return curve;
-// }
-
-// distortion.curve = makeDistortionCurve(400);
-// distortion.oversample = '4x';
-
 const biquadFilter = ac.createBiquadFilter();
 biquadFilter.connect(gainNode2);
 
@@ -70,66 +37,81 @@ document.addEventListener('click', function(event) {
   }
 });
 
-const seq = [2, 3, 4, 0, 2, 0, 4, 5];//, 2, 3, 4, 0, 2, 0, 4, 5];
-const offset = [0.1, 0.1, 0.3, 0.1, 0.1, 0.3, 0.1, 0.1];
-let index1 = 0;
-let lastT = 0;
-let lastT2 = 0;
+class Sequencer {
+  constructor({seq, offset, update}) {
+    this.seq = seq;
+    this.offset = offset;
+    this.update = update;
+    this.index = 0;
+    this.lastT = 0;
+  }
+}
 
-const seq2 = [1, 1, 0, 1, 1, 0, 1, 1];
-const offset2 = [0.1, 0.1, 0.3, 0.1, 0.1, 0.3, 0.1, 0.1];
-let index2 = 0;
+const seq0 = new Sequencer({
+  seq: [2, 3, 4, 0, 2, 0, 4, 5],//, 2, 3, 4, 0, 2, 0, 4, 5],
+  offset: [0.1, 0.1, 0.3, 0.1, 0.1, 0.3, 0.1, 0.1],
+  update: (t, self) => {
+    if(Math.floor(t/100+self.offset[self.index]) - Math.floor(self.lastT/100+self.offset[(self.index+self.offset.length-1)%self.offset.length]) > 0) {
+      self.lastT = t;
+      if(osc) {
+        osc.stop();
+        osc.disconnect();
+        osc = ac.createOscillator();
+      
+        osc.type = 'square';
+        osc.connect(gainNode);
+      
+        osc.start();
+        osc.frequency.value = 400 + self.seq[self.index] / 6 * 3000;
+        if(self.seq[self.index] > 0)
+          gainNode.gain.value = 0.3 * masterGain;
+        else
+          gainNode.gain.value = 0;
+        self.index = (self.index + 1) % self.seq.length;
+        gainNode.gain.setTargetAtTime(0, ac.currentTime, 0.075);
+  
+        if(Math.random() > 0.85) {
+          if(Math.random() > 0.1)
+            self.seq[self.index] = Math.floor(Math.random()*4) + 1;
+          else self.seq[self.index] = 0;
+          self.offset[self.index] = Math.floor(Math.random() * 4) * 0.1;
+        }
+      }
+    }  }
+})
+
+const seq1 = new Sequencer({
+  seq: [1, 1, 0, 1, 1, 0, 1, 1],
+  offset: [0.1, 0.1, 0.3, 0.1, 0.1, 0.3, 0.1, 0.1],
+  update: (t, self) => {
+    if(Math.floor(t/100+self.offset[self.index]) - Math.floor(self.lastT/100+self.offset[(self.index+7)%8]) > 0) {
+      self.lastT = t;
+      if(whiteNoise) {
+        if(self.seq[self.index] > 0)
+          gainNode2.gain.value = 0.3 * masterGain;
+        else
+          gainNode2.gain.value = 0;
+        self.index = (self.index + 1) % self.seq.length;
+        gainNode2.gain.setTargetAtTime(0, ac.currentTime, 0.075);
+        biquadFilter.frequency.setValueAtTime(1500, ac.currentTime);
+        biquadFilter.gain.setValueAtTime(25, ac.currentTime);
+        if(Math.random() > 0.85) {
+          if(Math.random() > 0.5)
+            self.seq[self.index] = 1;
+          else self.seq[self.index] = 0;
+          self.offset[self.index] = Math.floor(Math.random() * 4) * 0.1;
+        }
+      }
+    }
+  }
+})
 
 setInterval(() => {
   let d = new Date();
   let t = d.getTime();
-  if(Math.floor(t/100+offset[index1]) - Math.floor(lastT/100+offset[(index1+offset.length-1)%offset.length]) > 0) {
-    lastT = t;
-    if(osc) {
-      osc.stop();
-      osc.disconnect();
-      osc = ac.createOscillator();
-    
-      osc.type = 'square';
-      osc.connect(gainNode);
-    
-      osc.start();
-      osc.frequency.value = 400 + seq[index1] / 6 * 3000;
-      if(seq[index1] > 0)
-        gainNode.gain.value = 0.3 * masterGain;
-      else
-        gainNode.gain.value = 0;
-      index1 = (index1 + 1) % seq.length;
-      gainNode.gain.setTargetAtTime(0, ac.currentTime, 0.075);
 
-      if(Math.random() > 0.85) {
-        if(Math.random() > 0.1)
-          seq[index1] = Math.floor(Math.random()*4) + 1;
-        else seq[index1] = 0;
-        offset[index1] = Math.floor(Math.random() * 4) * 0.1;
-      }
-    }
-  }
-
-  if(Math.floor(t/100+offset2[index2]) - Math.floor(lastT2/100+offset2[(index2+7)%8]) > 0) {
-    lastT2 = t;
-    if(whiteNoise) {
-      if(seq2[index2] > 0)
-        gainNode2.gain.value = 0.3 * masterGain;
-      else
-        gainNode2.gain.value = 0;
-      index2 = (index2 + 1) % seq2.length;
-      gainNode2.gain.setTargetAtTime(0, ac.currentTime, 0.075);
-      biquadFilter.frequency.setValueAtTime(1500, ac.currentTime);
-      biquadFilter.gain.setValueAtTime(25, ac.currentTime);
-      if(Math.random() > 0.85) {
-        if(Math.random() > 0.5)
-          seq2[index2] = 1;
-        else seq2[index2] = 0;
-        offset2[index2] = Math.floor(Math.random() * 4) * 0.1;
-      }
-    }
-  }
+  seq0.update(t, seq0);
+  seq1.update(t, seq1);
 }, 5);
 
 // Camera Properties
@@ -151,10 +133,6 @@ renderer.setClearColor(0x247ba0, 1);
 
 // Add the renderer to the DOM
 document.body.appendChild(renderer.domElement);
-// container.appendChild( renderer.domElement );
-
-// stats = new Stats();
-// container.appendChild( stats.dom );
 
 // Create the scene
 const scene = new THREE.Scene();
@@ -167,7 +145,7 @@ let camera;
     const camera_far = 50;
     // Set some camera defaults
     camera = new THREE.PerspectiveCamera(camera_focal, window.innerWidth / window.innerHeight, camera_near, camera_far);
-    camera.position.set(0, camera_range, 0);
+    camera.position.set(0, camera_range, 1);
     camera.lookAt(camera_target);
 }
 
@@ -240,7 +218,7 @@ scene.add( line );
 updatePositions();
 
 function updatePositions() {
-  tween = seq[index1] * 0.5 + 0.5 * tween;
+  tween = seq0.seq[seq0.index] * 0.5 + 0.5 * tween;
 	let positions = line.geometry.attributes.position.array;
 
 	let x = y = z = index = 0;
