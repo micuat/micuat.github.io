@@ -165,6 +165,8 @@ const sketches = [
     new Sketch({color: "010001-2b0504-874000-bc5f04-fd151b", words: ["spikes", "excitement", "不安"]}),
     new Sketch({color: "010001-2b0504-874000-bc5f04-fd151b", date: 190512, words: ["spikes", "excitement", "不安"]}),
     new Sketch({color: "b7ad99-ff4365-030301-07beb8-15b097", date: 190513, words: ["trench", "drop", "marble", "海溝"]}),
+    new Sketch({color: "2364aa-3da5d9-73bfb8-fec601-ea7317", date: 190514, words: ["blue", "missing", "hole", "light", "flat", "穴"]}),
+    new Sketch({color: "7a6c5d-edcb96-f5e2c8-f7c4a5-edcb96", date: 190515, words: ["Baumkuchen", "white", "advancement", "前進"]}),
 ];
 
 const container = document.createElement( 'div' );
