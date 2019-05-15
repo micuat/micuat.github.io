@@ -41,66 +41,91 @@ class Sequencer {
   constructor({seq, offset, update}) {
     this.seq = seq;
     this.offset = offset;
-    this.update = update;
+    this.updateImpl = update;
     this.index = 0;
     this.lastT = 0;
+    this.tDeltaMillis = 250;
+  }
+
+  update(t) {
+    let offset0 = this.offset[this.index];
+    let offset1 = this.offset[(this.index - 1 + this.offset.length) % this.offset.length];
+    let count0 = Math.floor(t / this.tDeltaMillis + offset0);
+    let count1 = Math.floor(this.lastT / this.tDeltaMillis + offset1);
+    if(count0 - count1 > 0) {
+      this.lastT = t;
+      this.updateImpl(this);
+    }
+  }
+
+  getNote(t) {
+    let tDiff = t - this.lastT;
+    let rate = EasingFunctions.easeInOutQuint(tDiff / this.tDeltaMillis);
+    let note1 = this.seq[this.index];
+    let note0 = this.seq[(this.index - 1 + this.seq.length) % this.seq.length];
+    return note0 * (1 - rate) + note1 * rate;
   }
 }
 
 const seq0 = new Sequencer({
   seq: [2, 3, 4, 0, 2, 0, 4, 5],//, 2, 3, 4, 0, 2, 0, 4, 5],
   offset: [0.1, 0.1, 0.3, 0.1, 0.1, 0.3, 0.1, 0.1],
-  update: (t, self) => {
-    if(Math.floor(t/100+self.offset[self.index]) - Math.floor(self.lastT/100+self.offset[(self.index+self.offset.length-1)%self.offset.length]) > 0) {
-      self.lastT = t;
-      if(osc) {
-        osc.stop();
-        osc.disconnect();
-        osc = ac.createOscillator();
-      
-        osc.type = 'square';
-        osc.connect(gainNode);
-      
-        osc.start();
-        osc.frequency.value = 400 + self.seq[self.index] / 6 * 3000;
-        if(self.seq[self.index] > 0)
-          gainNode.gain.value = 0.3 * masterGain;
-        else
-          gainNode.gain.value = 0;
-        self.index = (self.index + 1) % self.seq.length;
-        gainNode.gain.setTargetAtTime(0, ac.currentTime, 0.075);
-  
-        if(Math.random() > 0.85) {
-          if(Math.random() > 0.1)
-            self.seq[self.index] = Math.floor(Math.random()*4) + 1;
-          else self.seq[self.index] = 0;
-          self.offset[self.index] = Math.floor(Math.random() * 4) * 0.1;
-        }
+  update: (self) => {
+    if(osc) {
+      osc.stop();
+      osc.disconnect();
+      osc = ac.createOscillator();
+    
+      // osc.type = 'square';
+      osc.connect(gainNode);
+    
+      osc.start();
+      osc.frequency.value = 400 + self.seq[self.index] / 6 * 3000;
+      if(self.seq[self.index] > 0) {
+        gainNode.gain.value = 0.3 * masterGain;
       }
-    }  }
+      else {
+        gainNode.gain.value = 0;
+      }
+      self.index = (self.index + 1) % self.seq.length;
+      gainNode.gain.setTargetAtTime(0, ac.currentTime, 0.075);
+
+      if(Math.random() > 0.85) {
+        if(Math.random() > 0.1) {
+          self.seq[self.index] = Math.floor(Math.random()*4) + 1;
+        }
+        else {
+          self.seq[self.index] = 0;
+        }
+        self.offset[self.index] = Math.floor(Math.random() * 4) * 0.1;
+      }
+    }
+  }
 })
 
 const seq1 = new Sequencer({
   seq: [1, 1, 0, 1, 1, 0, 1, 1],
   offset: [0.1, 0.1, 0.3, 0.1, 0.1, 0.3, 0.1, 0.1],
-  update: (t, self) => {
-    if(Math.floor(t/100+self.offset[self.index]) - Math.floor(self.lastT/100+self.offset[(self.index+7)%8]) > 0) {
-      self.lastT = t;
-      if(whiteNoise) {
-        if(self.seq[self.index] > 0)
-          gainNode2.gain.value = 0.3 * masterGain;
-        else
-          gainNode2.gain.value = 0;
-        self.index = (self.index + 1) % self.seq.length;
-        gainNode2.gain.setTargetAtTime(0, ac.currentTime, 0.075);
-        biquadFilter.frequency.setValueAtTime(1500, ac.currentTime);
-        biquadFilter.gain.setValueAtTime(25, ac.currentTime);
-        if(Math.random() > 0.85) {
-          if(Math.random() > 0.5)
-            self.seq[self.index] = 1;
-          else self.seq[self.index] = 0;
-          self.offset[self.index] = Math.floor(Math.random() * 4) * 0.1;
+  update: (self) => {
+    if(whiteNoise) {
+      if(self.seq[self.index] > 0) {
+        gainNode2.gain.value = 0.3 * masterGain;
+      }
+      else {
+        gainNode2.gain.value = 0;
+      }
+      self.index = (self.index + 1) % self.seq.length;
+      gainNode2.gain.setTargetAtTime(0, ac.currentTime, 0.075);
+      biquadFilter.frequency.setValueAtTime(1500, ac.currentTime);
+      biquadFilter.gain.setValueAtTime(25, ac.currentTime);
+      if(Math.random() > 0.85) {
+        if(Math.random() > 0.5) {
+          self.seq[self.index] = 1;
         }
+        else {
+          self.seq[self.index] = 0;
+        }
+        self.offset[self.index] = Math.floor(Math.random() * 4) * 0.1;
       }
     }
   }
@@ -110,8 +135,8 @@ setInterval(() => {
   let d = new Date();
   let t = d.getTime();
 
-  seq0.update(t, seq0);
-  seq1.update(t, seq1);
+  seq0.update(t);
+  seq1.update(t);
 }, 5);
 
 // Camera Properties
@@ -167,6 +192,8 @@ for(let i = 0; i < 2; i++) {
 
 const tile_material = new THREE.MeshLambertMaterial({ color: 0xdddddd });
 
+let theBox;
+
 for(let i = -5; i <= 5; i++) {
     for(let j = -5; j <= 5; j++) {
         {
@@ -181,12 +208,13 @@ for(let i = -5; i <= 5; i++) {
 for(let i = -2.5; i <= 2.5; i++) {
     for(let j = -2.5; j <= 2.5; j++) {
         if(Math.random() > 0.75) {
-            const box_geometry = new THREE.BoxGeometry(0.25, 0.25, 3);
+            const box_geometry = new THREE.BoxGeometry(0.25, 0.25, 0.25);
             const box_mesh = new THREE.Mesh(box_geometry, tile_material);
             box_mesh.castShadow = true;
             box_mesh.receiveShadow = true;
-            box_mesh.position.set(j * 2, i * 2, 0.5);
+            box_mesh.position.set(j * 2, i * 2, 0);
             scene.add(box_mesh);
+            theBox = box_mesh;
         }
     }
 }
@@ -212,7 +240,7 @@ var material = new THREE.LineBasicMaterial( { color: 0xff0000, linewidth: 2 } );
 
 // line
 line = new THREE.Line( geometry,  material );
-scene.add( line );
+// scene.add( line ); // hehe
 
 // update positions
 updatePositions();
@@ -255,6 +283,10 @@ const render = () => {
     line.geometry.attributes.position.needsUpdate = true; // required after the first render
     line.material.color.setHSL( 0.7, 1, 0.5 );
   
+    let d = new Date();
+    let t = d.getTime();
+    theBox.position.set(seq0.getNote(t), 0, 0);
+
     requestAnimationFrame(render);
 
     renderer.render(scene, camera);
