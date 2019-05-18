@@ -44,7 +44,7 @@ class Sequencer {
     this.updateImpl = update;
     this.index = 0;
     this.lastT = 0;
-    this.tDeltaMillis = 250;
+    this.tDeltaMillis = 500;
 
     this.randomAmount = 30;
     this.randomSeq = new Array(seq.length);
@@ -63,6 +63,7 @@ class Sequencer {
     let count1 = Math.floor(this.lastT / this.tDeltaMillis + offset1);
     if(count0 - count1 > 0) {
       this.lastT = t;
+      this.index = (this.index + 1) % this.seq.length;
       this.updateImpl(this);
     }
   }
@@ -72,7 +73,7 @@ class Sequencer {
     let offset1 = this.offset[(this.index - 1 + this.offset.length) % this.offset.length];
     let tDiff = t - this.lastT;
     let tOffsetDiff = (1 - offset0 + offset1) * this.tDeltaMillis;
-    let rate = EasingFunctions.easeInOutCubic(tDiff / tOffsetDiff);
+    let rate = EasingFunctions.easeInOutQuint(tDiff / tOffsetDiff);
 
     if(i == undefined) {
       let note1 = this.seq[this.index];
@@ -89,7 +90,7 @@ class Sequencer {
 
 const seq0 = new Sequencer({
   seq: [2, 3, 4, 0, 2, 0, 4, 5],//, 2, 3, 4, 0, 2, 0, 4, 5],
-  offset: [0.0, 0.0, 0.5, 0.0, 0.0, 0.5, 0.0, 0.0],
+  offset: [0.0, 0.0, 0.25, 0.0, 0.0, 0.25, 0.25, 0.0],
   update: (self) => {
     if(osc) {
       osc.stop();
@@ -107,7 +108,6 @@ const seq0 = new Sequencer({
       else {
         gainNode.gain.value = 0;
       }
-      self.index = (self.index + 1) % self.seq.length;
       gainNode.gain.setTargetAtTime(0, ac.currentTime, 0.075);
 
       if(Math.random() > 0.85) {
@@ -125,7 +125,7 @@ const seq0 = new Sequencer({
 
 const seq1 = new Sequencer({
   seq: [1, 1, 0, 1, 1, 0, 1, 1],
-  offset: [0.1, 0.1, 0.3, 0.1, 0.1, 0.3, 0.1, 0.1],
+  offset: [0.0, 0.25, 0.0, 0.0, 0.25, 0.0, 0.0, 0.25],
   update: (self) => {
     if(whiteNoise) {
       if(self.seq[self.index] > 0) {
@@ -134,7 +134,6 @@ const seq1 = new Sequencer({
       else {
         gainNode2.gain.value = 0;
       }
-      self.index = (self.index + 1) % self.seq.length;
       gainNode2.gain.setTargetAtTime(0, ac.currentTime, 0.075);
       biquadFilter.frequency.setValueAtTime(1500, ac.currentTime);
       biquadFilter.gain.setValueAtTime(25, ac.currentTime);
@@ -190,14 +189,14 @@ let camera;
     const camera_far = 50;
     // Set some camera defaults
     camera = new THREE.PerspectiveCamera(camera_focal, window.innerWidth / window.innerHeight, camera_near, camera_far);
-    camera.position.set(0, camera_range, 3);
+    camera.position.set(0, camera_range, 4);
     camera.lookAt(camera_target);
 }
 
 scene.add(new THREE.AmbientLight(0xBBBBBB));
 
 // Add directional light
-const light_spot_positions = [{ x: -2, y: -2, z: 3.5 },{ x: 3, y: 1, z: 3.5 }]
+const light_spot_positions = [{ x: -3, y: -3, z: 5.5 },{ x: 4, y: 2, z: 5.5 }]
 const light_colors = [0xDDDDDD, 0xDDDDDD]
 // const light_colors = [0x990000, 0x000099]
 for(let i = 0; i < 2; i++) {
@@ -212,32 +211,47 @@ for(let i = 0; i < 2; i++) {
     scene.add(spot_light);
 }
 
-const tile_material = new THREE.MeshLambertMaterial({ color: 0xdddddd });
+const textureVig = new THREE.TextureLoader().load( "vig.png" );
+const tile_material = new THREE.MeshLambertMaterial({ color: 0xdddddd, map: textureVig });
+const floor_material = new THREE.MeshLambertMaterial({ color: 0xFFFFFF });
 
-const theBoxes = [];
+const theBoxes0 = [];
+const theBoxes1 = [];
 
-for(let i = -5; i <= 5; i++) {
-    for(let j = -5; j <= 5; j++) {
-        {
-            const plane_geometry = new THREE.PlaneGeometry(2, 2, 1, 1);
-            const plane_mesh = new THREE.Mesh(plane_geometry, tile_material);
-            plane_mesh.position.set(j * 2, i * 2, -1);
-            plane_mesh.receiveShadow = true;
-            scene.add(plane_mesh);
-        }
-    }
+{
+  const plane_geometry = new THREE.PlaneGeometry(2*20, 2*20, 1, 1);
+  const plane_mesh = new THREE.Mesh(plane_geometry, floor_material);
+  // plane_mesh.position.set(j * 2, i * 2, -1);
+  plane_mesh.position.set(0, 0, -1);
+  plane_mesh.receiveShadow = true;
+  scene.add(plane_mesh);
 }
+
+// for(let i = -5; i <= 5; i++) {
+//     for(let j = -5; j <= 5; j++) {
+//         {
+//             const plane_geometry = new THREE.PlaneGeometry(2, 2, 1, 1);
+//             const plane_mesh = new THREE.Mesh(plane_geometry, floor_material);
+//             plane_mesh.position.set(j * 2, i * 2, -1);
+//             plane_mesh.receiveShadow = true;
+//             scene.add(plane_mesh);
+//         }
+//     }
+// }
 for(let i = -2.5; i <= 2.5; i++) {
     for(let j = -2.5; j <= 2.5; j++) {
-        if(Math.random() > 0.5 && theBoxes.length < 30) {
-            const box_geometry = new THREE.BoxGeometry(0.25, 0.25, 0.25);
+        if(Math.random() > 0.5 && theBoxes0.length < 30 && theBoxes1.length < 30) {
+            const box_geometry = new THREE.BoxGeometry(0.25*4, 0.25*4, 0.25*0.25);
             const box_mesh = new THREE.Mesh(box_geometry, tile_material);
             box_mesh.castShadow = true;
             box_mesh.receiveShadow = true;
             box_mesh.position.set(j * 2, i * 2, Math.floor(Math.random() * 3));
             scene.add(box_mesh);
-            theBoxes.push(box_mesh);
-        }
+            if(Math.random() > 0.5)
+              theBoxes0.push(box_mesh);
+            else
+              theBoxes1.push(box_mesh);
+          }
     }
 }
 
@@ -307,8 +321,11 @@ const render = () => {
   
     let d = new Date();
     let t = d.getTime();
-    for(let i = 0; i < theBoxes.length; i++) {
-      theBoxes[i].position.set(seq0.getNote(t, i), theBoxes[i].position.y, theBoxes[i].position.z);
+    for(let i = 0; i < theBoxes0.length; i++) {
+      theBoxes0[i].position.set(seq0.getNote(t, i), theBoxes0[i].position.y, theBoxes0[i].position.z);
+    }
+    for(let i = 0; i < theBoxes1.length; i++) {
+      theBoxes1[i].position.set(seq1.getNote(t, i), theBoxes1[i].position.y, theBoxes1[i].position.z);
     }
 
     requestAnimationFrame(render);
