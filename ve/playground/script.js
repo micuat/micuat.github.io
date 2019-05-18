@@ -45,6 +45,15 @@ class Sequencer {
     this.index = 0;
     this.lastT = 0;
     this.tDeltaMillis = 250;
+
+    this.randomAmount = 30;
+    this.randomSeq = new Array(seq.length);
+    for(let n = 0; n < this.randomAmount; n++) {
+      this.randomSeq[n] = [];
+      for(let i = 0; i < this.seq.length; i++) {
+        this.randomSeq[n][i] = Math.floor(Math.random() * 16 - 8);
+      }
+    }
   }
 
   update(t) {
@@ -58,12 +67,20 @@ class Sequencer {
     }
   }
 
-  getNote(t) {
+  getNote(t, i) {
     let tDiff = t - this.lastT;
     let rate = EasingFunctions.easeInOutQuint(tDiff / this.tDeltaMillis);
-    let note1 = this.seq[this.index];
-    let note0 = this.seq[(this.index - 1 + this.seq.length) % this.seq.length];
-    return note0 * (1 - rate) + note1 * rate;
+
+    if(i == undefined) {
+      let note1 = this.seq[this.index];
+      let note0 = this.seq[(this.index - 1 + this.seq.length) % this.seq.length];
+      return note0 * (1 - rate) + note1 * rate;
+    }
+    else {
+      let note1 = this.randomSeq[i][this.index];
+      let note0 = this.randomSeq[i][(this.index - 1 + this.seq.length) % this.seq.length];
+      return note0 * (1 - rate) + note1 * rate;
+    }
   }
 }
 
@@ -170,21 +187,23 @@ let camera;
     const camera_far = 50;
     // Set some camera defaults
     camera = new THREE.PerspectiveCamera(camera_focal, window.innerWidth / window.innerHeight, camera_near, camera_far);
-    camera.position.set(0, camera_range, 1);
+    camera.position.set(0, camera_range, 3);
     camera.lookAt(camera_target);
 }
 
-scene.add(new THREE.AmbientLight(0xffffff));
+scene.add(new THREE.AmbientLight(0xBBBBBB));
 
 // Add directional light
-const light_spot_positions = [{ x: -2, y: -2, z: 1.5 },{ x: 3, y: 1, z: 1.5 }]
+const light_spot_positions = [{ x: -2, y: -2, z: 3.5 },{ x: 3, y: 1, z: 3.5 }]
+const light_colors = [0xDDDDDD, 0xDDDDDD]
+// const light_colors = [0x990000, 0x000099]
 for(let i = 0; i < 2; i++) {
-    let spot_light = new THREE.SpotLight(0xDDDDDD, 0.5);
+    let spot_light = new THREE.SpotLight(light_colors[i], 0.5);
     spot_light.position.set(light_spot_positions[i].x, light_spot_positions[i].y, light_spot_positions[i].z);
     spot_light.target = scene;
     spot_light.castShadow = true;
     spot_light.receiveShadow = true;
-    spot_light.shadow.camera.near = 0.5;
+    spot_light.shadow.camera.near = 0.15;
     spot_light.shadow.mapSize.width = 1024 * 2; // default is 512
     spot_light.shadow.mapSize.height = 1024 * 2; // default is 512	
     scene.add(spot_light);
@@ -192,7 +211,7 @@ for(let i = 0; i < 2; i++) {
 
 const tile_material = new THREE.MeshLambertMaterial({ color: 0xdddddd });
 
-let theBox;
+const theBoxes = [];
 
 for(let i = -5; i <= 5; i++) {
     for(let j = -5; j <= 5; j++) {
@@ -207,14 +226,14 @@ for(let i = -5; i <= 5; i++) {
 }
 for(let i = -2.5; i <= 2.5; i++) {
     for(let j = -2.5; j <= 2.5; j++) {
-        if(Math.random() > 0.75) {
+        if(Math.random() > 0.5 && theBoxes.length < 30) {
             const box_geometry = new THREE.BoxGeometry(0.25, 0.25, 0.25);
             const box_mesh = new THREE.Mesh(box_geometry, tile_material);
             box_mesh.castShadow = true;
             box_mesh.receiveShadow = true;
-            box_mesh.position.set(j * 2, i * 2, 0);
+            box_mesh.position.set(j * 2, i * 2, Math.floor(Math.random() * 3));
             scene.add(box_mesh);
-            theBox = box_mesh;
+            theBoxes.push(box_mesh);
         }
     }
 }
@@ -285,7 +304,9 @@ const render = () => {
   
     let d = new Date();
     let t = d.getTime();
-    theBox.position.set(seq0.getNote(t), 0, 0);
+    for(let i = 0; i < theBoxes.length; i++) {
+      theBoxes[i].position.set(seq0.getNote(t, i), theBoxes[i].position.y, theBoxes[i].position.z);
+    }
 
     requestAnimationFrame(render);
 
