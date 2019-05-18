@@ -34,6 +34,20 @@ document.addEventListener('click', function (event) {
     osc.start();
 
     whiteNoise.connect(biquadFilter);
+
+
+    if ( navigator.mediaDevices && navigator.mediaDevices.getUserMedia ) {
+      var constraints = { video: { width: 1280, height: 720, facingMode: 'user' } };
+      navigator.mediaDevices.getUserMedia( constraints ).then( function ( stream ) {
+        // apply the stream to the video element used in the texture
+        video.srcObject = stream;
+        video.play();
+      } ).catch( function ( error ) {
+        console.error( 'Unable to access the camera/webcam.', error );
+      } );
+    } else {
+      console.error( 'MediaDevices interface not available.' );
+    }
   }
 });
 
@@ -212,10 +226,6 @@ for (let i = 0; i < 2; i++) {
 }
 
 {
-  const boxWidth = 1;
-  const boxHeight = 1;
-  const boxDepth = 1;
-  const geometry = new THREE.BoxGeometry(boxWidth, boxHeight, boxDepth);
   fragmentShader = `
   #include <common>
 
@@ -229,16 +239,17 @@ for (let i = 0; i < 2; i++) {
   #define TILES 8
   #define COLOR 0.7, 1.6, 2.8
 
+  varying vec2 vUv;
+  varying vec4 vPosition;
+
   void mainImage( out vec4 fragColor, in vec2 fragCoord )
   {
     vec2 uv = fragCoord.xy / iResolution.xy;
     uv.x *= iResolution.x / iResolution.y;
     
     vec4 noise = texture2D(iChannel0, uv);
-    fragColor = vec4(COLOR, 1.0);// * noise.r;
+    fragColor = vec4(vec3(sin(vPosition.y * 100.0) * 0.5 + 0.5), 1.0);// * noise.r;
   }
-
-  varying vec2 vUv;
 
   void main() {
     mainImage(gl_FragColor, vUv * iResolution.xy);
@@ -246,29 +257,19 @@ for (let i = 0; i < 2; i++) {
   `;
   vertexShader = `
     varying vec2 vUv;
+    varying vec4 vPosition;
     void main() {
       vUv = uv;
+      vPosition = modelViewMatrix * vec4( position, 1.0 );
       gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
     }
   `;
 
-
-  const loader = new THREE.TextureLoader();
-  // const texture = loader.load('https://threejsfundamentals.org/threejs/resources/images/bayer.png');
-  // texture.minFilter = THREE.NearestFilter;
-  // texture.magFilter = THREE.NearestFilter;
-  // texture.wrapS = THREE.RepeatWrapping;
-  // texture.wrapT = THREE.RepeatWrapping;
   uniforms = {
     iTime: { value: 0 },
     iResolution: { value: new THREE.Vector3(1, 1, 1) },
     // iChannel0: { value: texture },
   };
-  const material = new THREE.ShaderMaterial({
-    vertexShader,
-    fragmentShader,
-    uniforms,
-  });
 }
 
 const textureVig = new THREE.TextureLoader().load("vig.png");
@@ -276,13 +277,16 @@ const tile_material = new THREE.ShaderMaterial({
   vertexShader,
   fragmentShader,
   uniforms,
-}); const floor_material = new THREE.MeshLambertMaterial({ color: 0xFFFFFF });
+});
+const video = document.getElementById( 'video' );
+const webcamTexture = new THREE.VideoTexture( video );
+const floor_material = new THREE.MeshLambertMaterial({ color: 0xFFFFFF, map: webcamTexture });
 
 const theBoxes0 = [];
 const theBoxes1 = [];
 
 {
-  const plane_geometry = new THREE.PlaneGeometry(2 * 20, 2 * 20, 1, 1);
+  const plane_geometry = new THREE.PlaneGeometry(2 * 10, 2 * 10, 1, 1);
   const plane_mesh = new THREE.Mesh(plane_geometry, floor_material);
   // plane_mesh.position.set(j * 2, i * 2, -1);
   plane_mesh.position.set(0, 0, -1);
@@ -305,12 +309,12 @@ const theBoxes1 = [];
 for (let i = -2.5; i <= 2.5; i++) {
   for (let j = -2.5; j <= 2.5; j++) {
     if (Math.random() > 0.5 && theBoxes0.length < 30 && theBoxes1.length < 30) {
-      const box_geometry = new THREE.BoxGeometry(0.25 * 4, 0.25 * 4, 0.25 * 0.25);
+      const box_geometry = new THREE.BoxGeometry(0.25 * 8, 0.25 * 8, 0.25 * 0.25);
       const box_mesh = new THREE.Mesh(box_geometry, tile_material);
       box_mesh.castShadow = true;
       box_mesh.receiveShadow = true;
       box_mesh.position.set(j * 2, i * 2, Math.floor(Math.random() * 3));
-      scene.add(box_mesh);
+      // scene.add(box_mesh);
       if (Math.random() > 0.5)
         theBoxes0.push(box_mesh);
       else
@@ -321,7 +325,7 @@ for (let i = -2.5; i <= 2.5; i++) {
 
 let line;
 const MAX_POINTS = 500;
-let drawCount;
+// let drawCount;
 let tween = 0;
 
 // geometry
@@ -329,38 +333,94 @@ var geometry = new THREE.BufferGeometry();
 
 // attributes
 var positions = new Float32Array(MAX_POINTS * 3); // 3 vertices per point
+var indices = new Uint16Array(MAX_POINTS * 3); // 3 vertices per tri
 geometry.addAttribute('position', new THREE.BufferAttribute(positions, 3));
+geometry.setIndex(new THREE.BufferAttribute(indices, 1));
 
 // drawcalls
-drawCount = 2; // draw the first 2 points, only
-geometry.setDrawRange(0, drawCount);
+// drawCount = 2; // draw the first 2 points, only
+// geometry.setDrawRange(0, drawCount);
 
 // material
-var material = new THREE.LineBasicMaterial({ color: 0xff0000, linewidth: 2 });
+var material = new THREE.MeshLambertMaterial({ color: 0xff0000 });
 
 // line
-line = new THREE.Line(geometry, material);
-// scene.add( line ); // hehe
+line = new THREE.Mesh(geometry, material);
+line.castShadow = true;
+scene.add( line ); // hehe
 
 // update positions
-updatePositions();
+updatePositions(0);
 
-function updatePositions() {
-  tween = seq0.seq[seq0.index] * 0.5 + 0.5 * tween;
+function updatePositions(t) {
   let positions = line.geometry.attributes.position.array;
+  let indices = line.geometry.index.array;
 
   let x = y = z = index = 0;
 
-  for (let i = 0, l = MAX_POINTS; i < l; i++) {
-    x = Math.cos(i * 0.1 + drawCount * 0.1) * 0.2 * tween;
-    z = Math.sin(i * 0.1 + drawCount * 0.1) * 0.2 * tween;
-    y = 0;
+  // for (let i = 0; i < MAX_POINTS; i++) {
+  //   // x = Math.cos(i * 0.1 + drawCount * 0.1) * 0.2 * tween;
+  //   // z = Math.sin(i * 0.1 + drawCount * 0.1) * 0.2 * tween;
+  //   // y = 0;
 
-    positions[index++] = x;//*0.01+0.99*positions[ index ];
-    positions[index++] = y;//*0.01+0.99*positions[ index ];
-    positions[index++] = z;//*0.01+0.99*positions[ index ];
+  //   if(i % 2 == 0) {
+  //     iii = Math.floor(i / MAX_POINTS * 30);
+  //     x = seq0.getNote(t, iii) * 0.5 ;
+  //   }
+  //   else {
+  //     iii = Math.floor(i / MAX_POINTS * 30);
+  //     x = seq1.getNote(t, iii) * 0.5;
+  //   }
+  //   x-=4.5;
+  //   y = (i-25)*0.1;
+  //   z = 0;// + i * 0.01;
 
+  //   let d = 0.03;
+  //   positions[index++] = x*0;
+  //   positions[index++] = y;
+  //   positions[index++] = z;
 
+  //   positions[index++] = x + d;
+  //   positions[index++] = y;
+  //   positions[index++] = z;
+
+  //   positions[index++] = x*0;
+  //   positions[index++] = y + d;
+  //   positions[index++] = z;
+
+  //   positions[index++] = x + d;
+  //   positions[index++] = y;
+  //   positions[index++] = z;
+
+  //   positions[index++] = x + d;
+  //   positions[index++] = y + d;
+  //   positions[index++] = z;
+
+  //   positions[index++] = x*0;
+  //   positions[index++] = y + d;
+  //   positions[index++] = z;
+
+  // }
+  for (let i = 0; i < MAX_POINTS; i++) {
+    // x = Math.cos(i * 0.1 + drawCount * 0.1) * 0.2 * tween;
+    // z = Math.sin(i * 0.1 + drawCount * 0.1) * 0.2 * tween;
+    // y = 0;
+
+    if(i % 2 == 0) {
+      iii = Math.floor(i / MAX_POINTS * 30);
+      x = seq0.getNote(t, iii) * 0.5 ;
+    }
+    else {
+      iii = Math.floor(i / MAX_POINTS * 30);
+      x = seq1.getNote(t, iii) * 0.5;
+    }
+
+    indices[index] = index;
+    positions[index++] = (i - MAX_POINTS/2)*0.1;
+    indices[index] = index;
+    positions[index++] = x+Math.random() * 1;
+    indices[index] = index;
+    positions[index++] = Math.random() * 2;
   }
 
 }
@@ -373,18 +433,16 @@ const render = (time) => {
   camera.up.set(0, 0, 1);
   camera.lookAt(camera_target);
 
-  drawCount = (drawCount + 1) % MAX_POINTS;
-
   line.geometry.setDrawRange(0, MAX_POINTS);
-
-
-  // periodically, generate new data
-  updatePositions();
-  line.geometry.attributes.position.needsUpdate = true; // required after the first render
-  line.material.color.setHSL(0.7, 1, 0.5);
 
   let d = new Date();
   let t = d.getTime();
+
+  // periodically, generate new data
+  updatePositions(t);
+  line.geometry.attributes.position.needsUpdate = true; // required after the first render
+  line.material.color.setHSL(0.7, 1, 0.5);
+
   for (let i = 0; i < theBoxes0.length; i++) {
     theBoxes0[i].position.set(seq0.getNote(t, i), theBoxes0[i].position.y, theBoxes0[i].position.z);
   }
