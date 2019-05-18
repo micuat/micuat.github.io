@@ -167,6 +167,9 @@ const sketches = [
     new Sketch({color: "b7ad99-ff4365-030301-07beb8-15b097", date: 190513, words: ["trench", "drop", "marble", "海溝"]}),
     new Sketch({color: "2364aa-3da5d9-73bfb8-fec601-ea7317", date: 190514, words: ["blue", "missing", "hole", "light", "flat", "穴"]}),
     new Sketch({color: "7a6c5d-edcb96-f5e2c8-f7c4a5-edcb96", date: 190515, words: ["Baumkuchen", "white", "advancement", "前進"]}),
+    new Sketch({color: "92ac86-696047-9eadc8-55251d-5a1807", date: 190516, words: ["gate", "sparse", "replacement", "補完"]}),
+    new Sketch({color: "424874-dcd6f7-a6b1e1-cacfd6-d6e5e3", date: 190517, words: ["dipole", "slimy", "extreme", "双極"]}),
+    new Sketch({color: "b80c09-031a6b-033860-083d77-ef233c", date: 190518, words: ["breathing", "warmth", "温度"]}),
 ];
 
 const container = document.createElement( 'div' );
