@@ -68,8 +68,11 @@ class Sequencer {
   }
 
   getNote(t, i) {
+    let offset0 = this.offset[this.index];
+    let offset1 = this.offset[(this.index - 1 + this.offset.length) % this.offset.length];
     let tDiff = t - this.lastT;
-    let rate = EasingFunctions.easeInOutQuint(tDiff / this.tDeltaMillis);
+    let tOffsetDiff = (1 - offset0 + offset1) * this.tDeltaMillis;
+    let rate = EasingFunctions.easeInOutCubic(tDiff / tOffsetDiff);
 
     if(i == undefined) {
       let note1 = this.seq[this.index];
@@ -86,7 +89,7 @@ class Sequencer {
 
 const seq0 = new Sequencer({
   seq: [2, 3, 4, 0, 2, 0, 4, 5],//, 2, 3, 4, 0, 2, 0, 4, 5],
-  offset: [0.1, 0.1, 0.3, 0.1, 0.1, 0.3, 0.1, 0.1],
+  offset: [0.0, 0.0, 0.5, 0.0, 0.0, 0.5, 0.0, 0.0],
   update: (self) => {
     if(osc) {
       osc.stop();
@@ -114,7 +117,7 @@ const seq0 = new Sequencer({
         else {
           self.seq[self.index] = 0;
         }
-        self.offset[self.index] = Math.floor(Math.random() * 4) * 0.1;
+        // self.offset[self.index] = Math.floor(Math.random() * 4) * 0.1;
       }
     }
   }
