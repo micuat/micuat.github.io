@@ -9,7 +9,7 @@ const plane_height = 1.8 * 240/320;
 const plane_position = { x: 0, y: 0, z: 0 };
 
 class Sketch {
-    constructor({color, words}) {
+    constructor({color, words, date}) {
         this.colors = [];
         {
             let cs = color.split("-");
@@ -18,6 +18,7 @@ class Sketch {
             }
         }
         this.words = words;
+        this.date = date;
     }
 
     color (i) {
@@ -155,21 +156,22 @@ class Sketch {
 }
 
 const sketches = [
-    new Sketch({color: "ea8c55-c75146-bb0a21-81171b-540804", words: ["lava", "blood", "emergence", "脈"]}),
-    new Sketch({color: "d6e681-fcfcfc-f6f930-2f2f2f-000000", words: ["orbit", "axis", "stability", "回転"]}),
-    new Sketch({color: "104f55-93e1d8-32746d-01200f-011502", words: ["rubber", "sticky", "執着"]}),
-    new Sketch({color: "668586-82aeb1-93c6d6-a7acd9-9e8fb2", words: ["metal", "unaligned", "rotation", "齟齬"]}),
-    new Sketch({color: "78c0e0-449dd1-192bc2-150578-0e0e52", words: ["curve", "cold", "sting", "貫通"]}),
-    new Sketch({color: "ffcab1-ecdcb0-c1d7ae-8cc084-968e85", words: ["landscape", "artificial", "calm", "整然"]}),
-    new Sketch({color: "88a2aa-ada296-e2856e-0f1a20-ff1b1c", words: ["space", "visual", "expansion", "free", "空白"]}),
-    new Sketch({color: "010001-2b0504-874000-bc5f04-fd151b", words: ["spikes", "excitement", "不安"]}),
-    new Sketch({color: "010001-2b0504-874000-bc5f04-fd151b", date: 190512, words: ["spikes", "excitement", "不安"]}),
-    new Sketch({color: "b7ad99-ff4365-030301-07beb8-15b097", date: 190513, words: ["trench", "drop", "marble", "海溝"]}),
-    new Sketch({color: "2364aa-3da5d9-73bfb8-fec601-ea7317", date: 190514, words: ["blue", "missing", "hole", "light", "flat", "穴"]}),
-    new Sketch({color: "7a6c5d-edcb96-f5e2c8-f7c4a5-edcb96", date: 190515, words: ["Baumkuchen", "white", "advancement", "前進"]}),
-    new Sketch({color: "92ac86-696047-9eadc8-55251d-5a1807", date: 190516, words: ["gate", "sparse", "replacement", "補完"]}),
-    new Sketch({color: "424874-dcd6f7-a6b1e1-cacfd6-d6e5e3", date: 190517, words: ["dipole", "slimy", "extreme", "双極"]}),
-    new Sketch({color: "b80c09-031a6b-033860-083d77-ef233c", date: 190518, words: ["breathing", "warmth", "温度"]}),
+    new Sketch({color: "ea8c55-c75146-bb0a21-81171b-540804", date: "190505", words: ["lava", "blood", "emergence", "脈"]}),
+    new Sketch({color: "d6e681-fcfcfc-f6f930-2f2f2f-000000", date: "190506", words: ["orbit", "axis", "stability", "回転"]}),
+    new Sketch({color: "104f55-93e1d8-32746d-01200f-011502", date: "190507", words: ["rubber", "sticky", "執着"]}),
+    new Sketch({color: "668586-82aeb1-93c6d6-a7acd9-9e8fb2", date: "190508", words: ["metal", "unaligned", "rotation", "齟齬"]}),
+    new Sketch({color: "78c0e0-449dd1-192bc2-150578-0e0e52", date: "190509", words: ["curve", "cold", "sting", "貫通"]}),
+    new Sketch({color: "ffcab1-ecdcb0-c1d7ae-8cc084-968e85", date: "190510", words: ["landscape", "artificial", "calm", "整然"]}),
+    new Sketch({color: "88a2aa-ada296-e2856e-0f1a20-ff1b1c", date: "190511", words: ["space", "visual", "expansion", "free", "空白"]}),
+    new Sketch({color: "010001-2b0504-874000-bc5f04-fd151b", date: "190512", words: ["spikes", "excitement", "不安"]}),
+    new Sketch({color: "b7ad99-ff4365-030301-07beb8-15b097", date: "190513", words: ["trench", "drop", "marble", "海溝"]}),
+    new Sketch({color: "2364aa-3da5d9-73bfb8-fec601-ea7317", date: "190514", words: ["blue", "missing", "hole", "light", "flat", "穴"]}),
+    new Sketch({color: "7a6c5d-edcb96-f5e2c8-f7c4a5-edcb96", date: "190515", words: ["Baumkuchen", "white", "advancement", "前進"]}),
+    new Sketch({color: "92ac86-696047-9eadc8-55251d-5a1807", date: "190516", words: ["gate", "sparse", "replacement", "補完"]}),
+    new Sketch({color: "424874-dcd6f7-a6b1e1-cacfd6-d6e5e3", date: "190517", words: ["dipole", "slimy", "extreme", "双極"]}),
+    new Sketch({color: "b80c09-031a6b-033860-083d77-ef233c", date: "190518", words: ["breathing", "warmth", "温度"]}),
+    new Sketch({color: "cce8cc-f6efee-78e0dc-8eedf7-a1cdf1", date: "190519", words: ["wind", "spread", "soothing", "平穏"]}),
+    new Sketch({color: "695958-c8ead3-8cbcb9-cfffe5-cedada", date: "190520", words: ["random", "noise", "weight", "偏り"]}),
 ];
 
 const container = document.createElement( 'div' );
@@ -335,12 +337,26 @@ const render = () => {
     stats.update();
 };
 
+let initialized = false;
+document.addEventListener('click', function (event) {
+    if(initialized == false) {
+        for(let i = 0; i < sketches.length; i++) {
+            const video = document.createElement('video');
+            video.id = sketches[i].date;
+            document.body.appendChild( video );
+            video.src = `./assets/${sketches[i].date}.webm`;
+            video.autoplay = true;
+            video.loop = true;
+            video.style = "display:none";
+        }
+    }
+});
 
 const checkExist = setInterval(() => {
     let failed = true;
     for(let i = 0; i < sketches.length; i++) {
-        if (document.getElementById('webm_element' + i) != null) {
-            textures[i] = new THREE.Texture(document.getElementById('webm_element' + i));
+        if (document.getElementById(sketches[i].date) != null) {
+            textures[i] = new THREE.Texture(document.getElementById(sketches[i].date));
             if(textures[i].image.width < 256)
                 textures[i].minFilter = THREE.NearestFilter;
             plane_materials[i].map = textures[i];
@@ -349,8 +365,8 @@ const checkExist = setInterval(() => {
         }
     }
     if (failed == false) {
-        render();
         clearInterval(checkExist);
+        render();
     }
 }, 100);
 
