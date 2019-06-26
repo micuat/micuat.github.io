@@ -26,6 +26,7 @@ body {
   display: inline-block;
   line-height: 1.5em;
 }
+
 a {
   color: #8F2D56;
   background-color: #FFBC42;
@@ -91,8 +92,34 @@ h2 {
   width: 600px;
 }
 
+.f2 {
+  width: 200px;
+  margin: 0
+}
+
+.row2 {
+  width:600px;
+  margin: auto;
+  display: flex;
+  display: -webkit-flex;
+  /* Safari 8 */
+  flex-wrap: wrap;
+  -webkit-flex-wrap: wrap;
+  /* Safari 8 */
+  justify-content: center;
+  -webkit-justify-content: center;
+  /* Safari 8 */
+}
+
+
 #copyright {
   margin-top: 50px;
 }
-.right {font-size: 17px; width: 750px; text-align: center; margin-left: auto; margin-right: auto;
+
+.right {
+  font-size: 17px;
+  width: 750px;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
 }
