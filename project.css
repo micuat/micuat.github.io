@@ -9,12 +9,22 @@ body {
   text-align: center;
 }
 
+.caption {
+  text-align: center;
+  font-weight: normal;
+  font-family: Verdana, Geneva, sans-serif;
+  width: 600px;
+  display: inline-block;
+  line-height: 1.5em;
+}
+
 .seriouswriting {
   text-align: justify;
   font-weight: normal;
   font-family: Verdana, Geneva, sans-serif;
   width: 600px;
   display: inline-block;
+  line-height: 1.5em;
 }
 a {
   color: #8F2D56;
@@ -84,5 +94,5 @@ h2 {
 #copyright {
   margin-top: 50px;
 }
-.right {font-size: 17px; width: 750px; text-align: right; margin-left: auto; margin-right: auto;
+.right {font-size: 17px; width: 750px; text-align: center; margin-left: auto; margin-right: auto;
 }
