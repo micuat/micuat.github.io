@@ -11,58 +11,7 @@
 <div id="main">
 <div id="content">
 
-<h1>Mémoire Liquide (Nuit Blanche à Montréal 2015)</h1>
-
-<div class="row">
-
-<div class="f">
-<iframe src="https://player.vimeo.com/video/130157438" width="560" height="315" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
-</div>
-<div class="f">
-<iframe width="560" height="315" src="https://www.youtube.com/embed/xAWZ4DOHXgM?rel=0" frameborder="0" allowfullscreen></iframe>
-</div>
-<div class="f">
-<iframe id="iframe" src="http://flickrit.com/slideshowholder.php?height=315&width=560&size=medium&setId=72157651042271506&thumbnails=0&transition=0&layoutType=fixed&sort=0" scrolling="no" frameborder="0" width="560" height="315"></iframe>
-</div>
-
-</div>
-
-<p>
-The installation includes three computers: a body projection PC, a front projection PC and a back projection PC.
-</p>
-
-<p>
-Participants stand on the stage, and their skeletons are tracked by Kinect and OpenNI+NiTE (<a href="https://github.com/SolitaryCipher/ofxOpenNI" target="_blank">ofxOpenNI</a>)
-on the body projection PC.
-The body projection PC is connected to a projector facing to the stage which is calibrated by <a href="https://github.com/micuat/mapamokinect" target="_blank">customized mapamok</a>.
-Tracked hand coordinates are warped to the projector coordinate system,
-and fluid is generated on the warped position with an initial velocity corresponding to the hand velocity (<a href="https://github.com/patriciogonzalezvivo/ofxFluid" target="_blank">ofxFluid</a>).
-Thus, virtual fluid is projected on the hands and the residual can be projected onto the body.
-To avoid projection on faces, black masks are overlaid on the faces tracked by NiTE.
-</p>
-
-<p>
-The hand coordinates are sent to the front projection PC through OSC for projection on a sculpture.
-This PC renders similar fluid simulation.
-OSC is proxied to a Unity3d app which renders ripples by a customized water asset.
-The scuplture projection PC blends fluid and ripples by Syphon and Resolume, which can be easily controlled by the artists.
-Finally, the blended video is warped by MadMapper for projection.
-</p>
-
-<p>
-The back projection PC projects user contributed videos and images on the other side of the sculpture.
-</p>
-
-<h2>Links</h2>
-
-<p>
-<a href="https://www.facebook.com/Memoireliquideart" target="_blank">Facebook</a><br />
-<a href="https://sat.qc.ca/fr/evenements/nuit-blanche-2015" target="_blank">SAT</a>
-</p>
-
-<p class="right">
-<a href="..">Back</a>
-</p>
+This article is moved <a href="https://naotohieda.com/blog/memoire-liquide">here</a>.
 
 </div>
 </div>
