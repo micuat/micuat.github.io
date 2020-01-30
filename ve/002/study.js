@@ -144,8 +144,8 @@ EasingFunctions = {
   easeInOutQuint: function (t) { return t < .5 ? 16 * t * t * t * t * t : 1 + 16 * (--t) * t * t * t * t }
 }
 
-const width = 400;
-const height = 400;
+const width = 512;
+const height = 512;
 
 class Drawer {
   constructor({ c, args }) {
