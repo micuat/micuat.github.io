@@ -174,8 +174,7 @@ const sketches = [
     // new Sketch({color: "695958-c8ead3-8cbcb9-cfffe5-cedada", date: "190520", words: ["random", "noise", "weight", "偏り"]}),
 ];
 
-const container = document.createElement('div');
-document.body.appendChild(container);
+const container = document.getElementById('container');
 
 // New renderer
 const renderer = new THREE.WebGLRenderer({ antialias: true });
@@ -355,6 +354,7 @@ document.addEventListener('click', function (event) {
             video.loop = true;
             video.style = "display:none";
         }
+        document.getElementById('notice').hidden = true;
     }
 });
 
@@ -363,7 +363,7 @@ const checkExist = setInterval(() => {
     for (let i = 0; i < sketches.length; i++) {
         if (document.getElementById(sketches[i].date) != null) {
             textures[i] = new THREE.Texture(document.getElementById(sketches[i].date));
-            if (textures[i].image.width < 256)
+            // if (textures[i].image.width < 256)
                 textures[i].minFilter = THREE.NearestFilter;
             plane_materials[i].map = textures[i];
             plane_materials[i].displacementMap = textures[i];
@@ -373,7 +373,7 @@ const checkExist = setInterval(() => {
     for (let i = 0; i < 1; i++) {
         if (document.getElementById('defaultCanvas' + i) != null) {
             textures[i] = new THREE.Texture(document.getElementById('defaultCanvas' + i));
-            if (textures[i].image.width < 256)
+            // if (textures[i].image.width < 256)
                 textures[i].minFilter = THREE.NearestFilter;
             plane_materials[i].map = textures[i];
             plane_materials[i].name = 'canvas';
