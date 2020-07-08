@@ -247,7 +247,7 @@ function displayMessage(id, timestamp, name, text, date) {
   // Show the card fading-in and scroll to view the new message.
   setTimeout(function () { div.classList.add('visible') }, 1);
   messageListElement.scrollTop = messageListElement.scrollHeight;
-  messageInputElement.focus();
+  // messageInputElement.focus();
 }
 
 // Enables or disables the submit button depending on the values of the input
