@@ -28,6 +28,10 @@
       background-color: #FFFFFF;
     }
 
+    label {
+      font-size: 0.8em;
+    }
+
     h1,
     h2 {
       /* background-color: #F1F227; */
@@ -65,7 +69,7 @@
     }
 
     .schdesc {
-      font-size: 0.7em;
+      font-size: 0.9em;
       font-family: Verdana, Geneva, sans-serif;
       font-weight: normal;
     }
@@ -75,6 +79,15 @@
       font-size: 1.5em;
       font-weight: normal;
       font-family: Verdana, Geneva, sans-serif;
+    }
+
+    .apt-list-date {
+      font-weight: normal;
+      font-size: 0.9em;
+    }
+
+    .apt-list-title {
+      font-weight: bold;
     }
 
     #calendar {
@@ -118,28 +131,32 @@
     </div>
     <div class="rowimg">
       <a href="https://naotohieda.com/blog/nl-cl-2-flesh/"><img class="projects"
-          alt="screenshot of a performance, showing a video of Naoto in a virtual gallery space"
-          src="./img/ve.png"></a>
+          alt="screenshot of a performance, showing a video of Naoto in a virtual gallery space" src="./img/ve.png"></a>
     </div>
 
 
     <h2>Calendar</h2>
 
-    <!-- <div class="schfuture">
-      <a target="_blank" href="http://ontheline.space/">On_the line</a>
-      <div class="schdesc">
-        Korea / November 7, 2019 - onward<br />
-        Web residency
+    <form id="message-form" action="#">
+      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+        <label for="apt-date">Date:</label>
+        <input type="date" id="apt-date" name="apt-date">
+        <label for="message">Title:</label>
+        <input class="mdl-textfield__input" type="text" id="message" autocomplete="off">
+        <button id="submit" disabled type="submit"
+          class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
+          Send
+        </button>
       </div>
-    </div> -->
+    </form>
+    <div id="messages">
+    </div>
 
-    <div class="schfuture">
-      <a target="_blank" href="https://www.nextmuseum.io/en/experiments/virtual-exhibitions/">nextmuseum.io</a>
+    <!-- <a target="_blank" href="https://www.nextmuseum.io/en/experiments/virtual-exhibitions/">nextmuseum.io</a>
       <div class="schdesc">
         Ongoing<br />
         Online exhibition
-      </div>
-    </div>
+      </div> -->
 
     <h2>About</h2>
 
@@ -170,6 +187,33 @@
     </div>
   </div>
 
+  <!-- The core Firebase JS SDK is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-storage.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-messaging.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-performance.js"></script>
+
+  <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+
+  <script>
+    // Your web app's Firebase configuration
+    var firebaseConfig = {
+      apiKey: "AIzaSyAm-XIhpXSweT7opIl0XunI24ZZEMRof0w",
+      authDomain: "friendlychat-7b077.firebaseapp.com",
+      databaseURL: "https://friendlychat-7b077.firebaseio.com",
+      projectId: "friendlychat-7b077",
+      storageBucket: "friendlychat-7b077.appspot.com",
+      messagingSenderId: "1077459947382",
+      appId: "1:1077459947382:web:24a64358d04344c94cf457"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+  </script>
+
+  <script src="scripts/main.js"></script>
 </body>
 
 </html>
