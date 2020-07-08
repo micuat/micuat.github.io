@@ -6,34 +6,50 @@
   <TITLE>Naoto HIÉDA</TITLE>
   <style type="text/css">
     body {
-      color: #D81159;
-      background-color: #A3D8FF;
+      color: #B11030;
+      background-color: #01BAEF;
       border: 0px;
       padding: 0px;
       margin: 0px;
-      font-weight: bold;
-      font-family: "Arial Black", Gadget, sans-serif;
+      font-weight: normal;
+      font-family: Verdana, Geneva, sans-serif;
       text-align: center;
     }
 
     a {
-      color: #8F2D56;
-      background-color: #FFBC42;
+      /* color: #8F2D56; */
+      color: #F1F227;
+      background-color: #B11030;
       text-decoration: none;
     }
 
     a:hover {
-      color: #FFBC42;
-      background-color: #8F2D56;
+      color: #B11030;
+      background-color: #F1F227;
     }
 
     h1,
     h2 {
+      background-color: #F1F227;
       font-size: 3em;
       font-family: "Arial Black", Gadget, sans-serif;
+      border: 0px;
+      padding: 0px;
+      margin: 30px 0 30px 0;
+
       /* font-family: "Comic Sans MS", cursive, sans-serif; */
-      background-color: #FFBC42;
-      color: #0496FF;
+      /* background-color: #FFBC42;
+      color: #0496FF; */
+    }
+
+    h1:first-child {
+      margin: 0 0 30px 0;
+    }
+
+    #container {
+      border: 0px;
+      padding: 0px;
+      margin: 0px;
     }
 
     .projects {
@@ -45,7 +61,7 @@
       font-size: 0px;
       border: 0px;
       padding: 0px;
-      margin: 0px;
+      margin: 10px;
     }
 
     .schdesc {
@@ -57,8 +73,8 @@
     .schfuture,
     .schpast {
       font-size: 1.5em;
-      font-weight: bold;
-      font-family: "Arial Black", Gadget, sans-serif;
+      font-weight: normal;
+      font-family: Verdana, Geneva, sans-serif;
     }
 
     #calendar {
@@ -69,8 +85,8 @@
     }
 
     #about {
-      font-family: "Arial Black", Gadget, sans-serif;
-      font-weight: bold;
+      font-family: Verdana, Geneva, sans-serif;
+      font-weight: normal;
       display: inline-block;
       text-align: left;
       width: 600px;
@@ -84,26 +100,30 @@
 </head>
 
 <body>
-  <h1>NAOTO HIÉDA</h1>
+  <div id="container">
+    <h1>NAOTO HIÉDA</h1>
 
-  <div id="link">
-    <p>
-      mail at naotohieda dot com <br />
-      <a href="https://naotohieda.com/blog">Blog</a> |
-      <a href="https://twitter.com/naoto_hieda" target="_blank">Twitter</a>
-    </p>
-  </div>
+    <div id="link">
+      <p>
+        mail at naotohieda dot com |
+        <a href="https://naotohieda.com/blog">Works</a> |
+        <a href="https://twitter.com/naoto_hieda" target="_blank">Twitter</a>
+      </p>
+    </div>
 
-  <div class="rowimg">
-    <a href="https://www.nextmuseum.io/en/experiments/virtual-exhibitions/"><img class="projects" alt="virtual exhibition" src="./img/ve007.png"></a>
-    <a href="https://instrumentinventors.org/event/nl_cl-2-flesh/"><img class="projects" alt="performance at NL_CL" src="./img/ve.png"></a>
-  </div>
+    <div class="rowimg">
+      <a href="https://naotohieda.com/blog/virtual-exhibition-007/"><img class="projects"
+          alt="screenshot of virtual exhibition project, showing a virtual gallery with user contributed images"
+          src="./img/2020-07-01-virtual-exhibition-007.png"></a>
+    </div>
+    <div class="rowimg">
+      <a href="https://naotohieda.com/blog/nl-cl-2-flesh/"><img class="projects"
+          alt="screenshot of a performance at netherlands coding live, showing a video of Naoto in a virtual gallery space"
+          src="./img/ve.png"></a>
+    </div>
 
-  <div class="row">
-    <a href="https://naotohieda.com/blog/projects">more...</a>
-  </div>
 
-  <h2>Calendar</h2>
+    <h2>Calendar</h2>
 
     <!-- <div class="schfuture">
       <a target="_blank" href="http://ontheline.space/">On_the line</a>
@@ -111,7 +131,7 @@
         Korea / November 7, 2019 - onward<br />
         Web residency
       </div>
-    </div> -->  
+    </div> -->
 
     <div class="schfuture">
       <a target="_blank" href="https://www.nextmuseum.io/en/experiments/virtual-exhibitions/">nextmuseum.io</a>
@@ -121,41 +141,33 @@
       </div>
     </div>
 
-    <div class="schfuture">
-      <a target="_blank" href="https://www.facebook.com/events/713989809419014/">Digital Dancing</a>
-      <div class="schdesc">
-        July 6, 2020<br />
-        Panel
+    <h2>About</h2>
+
+    <div id="about">
+      <div class="occ">
+        Yoshino Gypsum Art Foundation Fellowship (2020 - 2021)<br />
+      </div>
+
+      <div class="occ">
+        Diplom II, Academy of Media Arts Cologne (2019 -)<br />
+      </div>
+
+      <div class="occ">
+        Pola Art Foundation Fellowship (2017 - 2018)<br />
+      </div>
+
+      <div class="occ">
+        Master of Engineering, McGill University (2012 - 2015)<br />
+      </div>
+
+      <div class="occ">
+        Bachelor of Engineering, Tokyo Institute of Technology (2008 - 2012)<br />
       </div>
     </div>
-  </div>
 
-  <h2>About</h2>
-
-  <div id="about">
-    <div class="occ">
-      Yoshino Gypsum Art Foundation Fellowship (2020 - 2021)<br />
+    <div id="copyright">
+      Naoto Hieda 2020
     </div>
-
-    <div class="occ">
-      Diplom II, Academy of Media Arts Cologne (2019 -)<br />
-    </div>
-
-    <div class="occ">
-      Pola Art Foundation Fellowship (2017 - 2018)<br />
-    </div>
-
-    <div class="occ">
-      Master of Engineering, McGill University (2012 - 2015)<br />
-    </div>
-
-    <div class="occ">
-      Bachelor of Engineering, Tokyo Institute of Technology (2008 - 2012)<br />
-    </div>
-  </div>
-
-  <div id="copyright">
-    Naoto Hieda 2020
   </div>
 
 </body>
