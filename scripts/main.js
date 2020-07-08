@@ -168,9 +168,6 @@ function resetMaterialTextfield(element) {
 // Template for messages.
 var MESSAGE_TEMPLATE =
   '<div class="message-container">' +
-  '<div class="spacing"><div class="pic"></div></div>' +
-  '<div class="message"></div>' +
-  '<div class="name"></div>' +
   '</div>';
 
 // Adds a size to Google Profile pics URLs.
@@ -236,16 +233,16 @@ function displayMessage(id, timestamp, name, text, date) {
   if (isNaN(dt.getMonth())) return;
   var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
     'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-  var d = `${months[dt.getMonth()]} ${dt.getDate()}, ${dt.getFullYear()}`;
+  var d = `<span class="apt-list-date">${months[dt.getMonth()]}</span><span class="apt-list-date">${dt.getDate()},</span><span class="apt-list-date">${dt.getFullYear()}</span>`;
 
   var div = document.getElementById(id) || createAndInsertMessage(id, timestamp);
 
   // div.querySelector('.name').textContent = name;
-  var messageElement = div.querySelector('.message');
+  var messageElement = div;//.querySelector('.message');
 
   // messageElement.textContent = `<span class="date">${date}</span> ${text}`;
   // Replace all line breaks by <br>.
-  messageElement.innerHTML = `<span class="apt-list-date">${d}</span> <span class="apt-list-title">${text}</span>`;
+  messageElement.innerHTML = `${d}<span class="apt-list-title">${text}</span>`;
 
   // Show the card fading-in and scroll to view the new message.
   setTimeout(function () { div.classList.add('visible') }, 1);

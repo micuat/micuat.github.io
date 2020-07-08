@@ -68,12 +68,31 @@
       margin: 10px;
     }
 
+    #messages {
+      display: table;
+      width: 400px;
+      margin-left: auto;
+      margin-right: auto;
+      margin-bottom: 50px;
+    }
+
+    #messages div {
+      display: table-row;
+    }
+
+    #messages div span {
+      display: table-cell;
+    }
+
     .schdesc {
       font-size: 0.9em;
       font-family: Verdana, Geneva, sans-serif;
       font-weight: normal;
     }
 
+    .sch-form-desc {
+      font-size: 0.8em;
+    }
     .schfuture,
     .schpast {
       font-size: 1.5em;
@@ -84,10 +103,15 @@
     .apt-list-date {
       font-weight: normal;
       font-size: 0.9em;
+      padding-left: 0.1em;
+      padding-right: 0.1em;
+      width: 1%;
     }
 
     .apt-list-title {
       font-weight: bold;
+      text-align: left;
+      padding-left: 0.5em;
     }
 
     #calendar {
@@ -137,6 +161,9 @@
 
     <h2>Calendar</h2>
 
+    <div id="messages">
+    </div>
+
     <form id="message-form" action="#">
       <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
         <label for="apt-date">Date:</label>
@@ -149,8 +176,8 @@
         </button>
       </div>
     </form>
-    <div id="messages">
-    </div>
+
+    <p class="sch-form-desc">Due to low demand, I created a form that anyone can write on my calendar.</p>
 
     <!-- <a target="_blank" href="https://www.nextmuseum.io/en/experiments/virtual-exhibitions/">nextmuseum.io</a>
       <div class="schdesc">
