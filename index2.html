@@ -1,0 +1,221 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <TITLE>Naoto HIÉDA</TITLE>
+  <style type="text/css">
+    body {
+      color: #000000;
+      background-color: #FFFFFF;
+      border: 0px;
+      padding: 0px;
+      margin: 0px;
+      font-weight: normal;
+      font-family: Verdana, Geneva, sans-serif;
+      text-align: center;
+    }
+
+    a {
+      /* color: #8F2D56; */
+      color: #FFFFFF;
+      background-color: #01BAEF;
+      text-decoration: none;
+    }
+
+    a:hover {
+      color: #000000;
+      background-color: #FFFFFF;
+    }
+
+    label {
+      font-size: 0.5em;
+    }
+
+    h1,
+    h2 {
+      /* background-color: #F1F227; */
+      font-size: 3em;
+      font-family: "Arial Black", Gadget, sans-serif;
+      border: 0px;
+      padding: 0px;
+      margin: 30px 0 30px 0;
+
+      /* font-family: "Comic Sans MS", cursive, sans-serif; */
+      /* background-color: #FFBC42;
+      color: #0496FF; */
+    }
+
+    h1:first-child {
+      margin: 0 0 30px 0;
+    }
+
+    #container {
+      border: 0px;
+      padding: 0px;
+      margin: 0px;
+    }
+
+    .projects {
+      width: 560px;
+      height: 315px;
+    }
+
+    .rowimg {
+      font-size: 0px;
+      border: 0px;
+      padding: 0px;
+      margin: 10px;
+    }
+
+    .schdesc {
+      font-size: 0.7em;
+      font-family: Verdana, Geneva, sans-serif;
+      font-weight: normal;
+    }
+
+    .schfuture,
+    .schpast {
+      font-size: 1.5em;
+      font-weight: normal;
+      font-family: Verdana, Geneva, sans-serif;
+    }
+
+    #calendar {
+      display: inline-block;
+      margin: 0 auto;
+      text-align: left;
+      width: 600px;
+    }
+
+    #about {
+      font-family: Verdana, Geneva, sans-serif;
+      font-weight: normal;
+      display: inline-block;
+      text-align: left;
+      width: 600px;
+    }
+
+    #copyright {
+      margin-top: 50px;
+    }
+  </style>
+
+</head>
+
+<body>
+  <div id="container">
+    <h1>NAOTO HIÉDA</h1>
+
+    <div id="link">
+      <p>
+        mail at naotohieda dot com |
+        <a href="https://naotohieda.com/blog">Works</a> |
+        <a href="https://twitter.com/naoto_hieda" target="_blank">Twitter</a>
+      </p>
+    </div>
+
+    <div class="rowimg">
+      <a href="https://naotohieda.com/blog/virtual-exhibition-007/"><img class="projects"
+          alt="screenshot of virtual exhibition project, showing a virtual gallery with user contributed images"
+          src="./img/2020-07-01-virtual-exhibition-007.png"></a>
+    </div>
+    <div class="rowimg">
+      <a href="https://naotohieda.com/blog/nl-cl-2-flesh/"><img class="projects"
+          alt="screenshot of a performance, showing a video of Naoto in a virtual gallery space" src="./img/ve.png"></a>
+    </div>
+
+
+    <h2>Calendar</h2>
+
+    <!-- <div class="schfuture">
+      <a target="_blank" href="http://ontheline.space/">On_the line</a>
+      <div class="schdesc">
+        Korea / November 7, 2019 - onward<br />
+        Web residency
+      </div>
+    </div> -->
+
+    <div class="schfuture">
+
+      <form id="message-form" action="#">
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+          <label for="apt-date">Date:</label>
+          <input type="date" id="apt-date" name="apt-date">
+          <label for="message">Subject:</label>
+          <input class="mdl-textfield__input" type="text" id="message" autocomplete="off">
+          <button id="submit" disabled type="submit"
+            class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
+            Send
+          </button>
+        </div>
+      </form>
+      <div id="messages">
+      </div>
+
+      <a target="_blank" href="https://www.nextmuseum.io/en/experiments/virtual-exhibitions/">nextmuseum.io</a>
+      <div class="schdesc">
+        Ongoing<br />
+        Online exhibition
+      </div>
+    </div>
+
+    <h2>About</h2>
+
+    <div id="about">
+      <div class="occ">
+        Yoshino Gypsum Art Foundation Fellowship (2020 - 2021)<br />
+      </div>
+
+      <div class="occ">
+        Diplom II, Academy of Media Arts Cologne (2019 -)<br />
+      </div>
+
+      <div class="occ">
+        Pola Art Foundation Fellowship (2017 - 2018)<br />
+      </div>
+
+      <div class="occ">
+        Master of Engineering, McGill University (2012 - 2015)<br />
+      </div>
+
+      <div class="occ">
+        Bachelor of Engineering, Tokyo Institute of Technology (2008 - 2012)<br />
+      </div>
+    </div>
+
+    <div id="copyright">
+      Naoto Hieda 2020
+    </div>
+  </div>
+
+  <!-- The core Firebase JS SDK is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-storage.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-messaging.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-performance.js"></script>
+
+  <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+
+  <script>
+    // Your web app's Firebase configuration
+    var firebaseConfig = {
+      apiKey: "AIzaSyAm-XIhpXSweT7opIl0XunI24ZZEMRof0w",
+      authDomain: "friendlychat-7b077.firebaseapp.com",
+      databaseURL: "https://friendlychat-7b077.firebaseio.com",
+      projectId: "friendlychat-7b077",
+      storageBucket: "friendlychat-7b077.appspot.com",
+      messagingSenderId: "1077459947382",
+      appId: "1:1077459947382:web:24a64358d04344c94cf457"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+  </script>
+
+  <script src="scripts/main.js"></script>
+</body>
+
+</html>
