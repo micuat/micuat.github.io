@@ -1,16 +1,15 @@
 body {
-  color: #D81159;
-  background-color: #A3D8FF;
+  color: black;
+  background-color: white;
   border: 0px;
   padding: 0px;
   margin: 0px;
-  font-weight: bold;
-  font-family: "Arial Black", Gadget, sans-serif;
-  text-align: center;
+/*   font-weight: bold; */
+  font-family: "Arial", Gadget, sans-serif;
 }
 
 .caption {
-  text-align: center;
+/*   text-align: center; */
   font-weight: normal;
   font-family: Verdana, Geneva, sans-serif;
   width: 600px;
@@ -28,14 +27,15 @@ body {
 }
 
 a {
-  color: #8F2D56;
-  background-color: #FFBC42;
+  color: blue;
+/*   color: #8F2D56;
+  background-color: #FFBC42; */
   text-decoration: none;
 }
 
 a:hover {
-  color: #FFBC42;
-  background-color: #8F2D56;
+  color: white;
+  background-color: black;
 }
 
 #roma {
@@ -45,10 +45,8 @@ a:hover {
 h1,
 h2 {
   font-size: 3em;
-  font-family: "Arial Black", Gadget, sans-serif;
+  font-family: "Arial", Gadget, sans-serif;
   /* font-family: "Comic Sans MS", cursive, sans-serif; */
-  background-color: #FFBC42;
-  color: #0496FF;
 }
 
 .projects {
