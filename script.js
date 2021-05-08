@@ -20,7 +20,7 @@ osc(20,0.02,1.5).rotate(0.1)
 .hue(()=>document.body.scrollTop / 1000)
   .layer(
     src(s0).repeat(3,3).mask(
-      shape(4,0.5,0).scale(1,1,2).repeat(3,3,0.5).scale(1,3).sub(src(s0).repeat(3,3))
+      solid(1,1,1).sub(shape(4,0.5,0).scale(1,1,2).repeat(3,3,0.5).scale(1,3).mult(src(s0).repeat(3,3)))
     )
   )
   .scale(() => (Math.sin(-document.body.scrollTop / 200) + 1) * 1)
