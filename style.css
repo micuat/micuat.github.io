@@ -25,6 +25,11 @@ h1 {
   text-align: center;
   margin: 0 10px 0 10px;
 }
+@media only screen and (max-width: 600px) {
+  h1 {
+  font-size: 20pt;
+  }
+}
 
 h2 {
   font-family: "Cormorant Unicase", sans-serif;
