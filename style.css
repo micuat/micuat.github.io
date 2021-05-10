@@ -25,6 +25,11 @@ h1 {
   text-align: center;
   margin: 0 10px 0 10px;
 }
+@media only screen and (max-width: 600px) {
+  h1 {
+  font-size: 20pt;
+  }
+}
 
 h2 {
   font-family: "Cormorant Unicase", sans-serif;
@@ -84,7 +89,7 @@ canvas {
 section,
 footer {
   padding: 20px 0 20px 0;
-  margin: 20px 0 20px 0;
+  margin: 60px 0 60px 0;
   background-color: rgba(255, 255, 255, 0.9);
   box-shadow: 0 0 10px #000;
   -webkit-box-shadow: 0 0 10px #000;
