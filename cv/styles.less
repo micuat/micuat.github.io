@@ -1,3 +1,9 @@
+@font-face {
+  font-family: "ApfelGrotezk Regular";
+  src: url("https://cdn.glitches.me/ApfelGrotezk-Regular.woff2") format("woff2"),
+    url("https://cdn.glitches.me/ApfelGrotezk-Regular.woff") format("woff");
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -7,7 +13,7 @@ body {
   padding: 0px 10px 0px 10px;
   background: white;
   color: black;
-  font-family: serif;
+  font-family: "ApfelGrotezk Regular", Arial, sans-serif;
   font-size: 11pt;
 }
 
@@ -82,14 +88,15 @@ h4 {
 }
 
 p {
-  margin: 0.6em 0 0 80px;
+  margin: 0.6em 0 0 10px;
   line-height: 1.5em;
 }
 
 blockquote {
-  border: 0 !important;
-  margin: 0.5em 0 !important;
+  margin: 1.5em 0 !important;
   padding-left: 0.6em !important;
+  padding-top: 1.2em;
+  border-top: 3px solid #E0E0E0;
 }
 
 li {
@@ -154,12 +161,6 @@ code {
 
 img {
   max-width: 100%;
-}
-
-blockquote {
-  margin: 1em 0;
-  border-left: 5px solid #ddd;
-  padding-left: .6em;
 }
 
 dt {
