@@ -99,6 +99,7 @@ footer {
 
 section.nopad {
   padding: 0;
+  overflow: hidden;
 }
 
 .gridy > ul {
