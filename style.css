@@ -97,6 +97,10 @@ footer {
   border-radius: 15px;
 }
 
+section.nopad {
+  padding: 0;
+}
+
 .gridy > ul {
   /* text-transform: uppercase; */
   list-style: none outside none;
