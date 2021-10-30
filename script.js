@@ -82,15 +82,18 @@ class SectionApp extends Torus.StyledComponent {
     }
     return css`${c}`;
   }
-  onclick() {
+  onclick(ev) {
     this.code();
     if (this.className === "hidecanvas") {
       app.toggleCanvas();
     }
+    if (this.modal !== undefined) {
+      app.modalApp.toggle(this.modal, ev.pageX, ev.pageY);
+    }
   }
   compose() {
     return jdom`
-      <section class="${this.className}" onclick="${() => this.onclick()}">
+      <section class="${this.className}" onclick="${ev => this.onclick(ev)}">
         ${this.dom}
       </section>
     `
@@ -189,37 +192,35 @@ class ContentApp extends Torus.StyledComponent {
       new SectionApp({
         dom: jdom`
     <div>
-    <a href="https://www.youtube.com/watch?v=d0KMUUOrUvs" target="_blank">
     <img
       class="projects"
       alt="glitch me with flor de fuego"
       style="width: 100%; height: auto"
       src="https://img.glitches.me/images/2021/09/20/vlcsnap-2021-09-20-19h11m28s562.jpg"
     />
-    </a>
     </div>
-    `, nopad: true, code: () => {
+    `, nopad: true,
+        code: () => {
           solid(1, 1, 1).layer(
             src(o0).scale(1, 0.5, -1).hue(2 / 3))
             .layer(
               osc(50, 0.02, 1.5).mask(osc(25, -0.01).thresh(0.5, 0)).mult(osc(25, -0.01, 1.5).r().luma(0, 0))
                 .modulate(noise(2, 0.05).modulate(solid(0, 1), () => time * .2), 0.05)
             ).out()
-        }
+        },
+        modal: "glitchme",
       }),
       new SectionApp({
         dom: jdom`
     <div>
-      <a href="https://www.creativeapplications.net/member-submissions/best-practices-in-contemporary-dance/" target="_blank">
       <img
         class="projects"
         alt="best practices"
         style="width: 100%; height: auto"
         src="https://img.glitches.me/images/2021/05/31/image.png"
       />
-      </a>
     </div>
-    `, nopad: true
+    `, nopad: true, modal: "bp",
       }),
       new SectionApp({
         dom: jdom`
@@ -307,10 +308,83 @@ class ContentApp extends Torus.StyledComponent {
   }
 }
 
+class ModalApp extends Torus.StyledComponent {
+  init() {
+    this.modals = {
+      glitchme: {
+        dom: jdom`
+        <div class="w">
+          <h2>GlitchMe</h2>
+          <div>Project with Flor de Fuego</div>
+          <div>
+            <a href="https://www.youtube.com/watch?v=d0KMUUOrUvs" target="_blank">Video
+            </a>
+          </div>
+          <button onclick="${() => this.toggle("glitchme")}">✖</button>
+        </div>
+        `,
+        show: false, y: 0
+      },
+      bp: {
+        dom: jdom`
+        <div class="w">
+          <h2>Best Practices in Contemporary Dance</h2>
+          <div>Project with Jorge Guevara</div>
+          <div>
+          <a href="https://www.creativeapplications.net/member-submissions/best-practices-in-contemporary-dance/" target="_blank">Article on CreativeApplications.Net</a>
+          </div>
+          <button onclick="${() => this.toggle("bp")}">✖</button>
+        </div>
+        `,
+        show: false, y: 0
+      },
+    }
+  }
+  toggle(key, x, y) {
+    this.modals[key].show = !this.modals[key].show;
+    if (x === undefined) x = 0;
+    if (y === undefined) y = 0;
+    this.modals[key].dom.attrs = { ...this.modals[key].dom.attrs, style: { left: x + "px", top: y + "px" } };
+    this.render();
+  }
+  styles() {
+    return css`
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    z-index: 4;
+    div.w {
+      position: absolute;
+      padding: 20px 0 20px 0;
+      background-color: rgba(255, 255, 255, 0.9);
+      box-shadow: 0 0 10px #000;
+      -webkit-box-shadow: 0 0 10px #000;
+      width: auto;
+    }
+    button {
+      position: absolute;
+      top: 0;
+      right: 0;
+    }
+    `;
+  }
+  compose() {
+    return jdom`
+    <div>
+      <div class="modalcontainer">
+        ${Object.keys(this.modals).map(k => this.modals[k].show ? this.modals[k].dom : "")}
+      </div>
+    </div>
+    `
+  }
+}
+
 class App extends Torus.StyledComponent {
   init() {
     this.hydraApp = new HydraApp();
     this.contentApp = new ContentApp();
+    this.modalApp = new ModalApp();
     this.showCanvas = true;
 
     if (isMobile !== true) {
@@ -332,6 +406,7 @@ class App extends Torus.StyledComponent {
     <div>
     ${this.showCanvas ? this.hydraApp.node : ""}
     ${this.contentApp.node}
+    ${this.modalApp.node}
     </div>
     `
   }
