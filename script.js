@@ -49,18 +49,13 @@ class HydraApp extends Torus.StyledComponent {
   }
 }
 
-class TitleApp extends Torus.StyledComponent {
-  compose() {
-    return
-  }
-}
-
-
 class SectionApp extends Torus.StyledComponent {
-  init(content, className, code) {
-    this.content = content;
-    this.className = className !== undefined ? className : "";
-    this.code = code !== undefined ? code : ()=>osc().out();
+  init(props) {
+    const keys = Object.keys(props);
+    for (const key of keys) {
+      this[key] = props[key];
+    }
+    if (this.code === undefined) this.code = () => osc().out();
   }
   styles() {
     let c = `
@@ -73,7 +68,7 @@ class SectionApp extends Torus.StyledComponent {
     border-radius: 15px;
     `;
 
-    if(this.className == "nopad") {
+    if (this.nopad) {
       c += `padding: 0;
       overflow: hidden;
       `
@@ -81,25 +76,67 @@ class SectionApp extends Torus.StyledComponent {
     else {
       c += `padding: 20px 0 20px 0;`;
     }
+    if (this.pointer) {
+      c += `cursor: pointer;
+      `;
+    }
     return css`${c}`;
+  }
+  onclick() {
+    this.code();
+    if (this.className === "hidecanvas") {
+      app.toggleCanvas();
+    }
   }
   compose() {
     return jdom`
-      <section class="${this.className}" onclick="${this.code}">
-        ${this.content}
+      <section class="${this.className}" onclick="${() => this.onclick()}">
+        ${this.dom}
       </section>
     `
   }
 }
 
+class TitleApp extends SectionApp {
+  init(props) {
+    super.init(props);
+    this.toggle = false;
+    this.dom = this.dome;
+  }
+  onclick() {
+    super.onclick();
+    this.toggle = !this.toggle;
+    if (this.toggle) {
+      this.dom = this.domj;
+    }
+    else {
+      this.dom = this.dome;
+    }
+    this.render();
+  }
+}
+
 class ContentApp extends Torus.StyledComponent {
   init() {
-    this.titleApp = new SectionApp(jdom`
-      <h1>
-        Naoto Hieda
-      </h1>
-    `);
-    this.s0 = new SectionApp(jdom`
+    this.s = [
+      new SectionApp({
+        dom: jdom`
+    <div class="msg center-text">😵Hide/show background</div>
+    `, className: "hidecanvas", pointer: true
+      }),
+      new TitleApp({
+        dome: jdom`
+    <h1>
+      Naoto Hieda
+    </h1>
+    `, domj: jdom`
+    <h1 style="font-weight: normal">
+      稗田直人
+    </h1>
+    `, pointer: true, code: defaultCode
+      }),
+      new SectionApp({
+        dom: jdom`
     <div>
     <h2>
           What's Up
@@ -122,8 +159,15 @@ class ContentApp extends Torus.StyledComponent {
           and pixels.
         </p>
         </div>
-    `);
-    this.s1 = new SectionApp(jdom`
+    `, code: () => {
+          osc(60, 0.1, 1.5)
+            .modulate(
+              noise(3).modulatePixelate(noise(4).pixelate(32, 32).thresh(0, 0.5), 1024, 32)
+            ).out()
+        }
+      }),
+      new SectionApp({
+        dom: jdom`
     <div>
       <p class="center-text">
         This website is permanently under construction
@@ -137,8 +181,13 @@ class ContentApp extends Torus.StyledComponent {
         <span class="naoto">Naoto</span> is permanently under pressure
       </p>
     </div>
-    `);
-    this.s2 = new SectionApp(jdom`
+    `, code: () => {
+          osc(2, 0, 1.5).modulate(solid(2)).contrast(2).out()
+
+        }
+      }),
+      new SectionApp({
+        dom: jdom`
     <div>
     <a href="https://www.youtube.com/watch?v=d0KMUUOrUvs" target="_blank">
     <img
@@ -149,8 +198,17 @@ class ContentApp extends Torus.StyledComponent {
     />
     </a>
     </div>
-    `, "nopad");
-    this.s3 = new SectionApp(jdom`
+    `, nopad: true, code: () => {
+          solid(1, 1, 1).layer(
+            src(o0).scale(1, 0.5, -1).hue(2 / 3))
+            .layer(
+              osc(50, 0.02, 1.5).mask(osc(25, -0.01).thresh(0.5, 0)).mult(osc(25, -0.01, 1.5).r().luma(0, 0))
+                .modulate(noise(2, 0.05).modulate(solid(0, 1), () => time * .2), 0.05)
+            ).out()
+        }
+      }),
+      new SectionApp({
+        dom: jdom`
     <div>
       <a href="https://www.creativeapplications.net/member-submissions/best-practices-in-contemporary-dance/" target="_blank">
       <img
@@ -161,8 +219,10 @@ class ContentApp extends Torus.StyledComponent {
       />
       </a>
     </div>
-    `, "nopad");
-    this.s4 = new SectionApp(jdom`
+    `, nopad: true
+      }),
+      new SectionApp({
+        dom: jdom`
     <div>
     <a href="https://best-public.glitch.me/" target="_blank">
     <img
@@ -173,8 +233,10 @@ class ContentApp extends Torus.StyledComponent {
     />
     </a>
     </div>
-    `, "nopad");
-    this.s5 = new SectionApp(jdom`
+    `, nopad: true
+      }),
+      new SectionApp({
+        dom: jdom`
       <div>
 
       <p>
@@ -208,8 +270,9 @@ class ContentApp extends Torus.StyledComponent {
         <span class="naoto">Naoto</span> is at.
       </p>
     </div>
-    `);
-    this.s6 = new SectionApp(jdom`
+    `}),
+      new SectionApp({
+        dom: jdom`
     <div>
       <h2>
         Who
@@ -219,10 +282,11 @@ class ContentApp extends Torus.StyledComponent {
         <span class="naoto">Naoto</span> is a human. Contact me on mail@naotohieda.com
       </p>
     </div>
-    `);
-    this.s7 = new SectionApp(jdom`
+    `}),
+      new SectionApp({
+        dom: jdom`
     <p class="center-text"><span class="naoto">Naoto Hieda</span> - design by <a href="https://glitches.me" target="_blank">glitches.me</a></p>
-    `);
+    `})];
   }
   styles() {
     return css`
@@ -237,15 +301,7 @@ class ContentApp extends Torus.StyledComponent {
   compose() {
     return jdom`
     <div id="container">
-      ${this.titleApp.node}
-      ${this.s0.node}
-      ${this.s1.node}
-      ${this.s2.node}
-      ${this.s3.node}
-      ${this.s4.node}
-      ${this.s5.node}
-      ${this.s6.node}
-      ${this.s7.node}
+      ${this.s.map(s => s.node)}
     </div>
     `;
   }
@@ -255,35 +311,50 @@ class App extends Torus.StyledComponent {
   init() {
     this.hydraApp = new HydraApp();
     this.contentApp = new ContentApp();
+    this.showCanvas = true;
 
     if (isMobile !== true) {
       s0.initVideo("./img/bp.webm");
-      osc(20, 0.02, 1.5).rotate(0.1)
-        .hue(() => document.body.scrollTop / 1000)
-        .layer(
-          src(s0).repeat(3, 3).mask(
-            solid(1, 1, 1).sub(shape(4, 0.5, 0).scale(1, 1, 2).repeat(3, 3, 0.5).scale(1, 3).mult(src(s0).repeat(3, 3)))
-          )
-        )
-        .scale(() => (Math.sin(-document.body.scrollTop / 200) + 1) * 1)
-        .modulatePixelate(noise(8, 0.3).pixelate(32, 32).thresh(0.4, 0.2), -1000 + 32, 1000).out()
     }
-    else {
-      osc(20, 0.02, 1.5).rotate(0.1)
-        .hue(() => document.body.scrollTop / 1000)
-        .scale(() => (Math.sin(-document.body.scrollTop / 200) + 1) * 1)
-        .modulatePixelate(noise(8, 0.3).pixelate(32, 32).thresh(0.4, 0.2), -1000 + 32, 1000).out()
-    }
+    defaultCode();
   }
+  toggleCanvas() {
+    this.showCanvas = !this.showCanvas;
+    this.render();
+  }
+  // styles() {
+  //   return css`
+  //   background-color: black;
+  //   `;
+  // }
   compose() {
     return jdom`
     <div>
-    ${this.hydraApp.node}
+    ${this.showCanvas ? this.hydraApp.node : ""}
     ${this.contentApp.node}
     </div>
     `
   }
 }
 
+const defaultCode = () => {
+  if (isMobile !== true) {
+    osc(20, 0.02, 1.5).rotate(0.1)
+      .hue(() => document.body.scrollTop / 1000)
+      .layer(
+        src(s0).repeat(3, 3).mask(
+          solid(1, 1, 1).sub(shape(4, 0.5, 0).scale(1, 1, 2).repeat(3, 3, 0.5).scale(1, 3).mult(src(s0).repeat(3, 3)))
+        )
+      )
+      .scale(() => (Math.sin(-document.body.scrollTop / 200) + 1) * 1)
+      .modulatePixelate(noise(8, 0.3).pixelate(32, 32).thresh(0.4, 0.2), -1000 + 32, 1000).out()
+  }
+  else {
+    osc(20, 0.02, 1.5).rotate(0.1)
+      .hue(() => document.body.scrollTop / 1000)
+      .scale(() => (Math.sin(-document.body.scrollTop / 200) + 1) * 1)
+      .modulatePixelate(noise(8, 0.3).pixelate(32, 32).thresh(0.4, 0.2), -1000 + 32, 1000).out()
+  }
+}
 const app = new App();
 document.querySelector("div#main").appendChild(app.node);

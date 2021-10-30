@@ -61,10 +61,10 @@ p {
   width: 100%;
   position: absolute;
   min-height: 100vh;
+  background-color: black;
 }
 
 #backtex {
-  background-color: black;
   position: absolute;
   z-index: 0;
   width: 100%;
@@ -80,6 +80,9 @@ canvas {
   width: 100%;
 }
 
+.msg {
+  font-size: 1.5em;
+}
 .center-text {
   text-align: center;
 }
