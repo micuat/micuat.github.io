@@ -28,10 +28,10 @@ class HydraApp extends Torus.StyledComponent {
     });
     window.addEventListener('resize',
       () => {
-      this.hydra.setResolution(window.innerWidth, window.innerHeight);
-      this.canvas.width = window.innerWidth;
-      this.canvas.height = window.innerHeight;
-    }, true);
+        this.hydra.setResolution(window.innerWidth, window.innerHeight);
+        this.canvas.width = window.innerWidth;
+        this.canvas.height = window.innerHeight;
+      }, true);
   }
   styles() {
     return css`
@@ -51,11 +51,42 @@ class HydraApp extends Torus.StyledComponent {
 
 class TitleApp extends Torus.StyledComponent {
   compose() {
+    return
+  }
+}
+
+
+class SectionApp extends Torus.StyledComponent {
+  init(content, className, code) {
+    this.content = content;
+    this.className = className !== undefined ? className : "";
+    this.code = code !== undefined ? code : ()=>osc().out();
+  }
+  styles() {
+    let c = `
+    padding: 20px 0 20px 0;
+    margin: 60px 0 60px 0;
+    background-color: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 0 10px #000;
+    -webkit-box-shadow: 0 0 10px #000;
+    width: auto;
+    border-radius: 15px;
+    `;
+
+    if(this.className == "nopad") {
+      c += `padding: 0;
+      overflow: hidden;
+      `
+    }
+    else {
+      c += `padding: 20px 0 20px 0;`;
+    }
+    return css`${c}`;
+  }
+  compose() {
     return jdom`
-      <section>
-        <h1>
-          Naoto Hieda
-        </h1>
+      <section class="${this.className}" onclick="${this.code}">
+        ${this.content}
       </section>
     `
   }
@@ -63,24 +94,14 @@ class TitleApp extends Torus.StyledComponent {
 
 class ContentApp extends Torus.StyledComponent {
   init() {
-    this.titleApp = new TitleApp();
-  }
-  styles() {
-    return css`
-    position: relative;
-    z-index: 1;
-    background-color: rgba(255, 255, 255, 0);
-    max-width: 768px;
-    /* margin: 20px 0 20px 0; */
-    padding: 0 10px 0 10px;  
-    `
-  }
-  compose() {
-    return jdom`
-    <div id="container">
-      ${this.titleApp.node}
-      <section>
-        <h2>
+    this.titleApp = new SectionApp(jdom`
+      <h1>
+        Naoto Hieda
+      </h1>
+    `);
+    this.s0 = new SectionApp(jdom`
+    <div>
+    <h2>
           What's Up
         </h2>
 
@@ -100,101 +121,131 @@ class ContentApp extends Torus.StyledComponent {
           <span class="naoto">Naoto</span> to experiment with online bodies
           and pixels.
         </p>
-      </section>
+        </div>
+    `);
+    this.s1 = new SectionApp(jdom`
+    <div>
+      <p class="center-text">
+        This website is permanently under construction
+      </p>
+      <img
+        class="projects"
+        alt="under construction"
+        src="./img/underconstruction.gif"
+      />
+      <p class="center-text">
+        <span class="naoto">Naoto</span> is permanently under pressure
+      </p>
+    </div>
+    `);
+    this.s2 = new SectionApp(jdom`
+    <div>
+    <a href="https://www.youtube.com/watch?v=d0KMUUOrUvs" target="_blank">
+    <img
+      class="projects"
+      alt="glitch me with flor de fuego"
+      style="width: 100%; height: auto"
+      src="https://img.glitches.me/images/2021/09/20/vlcsnap-2021-09-20-19h11m28s562.jpg"
+    />
+    </a>
+    </div>
+    `, "nopad");
+    this.s3 = new SectionApp(jdom`
+    <div>
+      <a href="https://www.creativeapplications.net/member-submissions/best-practices-in-contemporary-dance/" target="_blank">
+      <img
+        class="projects"
+        alt="best practices"
+        style="width: 100%; height: auto"
+        src="https://img.glitches.me/images/2021/05/31/image.png"
+      />
+      </a>
+    </div>
+    `, "nopad");
+    this.s4 = new SectionApp(jdom`
+    <div>
+    <a href="https://best-public.glitch.me/" target="_blank">
+    <img
+      class="projects"
+      alt="under construction exhibition"
+      style="width: 100%; height: auto"
+      src="https://cdn.glitch.com/c872ab9a-264e-4ce2-91db-721811e90193%2Funderconstruction.jpg"
+    />
+    </a>
+    </div>
+    `, "nopad");
+    this.s5 = new SectionApp(jdom`
+      <div>
 
-      <section>
-        <p class="center-text">
-          This website is permanently under construction
-        </p>
-        <img
-          class="projects"
-          alt="under construction"
-          src="./img/underconstruction.gif"
-        />
-        <p class="center-text">
-          <span class="naoto">Naoto</span> is permanently under pressure
-        </p>
+      <p>
+        <a href="https://bestchat.glitch.me/"
+          >Best Practices Chat (2020-)</a
+        >
+        is a space for Jorge Guevara and
+        <span class="naoto">Naoto</span> to reflect on the practices.
+      </p>
 
-      </section>
-      <section class="nopad">
+      <p>
+        <a href="https://razio.glitch.me"
+          >Razio (2020-)</a
+        >
+        is a podcast by <span class="naoto">Naoto</span> with a special guest.
+      </p>
 
-        <a href="https://www.youtube.com/watch?v=d0KMUUOrUvs" target="_blank">
-        <img
-          class="projects"
-          alt="glitch me with flor de fuego"
-          style="width: 100%; height: auto"
-          src="https://img.glitches.me/images/2021/09/20/vlcsnap-2021-09-20-19h11m28s562.jpg"
-        />
-        </a>
-      </section>
-      <section class="nopad">
-        <a href="https://www.creativeapplications.net/member-submissions/best-practices-in-contemporary-dance/" target="_blank">
-        <img
-          class="projects"
-          alt="best practices"
-          style="width: 100%; height: auto"
-          src="https://img.glitches.me/images/2021/05/31/image.png"
-        />
-        </a>
-      </section>
-      <section class="nopad">
-        <a href="https://best-public.glitch.me/" target="_blank">
-        <img
-          class="projects"
-          alt="under construction exhibition"
-          style="width: 100%; height: auto"
-          src="https://cdn.glitch.com/c872ab9a-264e-4ce2-91db-721811e90193%2Funderconstruction.jpg"
-        />
-        </a>
-      </section>
+      <p>
+        <a href="https://naotohieda.com/blog/">Blog (2019-)</a> is a place
+        where you can find latest or stale information about
+        <span class="naoto">Naoto</span>.
+      </p>
 
-      <section>
+      <p>
+        <a href="https://naoto-portfolio.glitch.me/">Portfolio (2014-)</a> is an online exhibition of every work that 
+        <span class="naoto">Naoto</span> created and contributed.
+      </p>
 
-        <p>
-          <a href="https://bestchat.glitch.me/"
-            >Best Practices Chat (2020-)</a
-          >
-          is a space for Jorge Guevara and
-          <span class="naoto">Naoto</span> to reflect on the practices.
-        </p>
+      <p>
+        <a href="https://www.khm.de/home/">KHM (1990-)</a> is where
+        <span class="naoto">Naoto</span> is at.
+      </p>
+    </div>
+    `);
+    this.s6 = new SectionApp(jdom`
+    <div>
+      <h2>
+        Who
+      </h2>
 
-        <p>
-          <a href="https://razio.glitch.me"
-            >Razio (2020-)</a
-          >
-          is a podcast by <span class="naoto">Naoto</span> with a special guest.
-        </p>
-
-        <p>
-          <a href="https://naotohieda.com/blog/">Blog (2019-)</a> is a place
-          where you can find latest or stale information about
-          <span class="naoto">Naoto</span>.
-        </p>
-
-        <p>
-          <a href="https://naoto-portfolio.glitch.me/">Portfolio (2014-)</a> is an online exhibition of every work that 
-          <span class="naoto">Naoto</span> created and contributed.
-        </p>
-
-        <p>
-          <a href="https://www.khm.de/home/">KHM (1990-)</a> is where
-          <span class="naoto">Naoto</span> is at.
-        </p>
-      </section>
-
-      <section>
-        <h2>
-          Who
-        </h2>
-
-        <p class="center-text">
-          <span class="naoto">Naoto</span> is a human. Contact me on mail@naotohieda.com
-        </p>
-      </section>
-
-      <footer>
-        <p class="center-text"><span class="naoto">Naoto Hieda</span> - design by <a href="https://glitches.me" target="_blank">glitches.me</a></p>
-      </footer>
+      <p class="center-text">
+        <span class="naoto">Naoto</span> is a human. Contact me on mail@naotohieda.com
+      </p>
+    </div>
+    `);
+    this.s7 = new SectionApp(jdom`
+    <p class="center-text"><span class="naoto">Naoto Hieda</span> - design by <a href="https://glitches.me" target="_blank">glitches.me</a></p>
+    `);
+  }
+  styles() {
+    return css`
+    position: relative;
+    z-index: 1;
+    background-color: rgba(255, 255, 255, 0);
+    max-width: 768px;
+    /* margin: 20px 0 20px 0; */
+    padding: 0 10px 0 10px;  
+    `
+  }
+  compose() {
+    return jdom`
+    <div id="container">
+      ${this.titleApp.node}
+      ${this.s0.node}
+      ${this.s1.node}
+      ${this.s2.node}
+      ${this.s3.node}
+      ${this.s4.node}
+      ${this.s5.node}
+      ${this.s6.node}
+      ${this.s7.node}
     </div>
     `;
   }
