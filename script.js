@@ -16,38 +16,223 @@ const mobileCheck = function () {
 };
 const isMobile = mobileCheck();
 
-let hydra, hydraCanvas;
-hydraCanvas = document.createElement("canvas");
-hydraCanvas.width = 512;
-hydraCanvas.height = 512;
-hydraCanvas.style.width = "100%";
-hydraCanvas.style.height = "100%";
-hydraCanvas.id = "hydraCanvas";
-document.getElementById("backtex").appendChild(hydraCanvas);
-
-hydra = new Hydra({
-  canvas: hydraCanvas,
-  detectAudio: false,
-  enableStreamCapture: false,
-  width: 512,
-  height: 512
-});
-
-if (isMobile !== true) {
-  s0.initVideo("./img/bp.webm");
-  osc(20, 0.02, 1.5).rotate(0.1)
-    .hue(() => document.body.scrollTop / 1000)
-    .layer(
-      src(s0).repeat(3, 3).mask(
-        solid(1, 1, 1).sub(shape(4, 0.5, 0).scale(1, 1, 2).repeat(3, 3, 0.5).scale(1, 3).mult(src(s0).repeat(3, 3)))
-      )
-    )
-    .scale(() => (Math.sin(-document.body.scrollTop / 200) + 1) * 1)
-    .modulatePixelate(noise(8, 0.3).pixelate(32, 32).thresh(0.4, 0.2), -1000 + 32, 1000).out()
+class HydraApp extends Torus.StyledComponent {
+  init() {
+    this.canvas = document.createElement("CANVAS");
+    this.canvas.width = window.innerWidth;
+    this.canvas.height = window.innerHeight;
+    this.hydra = new Hydra({
+      canvas: this.canvas,
+      detectAudio: false,
+      enableStreamCapture: false
+    });
+    window.addEventListener('resize',
+      () => {
+      this.hydra.setResolution(window.innerWidth, window.innerHeight);
+      this.canvas.width = window.innerWidth;
+      this.canvas.height = window.innerHeight;
+    }, true);
+  }
+  styles() {
+    return css`
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 0;
+      width: 100%;
+      height: 100%;
+      background-color: black;
+    `
+  }
+  compose() {
+    return jdom`<div>${this.canvas}</div>`;
+  }
 }
-else {
-  osc(20, 0.02, 1.5).rotate(0.1)
-    .hue(() => document.body.scrollTop / 1000)
-    .scale(() => (Math.sin(-document.body.scrollTop / 200) + 1) * 1)
-    .modulatePixelate(noise(8, 0.3).pixelate(32, 32).thresh(0.4, 0.2), -1000 + 32, 1000).out()
+
+class TitleApp extends Torus.StyledComponent {
+  compose() {
+    return jdom`
+      <section>
+        <h1>
+          Naoto Hieda
+        </h1>
+      </section>
+    `
+  }
 }
+
+class ContentApp extends Torus.StyledComponent {
+  init() {
+    this.titleApp = new TitleApp();
+  }
+  styles() {
+    return css`
+    position: relative;
+    z-index: 1;
+    background-color: rgba(255, 255, 255, 0);
+    max-width: 768px;
+    /* margin: 20px 0 20px 0; */
+    padding: 0 10px 0 10px;  
+    `
+  }
+  compose() {
+    return jdom`
+    <div id="container">
+      ${this.titleApp.node}
+      <section>
+        <h2>
+          What's Up
+        </h2>
+
+        <p>
+          <a href="https://festival.glitches.me"
+            >festival.glitches.me (2021-2022)</a
+          >
+          is an independent online festival organized by and for
+          <span class="naoto">Naoto</span>.
+        </p>
+
+        <p>
+          <a href="https://best-practices.glitch.me/"
+            >Best Practices In Contemporary Dance (2020-)</a
+          >
+          is a practice and a playground by Jorge Guevara and
+          <span class="naoto">Naoto</span> to experiment with online bodies
+          and pixels.
+        </p>
+      </section>
+
+      <section>
+        <p class="center-text">
+          This website is permanently under construction
+        </p>
+        <img
+          class="projects"
+          alt="under construction"
+          src="./img/underconstruction.gif"
+        />
+        <p class="center-text">
+          <span class="naoto">Naoto</span> is permanently under pressure
+        </p>
+
+      </section>
+      <section class="nopad">
+
+        <a href="https://www.youtube.com/watch?v=d0KMUUOrUvs" target="_blank">
+        <img
+          class="projects"
+          alt="glitch me with flor de fuego"
+          style="width: 100%; height: auto"
+          src="https://img.glitches.me/images/2021/09/20/vlcsnap-2021-09-20-19h11m28s562.jpg"
+        />
+        </a>
+      </section>
+      <section class="nopad">
+        <a href="https://www.creativeapplications.net/member-submissions/best-practices-in-contemporary-dance/" target="_blank">
+        <img
+          class="projects"
+          alt="best practices"
+          style="width: 100%; height: auto"
+          src="https://img.glitches.me/images/2021/05/31/image.png"
+        />
+        </a>
+      </section>
+      <section class="nopad">
+        <a href="https://best-public.glitch.me/" target="_blank">
+        <img
+          class="projects"
+          alt="under construction exhibition"
+          style="width: 100%; height: auto"
+          src="https://cdn.glitch.com/c872ab9a-264e-4ce2-91db-721811e90193%2Funderconstruction.jpg"
+        />
+        </a>
+      </section>
+
+      <section>
+
+        <p>
+          <a href="https://bestchat.glitch.me/"
+            >Best Practices Chat (2020-)</a
+          >
+          is a space for Jorge Guevara and
+          <span class="naoto">Naoto</span> to reflect on the practices.
+        </p>
+
+        <p>
+          <a href="https://razio.glitch.me"
+            >Razio (2020-)</a
+          >
+          is a podcast by <span class="naoto">Naoto</span> with a special guest.
+        </p>
+
+        <p>
+          <a href="https://naotohieda.com/blog/">Blog (2019-)</a> is a place
+          where you can find latest or stale information about
+          <span class="naoto">Naoto</span>.
+        </p>
+
+        <p>
+          <a href="https://naoto-portfolio.glitch.me/">Portfolio (2014-)</a> is an online exhibition of every work that 
+          <span class="naoto">Naoto</span> created and contributed.
+        </p>
+
+        <p>
+          <a href="https://www.khm.de/home/">KHM (1990-)</a> is where
+          <span class="naoto">Naoto</span> is at.
+        </p>
+      </section>
+
+      <section>
+        <h2>
+          Who
+        </h2>
+
+        <p class="center-text">
+          <span class="naoto">Naoto</span> is a human. Contact me on mail@naotohieda.com
+        </p>
+      </section>
+
+      <footer>
+        <p class="center-text"><span class="naoto">Naoto Hieda</span> - design by <a href="https://glitches.me" target="_blank">glitches.me</a></p>
+      </footer>
+    </div>
+    `;
+  }
+}
+
+class App extends Torus.StyledComponent {
+  init() {
+    this.hydraApp = new HydraApp();
+    this.contentApp = new ContentApp();
+
+    if (isMobile !== true) {
+      s0.initVideo("./img/bp.webm");
+      osc(20, 0.02, 1.5).rotate(0.1)
+        .hue(() => document.body.scrollTop / 1000)
+        .layer(
+          src(s0).repeat(3, 3).mask(
+            solid(1, 1, 1).sub(shape(4, 0.5, 0).scale(1, 1, 2).repeat(3, 3, 0.5).scale(1, 3).mult(src(s0).repeat(3, 3)))
+          )
+        )
+        .scale(() => (Math.sin(-document.body.scrollTop / 200) + 1) * 1)
+        .modulatePixelate(noise(8, 0.3).pixelate(32, 32).thresh(0.4, 0.2), -1000 + 32, 1000).out()
+    }
+    else {
+      osc(20, 0.02, 1.5).rotate(0.1)
+        .hue(() => document.body.scrollTop / 1000)
+        .scale(() => (Math.sin(-document.body.scrollTop / 200) + 1) * 1)
+        .modulatePixelate(noise(8, 0.3).pixelate(32, 32).thresh(0.4, 0.2), -1000 + 32, 1000).out()
+    }
+  }
+  compose() {
+    return jdom`
+    <div>
+    ${this.hydraApp.node}
+    ${this.contentApp.node}
+    </div>
+    `
+  }
+}
+
+const app = new App();
+document.querySelector("div#main").appendChild(app.node);
