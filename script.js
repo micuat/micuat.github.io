@@ -187,7 +187,7 @@ class ContentApp extends Torus.StyledComponent {
     `, code: () => {
           osc(2, 0, 1.5).modulate(solid(2)).contrast(2).out()
 
-        }
+        }, modal: "construction",
       }),
       new SectionApp({
         dom: jdom`
@@ -225,16 +225,14 @@ class ContentApp extends Torus.StyledComponent {
       new SectionApp({
         dom: jdom`
     <div>
-    <a href="https://best-public.glitch.me/" target="_blank">
     <img
       class="projects"
       alt="under construction exhibition"
       style="width: 100%; height: auto"
       src="https://cdn.glitch.com/c872ab9a-264e-4ce2-91db-721811e90193%2Funderconstruction.jpg"
     />
-    </a>
     </div>
-    `, nopad: true
+    `, nopad: true, modal: "banner",
       }),
       new SectionApp({
         dom: jdom`
@@ -323,7 +321,7 @@ class ModalApp extends Torus.StyledComponent {
           <button onclick="${() => this.toggle("glitchme")}">✖</button>
         </div>
         `,
-        show: false, y: 0
+        show: false
       },
       bp: {
         dom: jdom`
@@ -336,7 +334,29 @@ class ModalApp extends Torus.StyledComponent {
           <button onclick="${() => this.toggle("bp")}">✖</button>
         </div>
         `,
-        show: false, y: 0
+        show: false
+      },
+      banner: {
+        dom: jdom`
+        <div class="w">
+          <h2>Banner</h2>
+          <div>Installation at new KHM building</div>
+          <a href="https://best-public.glitch.me/" target="_blank">more info</a>
+          <button onclick="${() => this.toggle("banner")}">✖</button>
+        </div>
+        `,
+        show: false
+      },
+      construction: {
+        dom: jdom`
+        <div class="w">
+          <h2>Under Construction</h2>
+          <div>GIF taken from
+          <a href="http://www.textfiles.com/underconstruction/" target="_blank">here</a> (beware - many images)
+          <button onclick="${() => this.toggle("construction")}">✖</button>
+        </div>
+        `,
+        show: false
       },
     }
   }
@@ -344,6 +364,7 @@ class ModalApp extends Torus.StyledComponent {
     this.modals[key].show = !this.modals[key].show;
     if (x === undefined) x = 0;
     if (y === undefined) y = 0;
+    if (x + 450 > window.innerWidth) x = window.innerWidth - 450;
     this.modals[key].dom.attrs = { ...this.modals[key].dom.attrs, style: { left: x + "px", top: y + "px" } };
     this.render();
   }
@@ -354,13 +375,18 @@ class ModalApp extends Torus.StyledComponent {
     left: 0;
     height: 100%;
     z-index: 4;
+    h2 {
+      font-family: "ApfelGrotezk Regular", arial, sans-serif;
+      font-size: 1.2em;
+      padding-bottom: .5em;
+    }
     div.w {
+      width: 400px;
       position: absolute;
-      padding: 20px 0 20px 0;
+      padding: 0px 0 20px 0;
       background-color: rgba(255, 255, 255, 0.9);
       box-shadow: 0 0 10px #000;
       -webkit-box-shadow: 0 0 10px #000;
-      width: auto;
     }
     button {
       position: absolute;
