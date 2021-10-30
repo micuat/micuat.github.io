@@ -365,6 +365,7 @@ class ModalApp extends Torus.StyledComponent {
     if (x === undefined) x = 0;
     if (y === undefined) y = 0;
     if (x + 450 > window.innerWidth) x = window.innerWidth - 450;
+    if (isMobile) x = 0;
     this.modals[key].dom.attrs = { ...this.modals[key].dom.attrs, style: { left: x + "px", top: y + "px" } };
     this.render();
   }
@@ -382,6 +383,7 @@ class ModalApp extends Torus.StyledComponent {
     }
     div.w {
       width: 400px;
+      max-width: 100vw;
       position: absolute;
       padding: 0px 0 20px 0;
       background-color: rgba(255, 255, 255, 0.9);
