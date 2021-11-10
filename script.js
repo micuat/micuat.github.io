@@ -94,7 +94,7 @@ class SectionApp extends Torus.StyledComponent {
   compose() {
     return jdom`
       <section class="${this.className}" onclick="${ev => this.onclick(ev)}">
-        ${this.dom}
+        ${this.dom()}
       </section>
     `
   }
@@ -119,49 +119,56 @@ class TitleApp extends SectionApp {
   }
 }
 
+let showCanvas = true;
 class ContentApp extends Torus.StyledComponent {
   init() {
     this.s = [
       new SectionApp({
-        dom: jdom`
-    <div class="msg center-text">😵Hide/show background</div>
+        dom: () => jdom`
+    <div class="msg center-text">${showCanvas ? "😵Hide" : "😎Show"} background</div>
     `, className: "hidecanvas", pointer: true
       }),
       new TitleApp({
-        dome: jdom`
+        dome: () => jdom`
     <h1>
       Naoto Hieda
     </h1>
-    `, domj: jdom`
+    `, domj: () => jdom`
     <h1 style="font-weight: normal">
       稗田直人
     </h1>
     `, pointer: true, code: defaultCode
       }),
       new SectionApp({
-        dom: jdom`
+        dom: () => jdom`
     <div>
-    <h2>
-          What's Up
-        </h2>
+      <h2>
+        What's Up
+      </h2>
 
-        <p>
-          <a href="https://festival.glitches.me"
-            >festival.glitches.me (2021-2022)</a
-          >
-          is an independent online festival organized by and for
-          <span class="naoto">Naoto</span>.
-        </p>
+      <p>
+        <a href="https://cwc.radical-openness.org/" target=_blank
+          >Conversations with Computers (2021-2022)</a
+        > a hybrid exhibition in Linz, Austria and online.
+      </p>
 
-        <p>
-          <a href="https://best-practices.glitch.me/"
-            >Best Practices In Contemporary Dance (2020-)</a
-          >
-          is a practice and a playground by Jorge Guevara and
-          <span class="naoto">Naoto</span> to experiment with online bodies
-          and pixels.
-        </p>
-        </div>
+      <p>
+        <a href="https://festival.glitches.me"
+          >festival.glitches.me (2021-2022)</a
+        >
+        is an independent online festival organized by and for
+        <span class="naoto">Naoto</span>.
+      </p>
+
+      <p>
+        <a href="https://best-practices.glitch.me/"
+          >Best Practices In Contemporary Dance (2020-)</a
+        >
+        is a practice and a playground by Jorge Guevara and
+        <span class="naoto">Naoto</span> to experiment with online bodies
+        and pixels.
+      </p>
+      </div>
     `, code: () => {
           osc(60, 0.1, 1.5)
             .modulate(
@@ -170,7 +177,7 @@ class ContentApp extends Torus.StyledComponent {
         }
       }),
       new SectionApp({
-        dom: jdom`
+        dom: () => jdom`
     <div>
       <p class="center-text">
         This website is permanently under construction
@@ -190,7 +197,7 @@ class ContentApp extends Torus.StyledComponent {
         }, modal: "construction",
       }),
       new SectionApp({
-        dom: jdom`
+        dom: () => jdom`
     <div>
     <img
       class="projects"
@@ -211,7 +218,7 @@ class ContentApp extends Torus.StyledComponent {
         modal: "glitchme",
       }),
       new SectionApp({
-        dom: jdom`
+        dom: () => jdom`
     <div>
       <img
         class="projects"
@@ -220,10 +227,10 @@ class ContentApp extends Torus.StyledComponent {
         src="https://img.glitches.me/images/2021/05/31/image.png"
       />
     </div>
-    `, nopad: true, modal: "bp",
+    `, nopad: true, modal: "bp", code: () => src(o0).modulate(osc(6,0,1.5).modulate(noise(3).sub(gradient()),1).brightness(-.5),0.01).layer(osc(80,0.1,1.5).mask(shape(4,0.3,0))).out()
       }),
       new SectionApp({
-        dom: jdom`
+        dom: () => jdom`
     <div>
     <img
       class="projects"
@@ -232,10 +239,10 @@ class ContentApp extends Torus.StyledComponent {
       src="https://cdn.glitch.com/c872ab9a-264e-4ce2-91db-721811e90193%2Funderconstruction.jpg"
     />
     </div>
-    `, nopad: true, modal: "banner",
+    `, nopad: true, modal: "banner", code: () => solid(0.2,0.6,0.9).layer(osc(31.4,0).thresh(0.7).luma().modulate(osc(4,1).rotate(1),0.05).color(0,0,0)).layer(osc(31.4,0).thresh(0.7).luma().modulate(osc(4,1).rotate(1),0.1)).out()
       }),
       new SectionApp({
-        dom: jdom`
+        dom: () => jdom`
       <div>
 
       <p>
@@ -269,9 +276,27 @@ class ContentApp extends Torus.StyledComponent {
         <span class="naoto">Naoto</span> is at.
       </p>
     </div>
-    `}),
+    `, code: () =>
+    solid().layer(
+  osc(4,0,1.5).modulate(osc(20, 0.0001, 0).brightness(-0.4).sub(gradient()),1)
+    .mask(
+      osc(20, 0.0001).scrollX(() => -document.body.scrollTop / 10000)
+        .rotate(Math.PI * 4 / 180)
+        .thresh(0.6, 0)
+    )
+    .rotate(Math.PI / 2)
+    .modulateScale(noise(8, 0.003)
+      .pixelate(8, 8)
+      .modulate(noise(3, 0.01))
+      .thresh(0.4, 0.2), 1, -0.95)
+    .modulateRotate(noise(8, 0.003)
+    .pixelate(8, 8)
+    .modulate(noise(3, 0.01))
+    .thresh(0.4, 0.2), 6)
+      .scale(1,()=>window.innerHeight/window.innerWidth)
+    ).out()}),
       new SectionApp({
-        dom: jdom`
+        dom: () => jdom`
     <div>
       <h2>
         Who
@@ -283,9 +308,9 @@ class ContentApp extends Torus.StyledComponent {
     </div>
     `}),
       new SectionApp({
-        dom: jdom`
+        dom: () => jdom`
     <p class="center-text"><span class="naoto">Naoto Hieda</span> - design by <a href="https://glitches.me" target="_blank">glitches.me</a></p>
-    `})];
+    `, code: () => noise().out()})];
   }
   styles() {
     return css`
@@ -296,6 +321,10 @@ class ContentApp extends Torus.StyledComponent {
     /* margin: 20px 0 20px 0; */
     padding: 0 10px 0 10px;  
     `
+  }
+  render() {
+    this.s.forEach(s => s.render());
+    super.render();
   }
   compose() {
     return jdom`
@@ -413,7 +442,6 @@ class App extends Torus.StyledComponent {
     this.hydraApp = new HydraApp();
     this.contentApp = new ContentApp();
     this.modalApp = new ModalApp();
-    this.showCanvas = true;
 
     if (isMobile !== true) {
       s0.initVideo("./img/bp.webm");
@@ -421,7 +449,8 @@ class App extends Torus.StyledComponent {
     defaultCode();
   }
   toggleCanvas() {
-    this.showCanvas = !this.showCanvas;
+    showCanvas = !showCanvas;
+    this.contentApp.render()
     this.render();
   }
   // styles() {
@@ -432,7 +461,7 @@ class App extends Torus.StyledComponent {
   compose() {
     return jdom`
     <div>
-    ${this.showCanvas ? this.hydraApp.node : ""}
+    ${showCanvas ? this.hydraApp.node : ""}
     ${this.contentApp.node}
     ${this.modalApp.node}
     </div>
