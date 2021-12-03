@@ -147,12 +147,6 @@ class ContentApp extends Torus.StyledComponent {
       </h2>
 
       <p>
-        <a href="https://cwc.radical-openness.org/" target=_blank
-          >Conversations with Computers (2021)</a
-        > a hybrid exhibition in Linz, Austria and <a href="https://html-space.glitch.me/" target=_blank>online</a>.
-      </p>
-
-      <p>
         <a href="https://festival.glitches.me"
           >festival.glitches.me (2021-2022)</a
         >
