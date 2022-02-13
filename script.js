@@ -195,6 +195,22 @@ class ContentApp extends Torus.StyledComponent {
     <div>
     <img
       class="projects"
+      alt="hashtag naoto hieda, an artwork of a printed banner"
+      style="width: 100%; height: auto"
+      src="https://img.glitches.me/images/2022/02/13/banner.jpg"
+    />
+    </div>
+    `, nopad: true,
+        code: () => {
+          osc(30,0.03,1.5).out()
+        },
+        modal: "naotohieda",
+      }),
+      new SectionApp({
+        dom: () => jdom`
+    <div>
+    <img
+      class="projects"
       alt="glitch me with flor de fuego"
       style="width: 100%; height: auto"
       src="https://img.glitches.me/images/2021/09/20/vlcsnap-2021-09-20-19h11m28s562.jpg"
@@ -332,6 +348,19 @@ class ContentApp extends Torus.StyledComponent {
 class ModalApp extends Torus.StyledComponent {
   init() {
     this.modals = {
+      naotohieda: {
+        dom: jdom`
+        <div class="w">
+          <h2>#NaotoHieda</h2>
+          <div>
+            <a href="https://www.po-holdings.co.jp/m-annex/exhibition/index.html" target="_blank">Exhibition
+            </a>
+          </div>
+          <button onclick="${() => this.toggle("naotohieda")}">✖</button>
+        </div>
+        `,
+        show: false
+      },
       glitchme: {
         dom: jdom`
         <div class="w">
