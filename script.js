@@ -159,8 +159,7 @@ class ContentApp extends Torus.StyledComponent {
         >GlitchMe (2020-)</a
       >
       is a playground for Flor de Fuego and
-      <span class="naoto">Naoto</span> to experiment with online bodies
-      and pixels.
+      <span class="naoto">Naoto</span> for materializing glitches.
       </p>
 
       <p>
