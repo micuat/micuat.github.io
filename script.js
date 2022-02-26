@@ -155,6 +155,15 @@ class ContentApp extends Torus.StyledComponent {
       </p>
 
       <p>
+      <a href="https://gmogm.glitch.me/"
+        >GlitchMe (2020-)</a
+      >
+      is a playground for Flor de Fuego and
+      <span class="naoto">Naoto</span> to experiment with online bodies
+      and pixels.
+      </p>
+
+      <p>
         <a href="https://best-practices.glitch.me/"
           >Best Practices In Contemporary Dance (2020-)</a
         >
@@ -213,7 +222,7 @@ class ContentApp extends Torus.StyledComponent {
       class="projects"
       alt="glitch me with flor de fuego"
       style="width: 100%; height: auto"
-      src="https://img.glitches.me/images/2021/09/20/vlcsnap-2021-09-20-19h11m28s562.jpg"
+      src="https://img.glitches.me/images/2022/02/26/glitchme.jpg"
     />
     </div>
     `, nopad: true,
@@ -234,7 +243,7 @@ class ContentApp extends Torus.StyledComponent {
         class="projects"
         alt="best practices"
         style="width: 100%; height: auto"
-        src="https://img.glitches.me/images/2021/05/31/image.png"
+        src="https://cdn.glitch.global/1eef4bc9-a32d-48f5-98b4-4dd0ed78474a/IMG_9029.JPG?v=1642863417391"
       />
     </div>
     `, nopad: true, modal: "bp", code: () => src(o0).modulate(osc(6,0,1.5).modulate(noise(3).sub(gradient()),1).brightness(-.5),0.01).layer(osc(80,0.1,1.5).mask(shape(4,0.3,0))).out()
