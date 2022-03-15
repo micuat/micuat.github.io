@@ -219,6 +219,24 @@ class ContentApp extends Torus.StyledComponent {
     <div>
     <img
       class="projects"
+      alt="riso.glitches.me, a mass printed risograph work"
+      style="width: 100%; height: auto"
+      src="https://img.glitches.me/images/2022/03/15/riso_.jpg"
+    />
+    </div>
+    `, nopad: true,
+        code: () => {
+          osc(60,0.03).thresh(.7,.1).color(1,0,0)
+          .add(osc(60,0.03).thresh(.7,.1).color(0,0,1).modulate(noise(3),.01))
+          .rotate().invert().hue().out()
+        },
+        modal: "riso",
+      }),
+      new SectionApp({
+        dom: () => jdom`
+    <div>
+    <img
+      class="projects"
       alt="glitch me with flor de fuego"
       style="width: 100%; height: auto"
       src="https://img.glitches.me/images/2022/02/26/glitchme.jpg"
@@ -247,18 +265,18 @@ class ContentApp extends Torus.StyledComponent {
     </div>
     `, nopad: true, modal: "bp", code: () => src(o0).modulate(osc(6,0,1.5).modulate(noise(3).sub(gradient()),1).brightness(-.5),0.01).layer(osc(80,0.1,1.5).mask(shape(4,0.3,0))).out()
       }),
-      new SectionApp({
-        dom: () => jdom`
-    <div>
-    <img
-      class="projects"
-      alt="under construction exhibition"
-      style="width: 100%; height: auto"
-      src="https://cdn.glitch.com/c872ab9a-264e-4ce2-91db-721811e90193%2Funderconstruction.jpg"
-    />
-    </div>
-    `, nopad: true, modal: "banner", code: () => solid(0.2,0.6,0.9).layer(osc(31.4,0).thresh(0.7).luma().modulate(osc(4,1).rotate(1),0.05).color(0,0,0)).layer(osc(31.4,0).thresh(0.7).luma().modulate(osc(4,1).rotate(1),0.1)).out()
-      }),
+    //   new SectionApp({
+    //     dom: () => jdom`
+    // <div>
+    // <img
+    //   class="projects"
+    //   alt="under construction exhibition"
+    //   style="width: 100%; height: auto"
+    //   src="https://cdn.glitch.com/c872ab9a-264e-4ce2-91db-721811e90193%2Funderconstruction.jpg"
+    // />
+    // </div>
+    // `, nopad: true, modal: "banner", code: () => solid(0.2,0.6,0.9).layer(osc(31.4,0).thresh(0.7).luma().modulate(osc(4,1).rotate(1),0.05).color(0,0,0)).layer(osc(31.4,0).thresh(0.7).luma().modulate(osc(4,1).rotate(1),0.1)).out()
+    //   }),
       new SectionApp({
         dom: () => jdom`
       <div>
@@ -365,6 +383,18 @@ class ModalApp extends Torus.StyledComponent {
             </a>
           </div>
           <button onclick="${() => this.toggle("naotohieda")}">✖</button>
+        </div>
+        `,
+        show: false
+      },
+      riso: {
+        dom: jdom`
+        <div class="w">
+          <h2>riso.glitches.me</h2>
+          <div>
+            <a href="https://riso.glitches.me" target="_blank">Risograph artwork presented at Art Fair Tokyo 2022</a>. Photo by Pola Museum Annex.
+          </div>
+          <button onclick="${() => this.toggle("riso")}">✖</button>
         </div>
         `,
         show: false
