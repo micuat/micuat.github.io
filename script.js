@@ -260,7 +260,7 @@ class ContentApp extends Torus.StyledComponent {
         class="projects"
         alt="best practices"
         style="width: 100%; height: auto"
-        src="https://cdn.glitch.global/1eef4bc9-a32d-48f5-98b4-4dd0ed78474a/IMG_9029.JPG?v=1642863417391"
+        src="https://img.glitches.me/images/2022/08/31/IMG_1034.jpg"
       />
     </div>
     `, nopad: true, modal: "bp", code: () => src(o0).modulate(osc(6,0,1.5).modulate(noise(3).sub(gradient()),1).brightness(-.5),0.01).layer(osc(80,0.1,1.5).mask(shape(4,0.3,0))).out()
