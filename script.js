@@ -49,6 +49,136 @@ class HydraApp extends Torus.StyledComponent {
   }
 }
 
+const popupWidth = 500;
+class PopupApp extends Torus.StyledComponent {
+  init(app, params) {
+    this.app = app;
+    this.params = params;
+    this.drag = {
+      isMoving: false,
+      x: 0,
+      y: 0,
+      dx: 0,
+      dy: 0,
+    };
+    this.closeState = "";
+    this.active = false;
+  }
+  styles() {
+    return css`
+    font-family: "arial", sans-serif;
+    position: ${ this.params.sticky ? "fixed" : "absolute" };
+    z-index: 10;
+    left: ${ this.params.x + this.drag.dx }px;
+    top: ${ this.params.y + this.drag.dy }px;
+    padding: 5px;
+    background-color: #bbb;
+    border: 2px outset #eee;
+    /* border-radius: 1px;
+    box-shadow: 0 0 2px black; */
+    overflow: hidden;
+    max-width: ${ popupWidth }px;
+
+    .content {
+      margin: 0 2px;
+    }
+    .title {
+      margin: 0 2px;
+    }
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      user-select: none;
+      background-color: ${ this.active ? "#00f" : "#888" };
+      color: white;
+    }
+    .button {
+      background-color: #bbb;
+      color: ${ this.params.sticky !== true ? "#000" : "#fff" };
+      margin: 2px;
+      width: 1em;
+      text-align: center;
+      border: 2px outset #eee;
+    }
+    .pressed {
+      border: 2px inset #eee;
+    }
+    `
+  }
+  compose() {
+    return jdom`
+    <div onmousedown=${ () => { this.app.sortUp(this) } } >
+      <div class="header"
+        onmousedown=${ (ev) => {
+          if (this.closeState !== "pressed") {
+            this.drag.isMoving = true;
+            this.drag.x = ev.pageX;
+            this.drag.y = ev.pageY;
+            const move = (ev) => {
+              if (this.drag.isMoving) {
+                this.drag.dx = ev.pageX - this.drag.x;
+                this.drag.dy = ev.pageY - this.drag.y;
+                this.render();
+              }
+            }
+            const up = (ev) => {
+              console.log(ev)
+              this.drag.isMoving = false;
+              this.params.x += this.drag.dx;
+              this.params.y += this.drag.dy;
+              this.drag.dx = 0;
+              this.drag.dy = 0;
+              this.render();
+              window.removeEventListener("mousemove", move);
+              window.removeEventListener("mouseup", up);
+            }
+            window.addEventListener("mousemove", move);
+            window.addEventListener("mouseup", up);
+          }
+        } }
+      >
+        <div class="title">${ this.params.title }</div>
+        <div class="button ${ this.closeState }"
+          onmousedown=${ () => {
+            if (this.params.sticky !== true) {
+              this.closeState = "pressed";
+              this.render();
+            }
+          } }
+          ontouchstart=${ () => {
+            if (this.params.sticky !== true) {
+              this.closeState = "";
+              this.render();
+            }
+          } }
+          onmouseup=${ () => {
+            if (this.params.sticky !== true) {
+              this.closeState = "";
+              this.render();
+            }
+          } }
+          onmouseleave=${ () => {
+            if (this.params.sticky !== true) {
+              this.closeState = "";
+              this.render();
+            }
+          } }
+          onclick=${ () => {
+            if (this.params.sticky !== true) {
+              this.app.closePopup(this);
+            }
+          } }>x</>
+      </div>
+      <div class="content">
+        ${ this.params.dom.node === undefined ? this.params.dom : this.params.dom.node }
+      </div>
+    </div>
+    `;
+  }
+}
+
 class SectionApp extends Torus.StyledComponent {
   init(props) {
     const keys = Object.keys(props);
@@ -56,25 +186,52 @@ class SectionApp extends Torus.StyledComponent {
       this[key] = props[key];
     }
     if (this.code === undefined) this.code = () => osc().out();
+    if (this.title === undefined) {
+      this.title = "";
+    }
   }
   styles() {
     let c = `
-    padding: 20px 0 20px 0;
-    margin: 60px 0 60px 0;
-    background-color: rgba(255, 255, 255, 0.9);
-    box-shadow: 0 0 10px #000;
-    -webkit-box-shadow: 0 0 10px #000;
+    // padding: 20px 0 20px 0;
+    margin: 60px 5px 60px 5px;
+    background-color: rgba(255, 255, 255, 1);
+    box-shadow: 2px 2px 0px #000;
+    -webkit-box-shadow: 2px 2px 0px #000;
     width: auto;
-    border-radius: 15px;
+    max-width: 500px;
+    padding: 5px;
+
+    border: 2px outset #eee;
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      // cursor: pointer;
+      user-select: none;
+      background-color: ${ this.active ? "#00f" : "#888" };
+      color: white;
+    }
+    .button {
+      background-color: #bbb;
+      color: "#fff";
+      margin: 2px;
+      width: 1em;
+      text-align: center;
+      border: 2px outset #eee;
+    }
+
+    img {
+      cursor: pointer;
+    }
     `;
 
     if (this.nopad) {
-      c += `padding: 0;
+      c += `padding: 5px;
       overflow: hidden;
       `
     }
     else {
-      c += `padding: 20px 0 20px 0;`;
+      // c += `padding: 20px 0 20px 0;`;
     }
     if (this.pointer) {
       c += `cursor: pointer;
@@ -94,7 +251,13 @@ class SectionApp extends Torus.StyledComponent {
   compose() {
     return jdom`
       <section class="${this.className}" onclick="${ev => this.onclick(ev)}">
-        ${this.dom()}
+        <div class="header">
+          <div class="title">${ this.title }</div>
+          <div class="button" >x</>
+        </div>
+        <div class="content">
+          ${this.dom()}
+        </div>
       </section>
     `
   }
@@ -121,14 +284,17 @@ class TitleApp extends SectionApp {
 
 let showCanvas = true;
 class ContentApp extends Torus.StyledComponent {
-  init() {
+  init(app) {
+    this.app = app;
     this.s = [
       new SectionApp({
+        title: "Settings",
         dom: () => jdom`
     <div class="msg center-text">${showCanvas ? "😵Hide" : "😎Show"} background</div>
     `, className: "hidecanvas", pointer: true
       }),
       new TitleApp({
+        title: "Name",
         dome: () => jdom`
     <h1>
       Naoto Hieda
@@ -140,19 +306,285 @@ class ContentApp extends Torus.StyledComponent {
     `, pointer: true, code: defaultCode
       }),
       new SectionApp({
+        title: "What's Up",
+        dom: () => jdom`
+        <div>
+          <img
+          class="projects"
+          alt="a loft"
+          src="https://img.glitches.me/images/2022/09/12/IMG_2335.jpg"
+          style="width: 100%; height: auto"
+          onclick=${ (ev) => {
+            this.app.openPopup(
+              "What's Up",
+              jdom`
+              <div class="w">
+                <div>
+                  Studio at UNAL
+                </div>
+              </div>
+              `,
+              ev);
+          } } />
+        </div>
+    `, code: () => {
+          osc(60, 0.1, 1.5)
+            .modulate(
+              noise(3).modulatePixelate(noise(4).pixelate(32, 32).thresh(0, 0.5), 1024, 32)
+            ).out()
+        }
+      }),
+      new SectionApp({
+        title: "Under Construction",
         dom: () => jdom`
     <div>
-      <h2>
-        What's Up
-      </h2>
-
-      <p>
-        <a href="https://festival.glitches.me"
-          >festival.glitches.me (2021-2022)</a
-        >
-        is an independent online festival organized by and for
-        <span class="naoto">Naoto</span>.
+      <img
+        class="projects"
+        alt="under construction"
+        src="./img/underconstruction.gif"
+        style="width: 100%; height: auto"
+        onclick=${ (ev) => {
+          this.app.openPopup(
+            "Under Construction",
+            jdom`
+            <div class="w">
+              <h2>Under Construction</h2>
+              <div>
+              <p>
+              GIF taken from
+              <a href="http://www.textfiles.com/underconstruction/" target="_blank">here</a> (beware - many images)
+              </p>
+              <p>
+                This website is permanently under construction
+              </p>
+              <p>
+              <span class="naoto">Naoto</span> is permanently under pressure
+              </p>
+            </div>
+            `,
+            ev);
+        } } />
+        <p class="center-text">
       </p>
+    </div>
+    `, code: () => {
+          osc(2, 0, 1.5).modulate(solid(2)).contrast(2).out()
+
+        },
+      }),
+      new SectionApp({
+        title: "#NaotoHieda",
+        dom: () => jdom`
+    <div>
+    <img
+      class="projects"
+      alt="hashtag naoto hieda, an artwork of a printed banner"
+      style="width: 100%; height: auto"
+      src="https://img.glitches.me/images/2022/02/13/banner.jpg"
+      onclick=${ (ev) => {
+      this.app.openPopup(
+        "#NaotoHieda",
+        jdom`
+        <div class="w">
+          <div>
+            <a href="https://www.po-holdings.co.jp/m-annex/exhibition/archive/detail_202202.html" target="_blank">Exhibition
+            </a>
+          </div>
+        </div>
+        `,
+        ev);
+    } } />
+
+    </div>
+    `, nopad: true,
+        code: () => {
+          osc(30,0.03,1.5).out()
+        },
+      }),
+      new SectionApp({
+        title: "riso.glitches.me",
+        dom: () => jdom`
+    <div>
+    <img
+      class="projects"
+      alt="riso.glitches.me, a mass printed risograph work"
+      style="width: 100%; height: auto"
+      src="https://img.glitches.me/images/2022/03/15/riso_.jpg"
+      onclick=${ (ev) => {
+        this.app.openPopup(
+          "riso.glitches.me",
+          jdom`
+          <div class="w">
+            <div>
+              <a href="https://riso.glitches.me" target="_blank">Risograph artwork presented at Art Fair Tokyo 2022</a>. Photo by Pola Museum Annex.
+            </div>
+          </div>
+          `,
+          ev);
+      } } />
+    </div>
+    `, nopad: true,
+        code: () => {
+          osc(60,0.03).thresh(.7,.1).color(1,0,0)
+          .add(osc(60,0.03).thresh(.7,.1).color(0,0,1).modulate(noise(3),.01))
+          .rotate().invert().hue().out()
+        },
+      }),
+      new SectionApp({
+        title: "GlitchMe3D",
+        dom: () => jdom`
+    <div>
+    <img
+      class="projects"
+      alt="glitch me with flor de fuego"
+      style="width: 100%; height: auto"
+      src="https://img.glitches.me/images/2022/02/26/glitchme.jpg"
+      onclick=${ (ev) => {
+        this.app.openPopup(
+          "GlitchMe3D",
+          jdom`
+          <div class="w">
+            <div>Project with Flor de Fuego</div>
+            <div>
+              <a href="https://www.youtube.com/watch?v=d0KMUUOrUvs" target="_blank">Video
+              </a>
+            </div>
+          </div>
+          `,
+          ev);
+      } } />
+    </div>
+    `, nopad: true,
+        code: () => {
+          solid(1, 1, 1).layer(
+            src(o0).scale(1, 0.5, -1).hue(2 / 3))
+            .layer(
+              osc(50, 0.02, 1.5).mask(osc(25, -0.01).thresh(0.5, 0)).mult(osc(25, -0.01, 1.5).r().luma(0, 0))
+                .modulate(noise(2, 0.05).modulate(solid(0, 1), () => time * .2), 0.05)
+            ).out()
+        },
+      }),
+
+      new SectionApp({
+        title: "#BestPracticesInContemporaryDance",
+        dom: () => jdom`
+    <div>
+      <img
+        class="projects"
+        alt="best practices"
+        style="width: 100%; height: auto"
+        src="https://img.glitches.me/images/2022/08/31/IMG_1034.jpg"
+        onclick=${ (ev) => {
+          this.app.openPopup(
+            "#BestPracticesInContemporaryDance",
+            jdom`
+            <div class="w">
+              <div>Project with Jorge Guevara</div>
+              <div>
+              <a href="https://www.creativeapplications.net/member-submissions/best-practices-in-contemporary-dance/" target="_blank">Article on CreativeApplications.Net</a>
+              </div>
+            </div>
+            `,
+            ev);
+        } } />
+      </div>
+    `, nopad: true,
+    code: () => src(o0).modulate(osc(6,0,1.5).modulate(noise(3).sub(gradient()),1).brightness(-.5),0.01).layer(osc(80,0.1,1.5).mask(shape(4,0.3,0))).out()
+      }),
+
+      new SectionApp({
+        title: "Leewa",
+        dom: () => jdom`
+    <div>
+    <img
+      class="projects"
+      alt="screen of live coding"
+      style="width: 100%; height: auto"
+      src="https://cdn.glitch.me/cada0ae2-f902-428d-81e3-6a68f5e589e5%2Fvlcsnap-2021-11-18-10h55m20s617.png?v=1637200592768"
+      onclick=${ (ev) => {
+      this.app.openPopup(
+        "Leewa",
+        jdom`
+        <div class="w">
+          <div>
+          Project with Ekheo
+          </div>
+        </div>
+        `,
+        ev);
+    } } />
+    </div>
+    `, nopad: true,
+        code: () => {
+          osc(30,0.03,1.5).out()
+        },
+      }),
+
+      new SectionApp({
+        title: "Conversations with Computers",
+        dom: () => jdom`
+    <div>
+    <img
+      class="projects"
+      alt="exhibition view of a laptop and a banner"
+      style="width: 100%; height: auto"
+      src="https://cwc.radical-openness.org/html-space/img/exhibition/Exhibition(22).edit.jpg"
+      onclick=${ (ev) => {
+      this.app.openPopup(
+        "Conversations with Computers",
+        jdom`
+        <div class="w">
+          <div>
+          <p>
+            Photo from exhibition documentation below
+          </p>
+          <p>
+            <a target="_blank" href="https://cwc.radical-openness.org">Link</a>
+          </p>
+          </div>
+        </div>
+        `,
+        ev);
+    } } />
+    </div>
+    `, nopad: true,
+        code: () => {
+          osc(30,0.03,1.5).out()
+        },
+      }),
+
+      new SectionApp({
+        title: "NODE20",
+        dom: () => jdom`
+    <div>
+    <img
+      class="projects"
+      alt="screenshot of mozila hubs with various 3d models"
+      style="width: 100%; height: auto"
+      src="https://cdn.glitch.com/e9f27e4f-87e5-46c9-8645-e03a6aedc236%2F201007node.png?v=1603140395893"
+      onclick=${ (ev) => {
+      this.app.openPopup(
+        "NODE20",
+        jdom`
+        <div class="w">
+          <div>
+          Choreographic Coding Lab Online
+          </div>
+        </div>
+        `,
+        ev);
+    } } />
+    </div>
+    `, nopad: true,
+        code: () => {
+          osc(30,0.03,1.5).out()
+        },
+      }),
+
+      new SectionApp({
+        title: "misc",
+        dom: () => jdom`
+      <div>
 
       <p>
       <a href="https://gmogm.glitch.me/"
@@ -170,116 +602,14 @@ class ContentApp extends Torus.StyledComponent {
         <span class="naoto">Naoto</span> to experiment with online bodies
         and pixels.
       </p>
-      </div>
-    `, code: () => {
-          osc(60, 0.1, 1.5)
-            .modulate(
-              noise(3).modulatePixelate(noise(4).pixelate(32, 32).thresh(0, 0.5), 1024, 32)
-            ).out()
-        }
-      }),
-      new SectionApp({
-        dom: () => jdom`
-    <div>
-      <p class="center-text">
-        This website is permanently under construction
+      
+      <p>
+        <a href="https://festival.glitches.me"
+          >festival.glitches.me (2021-2022)</a
+        >
+        is an independent online festival organized by and for
+        <span class="naoto">Naoto</span>.
       </p>
-      <img
-        class="projects"
-        alt="under construction"
-        src="./img/underconstruction.gif"
-      />
-      <p class="center-text">
-        <span class="naoto">Naoto</span> is permanently under pressure
-      </p>
-    </div>
-    `, code: () => {
-          osc(2, 0, 1.5).modulate(solid(2)).contrast(2).out()
-
-        }, modal: "construction",
-      }),
-      new SectionApp({
-        dom: () => jdom`
-    <div>
-    <img
-      class="projects"
-      alt="hashtag naoto hieda, an artwork of a printed banner"
-      style="width: 100%; height: auto"
-      src="https://img.glitches.me/images/2022/02/13/banner.jpg"
-    />
-    </div>
-    `, nopad: true,
-        code: () => {
-          osc(30,0.03,1.5).out()
-        },
-        modal: "naotohieda",
-      }),
-      new SectionApp({
-        dom: () => jdom`
-    <div>
-    <img
-      class="projects"
-      alt="riso.glitches.me, a mass printed risograph work"
-      style="width: 100%; height: auto"
-      src="https://img.glitches.me/images/2022/03/15/riso_.jpg"
-    />
-    </div>
-    `, nopad: true,
-        code: () => {
-          osc(60,0.03).thresh(.7,.1).color(1,0,0)
-          .add(osc(60,0.03).thresh(.7,.1).color(0,0,1).modulate(noise(3),.01))
-          .rotate().invert().hue().out()
-        },
-        modal: "riso",
-      }),
-      new SectionApp({
-        dom: () => jdom`
-    <div>
-    <img
-      class="projects"
-      alt="glitch me with flor de fuego"
-      style="width: 100%; height: auto"
-      src="https://img.glitches.me/images/2022/02/26/glitchme.jpg"
-    />
-    </div>
-    `, nopad: true,
-        code: () => {
-          solid(1, 1, 1).layer(
-            src(o0).scale(1, 0.5, -1).hue(2 / 3))
-            .layer(
-              osc(50, 0.02, 1.5).mask(osc(25, -0.01).thresh(0.5, 0)).mult(osc(25, -0.01, 1.5).r().luma(0, 0))
-                .modulate(noise(2, 0.05).modulate(solid(0, 1), () => time * .2), 0.05)
-            ).out()
-        },
-        modal: "glitchme",
-      }),
-      new SectionApp({
-        dom: () => jdom`
-    <div>
-      <img
-        class="projects"
-        alt="best practices"
-        style="width: 100%; height: auto"
-        src="https://img.glitches.me/images/2022/08/31/IMG_1034.jpg"
-      />
-    </div>
-    `, nopad: true, modal: "bp", code: () => src(o0).modulate(osc(6,0,1.5).modulate(noise(3).sub(gradient()),1).brightness(-.5),0.01).layer(osc(80,0.1,1.5).mask(shape(4,0.3,0))).out()
-      }),
-    //   new SectionApp({
-    //     dom: () => jdom`
-    // <div>
-    // <img
-    //   class="projects"
-    //   alt="under construction exhibition"
-    //   style="width: 100%; height: auto"
-    //   src="https://cdn.glitch.com/c872ab9a-264e-4ce2-91db-721811e90193%2Funderconstruction.jpg"
-    // />
-    // </div>
-    // `, nopad: true, modal: "banner", code: () => solid(0.2,0.6,0.9).layer(osc(31.4,0).thresh(0.7).luma().modulate(osc(4,1).rotate(1),0.05).color(0,0,0)).layer(osc(31.4,0).thresh(0.7).luma().modulate(osc(4,1).rotate(1),0.1)).out()
-    //   }),
-      new SectionApp({
-        dom: () => jdom`
-      <div>
 
       <p>
         <a href="https://bestchat.glitch.me/"
@@ -332,18 +662,16 @@ class ContentApp extends Torus.StyledComponent {
       .scale(1,()=>window.innerHeight/window.innerWidth)
     ).out()}),
       new SectionApp({
+        title: "Who",
         dom: () => jdom`
     <div>
-      <h2>
-        Who
-      </h2>
-
       <p class="center-text">
         <span class="naoto">Naoto</span> is a human. Contact me on mail@naotohieda.com
       </p>
     </div>
     `}),
       new SectionApp({
+        title: "Credits",
         dom: () => jdom`
     <p class="center-text"><span class="naoto">Naoto Hieda</span> - design by <a href="https://glitches.me" target="_blank">glitches.me</a></p>
     `, code: () => noise().out()})];
@@ -353,9 +681,14 @@ class ContentApp extends Torus.StyledComponent {
     position: relative;
     z-index: 1;
     background-color: rgba(255, 255, 255, 0);
-    max-width: 768px;
     /* margin: 20px 0 20px 0; */
     padding: 0 10px 0 10px;  
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+    align-content: stretch;
     `
   }
   render() {
@@ -371,148 +704,71 @@ class ContentApp extends Torus.StyledComponent {
   }
 }
 
-class ModalApp extends Torus.StyledComponent {
-  init() {
-    this.modals = {
-      naotohieda: {
-        dom: jdom`
-        <div class="w">
-          <h2>#NaotoHieda</h2>
-          <div>
-            <a href="https://www.po-holdings.co.jp/m-annex/exhibition/index.html" target="_blank">Exhibition
-            </a>
-          </div>
-          <button onclick="${() => this.toggle("naotohieda")}">✖</button>
-        </div>
-        `,
-        show: false
-      },
-      riso: {
-        dom: jdom`
-        <div class="w">
-          <h2>riso.glitches.me</h2>
-          <div>
-            <a href="https://riso.glitches.me" target="_blank">Risograph artwork presented at Art Fair Tokyo 2022</a>. Photo by Pola Museum Annex.
-          </div>
-          <button onclick="${() => this.toggle("riso")}">✖</button>
-        </div>
-        `,
-        show: false
-      },
-      glitchme: {
-        dom: jdom`
-        <div class="w">
-          <h2>GlitchMe</h2>
-          <div>Project with Flor de Fuego</div>
-          <div>
-            <a href="https://www.youtube.com/watch?v=d0KMUUOrUvs" target="_blank">Video
-            </a>
-          </div>
-          <button onclick="${() => this.toggle("glitchme")}">✖</button>
-        </div>
-        `,
-        show: false
-      },
-      bp: {
-        dom: jdom`
-        <div class="w">
-          <h2>Best Practices in Contemporary Dance</h2>
-          <div>Project with Jorge Guevara</div>
-          <div>
-          <a href="https://www.creativeapplications.net/member-submissions/best-practices-in-contemporary-dance/" target="_blank">Article on CreativeApplications.Net</a>
-          </div>
-          <button onclick="${() => this.toggle("bp")}">✖</button>
-        </div>
-        `,
-        show: false
-      },
-      banner: {
-        dom: jdom`
-        <div class="w">
-          <h2>Banner</h2>
-          <div>Installation at new KHM building</div>
-          <a href="https://best-public.glitch.me/" target="_blank">more info</a>
-          <button onclick="${() => this.toggle("banner")}">✖</button>
-        </div>
-        `,
-        show: false
-      },
-      construction: {
-        dom: jdom`
-        <div class="w">
-          <h2>Under Construction</h2>
-          <div>GIF taken from
-          <a href="http://www.textfiles.com/underconstruction/" target="_blank">here</a> (beware - many images)
-          <button onclick="${() => this.toggle("construction")}">✖</button>
-        </div>
-        `,
-        show: false
-      },
-    }
-  }
-  toggle(key, x, y) {
-    this.modals[key].show = !this.modals[key].show;
-    if (x === undefined) x = 0;
-    if (y === undefined) y = 0;
-    if (x + 450 > window.innerWidth) x = window.innerWidth - 450;
-    if (isMobile) x = 0;
-    this.modals[key].dom.attrs = { ...this.modals[key].dom.attrs, style: { left: x + "px", top: y + "px" } };
-    this.render();
-  }
-  styles() {
-    return css`
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    z-index: 4;
-    h2 {
-      font-family: "ApfelGrotezk Regular", arial, sans-serif;
-      font-size: 1.2em;
-      padding-bottom: .5em;
-    }
-    div.w {
-      width: 400px;
-      max-width: 100vw;
-      position: absolute;
-      padding: 0px 0 20px 0;
-      background-color: rgba(255, 255, 255, 0.9);
-      box-shadow: 0 0 10px #000;
-      -webkit-box-shadow: 0 0 10px #000;
-    }
-    button {
-      position: absolute;
-      top: 0;
-      right: 0;
-    }
-    `;
-  }
-  compose() {
-    return jdom`
-    <div>
-      <div class="modalcontainer">
-        ${Object.keys(this.modals).map(k => this.modals[k].show ? this.modals[k].dom : "")}
-      </div>
-    </div>
-    `
-  }
-}
-
 class App extends Torus.StyledComponent {
   init() {
     this.hydraApp = new HydraApp();
-    this.contentApp = new ContentApp();
-    this.modalApp = new ModalApp();
+    this.contentApp = new ContentApp(this);
 
     if (isMobile !== true) {
       s0.initVideo("./img/bp.webm");
     }
     defaultCode();
+    this.popups = [];
+  }
+  dummy() {
+    const params = {};
+    params.x = 5;
+    params.y = window.innerHeight - 100;
+    params.title = "热烈欢迎";
+    params.sticky = true;
+    params.dom = jdom`test`
+    this.popups.push(new PopupApp(this, params));
+    this.popups[0].active = true;
+    this.popups[0].render();
   }
   toggleCanvas() {
     showCanvas = !showCanvas;
     this.contentApp.render()
     this.render();
+  }
+  openPopup(title, dom, ev) {
+    if (this.popups.find(e => e.params.title === title)) return; // oops
+    const params = {};
+    params.x = ev.pageX;
+    if (window.innerWidth - params.x < popupWidth) {
+      params.x = Math.max(0, window.innerWidth - popupWidth);
+    }
+    params.y = ev.pageY;
+    params.title = title;
+    params.dom = dom;
+    this.popups.push(new PopupApp(this, params));
+    this.render();
+    this.updatePopups();
+  }
+  closePopup(popup) {
+    const index = this.popups.indexOf(popup);
+    if (index >= 0) {
+      this.popups.splice(index, 1);
+      this.render();
+    }
+    this.updatePopups();
+  }
+  sortUp(popup) {
+    this.closePopup(popup);
+    this.popups = [...this.popups, popup];
+    this.render();
+    this.updatePopups();
+  }
+  updatePopups() {
+    this.popups.forEach((p, i) => {
+      if (i === this.popups.length - 1) {
+        p.active = true;
+      }
+      else {
+        p.active = false;
+      }
+      p.render();
+    });
   }
   // styles() {
   //   return css`
@@ -523,8 +779,8 @@ class App extends Torus.StyledComponent {
     return jdom`
     <div>
     ${showCanvas ? this.hydraApp.node : ""}
+    ${ this.popups.map(e => e.node) }
     ${this.contentApp.node}
-    ${this.modalApp.node}
     </div>
     `
   }
