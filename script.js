@@ -147,12 +147,6 @@ class PopupApp extends Torus.StyledComponent {
               this.render();
             }
           } }
-          ontouchstart=${ () => {
-            if (this.params.sticky !== true) {
-              this.closeState = "";
-              this.render();
-            }
-          } }
           onmouseup=${ () => {
             if (this.params.sticky !== true) {
               this.closeState = "";
@@ -166,6 +160,11 @@ class PopupApp extends Torus.StyledComponent {
             }
           } }
           onclick=${ () => {
+            if (this.params.sticky !== true) {
+              this.app.closePopup(this);
+            }
+          } }
+          ontouchend=${ () => {
             if (this.params.sticky !== true) {
               this.app.closePopup(this);
             }
@@ -239,7 +238,14 @@ class SectionApp extends Torus.StyledComponent {
     }
     return css`${c}`;
   }
-  onclick(ev) {
+  onmousedown(ev) {
+    this.clicking = true;
+  }
+  onmouseup(ev) {
+    if (this.clicking !== true) {
+      return;
+    }
+    this.clicking = false;
     this.code();
     if (this.className === "hidecanvas") {
       app.toggleCanvas();
@@ -250,7 +256,10 @@ class SectionApp extends Torus.StyledComponent {
   }
   compose() {
     return jdom`
-      <section class="${this.className}" onclick="${ev => this.onclick(ev)}">
+      <section class="${this.className}"
+        onmousedown="${ev => this.onmousedown(ev)}"
+        onmouseup="${ev => this.onmouseup(ev)}"
+      >
         <div class="header">
           <div class="title">${ this.title }</div>
           <div class="button" >x</>
@@ -320,7 +329,7 @@ class ContentApp extends Torus.StyledComponent {
               jdom`
               <div class="w">
                 <div>
-                  Studio at UNAL
+                  Naoto is currently visiting Bogotá, Colombia
                 </div>
               </div>
               `,
@@ -430,6 +439,67 @@ class ContentApp extends Torus.StyledComponent {
           .rotate().invert().hue().out()
         },
       }),
+
+      new SectionApp({
+        title: "nail.glitches.me",
+        dom: () => jdom`
+    <div>
+    <img
+      class="projects"
+      alt="left hand with black and iridescent nails"
+      style="width: 100%; height: auto"
+      src="https://bild.glitches.me/images/2022/09/23/37247384-81A4-41D3-8DDE-DABFCDBA23FC.jpg"
+      onclick=${ (ev) => {
+      this.app.openPopup(
+        "nail.glitches.me",
+        jdom`
+        <div class="w">
+          <div>
+          <p>
+          Naoto's nail salon
+          </p>
+          </div>
+        </div>
+        `,
+        ev);
+    } } />
+    </div>
+    `, nopad: true,
+        code: () => {
+          osc(30,0.03,1.5).out()
+        },
+      }),
+
+      new SectionApp({
+        title: "#spektrum",
+        dom: () => jdom`
+    <div>
+    <img
+      class="projects"
+      alt="video screened in a station"
+      style="width: 100%; height: auto"
+      src="https://bild.glitches.me/images/2022/09/24/naoto_spektrum.gif"
+      onclick=${ (ev) => {
+      this.app.openPopup(
+        "#spektrum",
+        jdom`
+        <div class="w">
+          <div>
+          <p>
+          10 sec video at Cologne Main Station
+          </p>
+          </div>
+        </div>
+        `,
+        ev);
+    } } />
+    </div>
+    `, nopad: true,
+        code: () => {
+          osc(30,0.03,1.5).out()
+        },
+      }),
+
       new SectionApp({
         title: "GlitchMe3D",
         dom: () => jdom`
@@ -585,23 +655,6 @@ class ContentApp extends Torus.StyledComponent {
         title: "misc",
         dom: () => jdom`
       <div>
-
-      <p>
-      <a href="https://gmogm.glitch.me/"
-        >GlitchMe (2020-)</a
-      >
-      is a playground for Flor de Fuego and
-      <span class="naoto">Naoto</span> for materializing glitches.
-      </p>
-
-      <p>
-        <a href="https://best-practices.glitch.me/"
-          >Best Practices In Contemporary Dance (2020-)</a
-        >
-        is a practice and a playground by Jorge Guevara and
-        <span class="naoto">Naoto</span> to experiment with online bodies
-        and pixels.
-      </p>
       
       <p>
         <a href="https://festival.glitches.me"
