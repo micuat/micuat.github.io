@@ -475,7 +475,7 @@ class ContentApp extends Torus.StyledComponent {
         <div class="w">
           <div>
           <p>
-            Naoto's nail salon
+            <a href="https://nail.glitches.me" target="_blank">Naoto's nail salon</a>
           </p>
           <p>
             Details coming soon...
