@@ -218,6 +218,9 @@ class SectionApp extends Torus.StyledComponent {
       text-align: center;
       border: 2px outset #eee;
     }
+    .title {
+      margin: 0 2px;
+    }
 
     img {
       cursor: pointer;
@@ -329,7 +332,12 @@ class ContentApp extends Torus.StyledComponent {
               jdom`
               <div class="w">
                 <div>
-                  Naoto is currently visiting Bogotá, Colombia
+                  <p>
+                    Naoto is currently visiting Bogotá, Colombia
+                  </p>
+                  <p>
+                    Write to mail@naotohieda.com for booking
+                  </p>
                 </div>
               </div>
               `,
@@ -357,18 +365,17 @@ class ContentApp extends Torus.StyledComponent {
             "Under Construction",
             jdom`
             <div class="w">
-              <h2>Under Construction</h2>
               <div>
-              <p>
-              GIF taken from
-              <a href="http://www.textfiles.com/underconstruction/" target="_blank">here</a> (beware - many images)
-              </p>
-              <p>
-                This website is permanently under construction
-              </p>
-              <p>
-              <span class="naoto">Naoto</span> is permanently under pressure
-              </p>
+                <p>
+                GIF taken from
+                <a href="http://www.textfiles.com/underconstruction/" target="_blank">here</a> (beware - many images)
+                </p>
+                <p>
+                  This website is permanently under construction
+                </p>
+                <p>
+                <span class="naoto">Naoto</span> is permanently under pressure
+                </p>
             </div>
             `,
             ev);
@@ -396,8 +403,12 @@ class ContentApp extends Torus.StyledComponent {
         jdom`
         <div class="w">
           <div>
-            <a href="https://www.po-holdings.co.jp/m-annex/exhibition/archive/detail_202202.html" target="_blank">Exhibition
-            </a>
+            <p>
+              #NaotoHieda is an artwork around a computer program and a body. A screenshot of a performance using the artist’s body and a custom-made web editor for live-coding is printed as a 12-meter-wide construction banner, exhibited at Pola Museum Annex in Tokyo, Japan.
+            </p>
+            <p>
+              Details can be found <a href="https://naotohieda.glitch.me/" target="_blank">naotohieda.glitch.me</a> as well as on <a href="https://www.creativeapplications.net/member-submissions/naotohieda-live-coding-on-a-construction-banner/" target="_blank">CreativeApplications.Net</a>.
+            </p>
           </div>
         </div>
         `,
@@ -425,7 +436,15 @@ class ContentApp extends Torus.StyledComponent {
           jdom`
           <div class="w">
             <div>
-              <a href="https://riso.glitches.me" target="_blank">Risograph artwork presented at Art Fair Tokyo 2022</a>. Photo by Pola Museum Annex.
+              <p>
+                riso.glitches.me is an artwork consisting of risograph prints of the artist’s brain and a custom-made computer program.
+              </p>
+              <p>
+                Image processing is applied to an MRI scan pattern of the brain, and the output is printed as 2-color risograph. The image processing is sophisticatedly designed so that the printing offset of risograph generates different shading for each print from the same set of master patterns. 
+              </p>
+              <p>
+                Details can be found on <a href="https://riso.glitches.me/" target="_blank">riso.glitches.me</a>. Photo by Pola Museum Annex.
+              </p>
             </div>
           </div>
           `,
@@ -456,7 +475,10 @@ class ContentApp extends Torus.StyledComponent {
         <div class="w">
           <div>
           <p>
-          Naoto's nail salon
+            Naoto's nail salon
+          </p>
+          <p>
+            Details coming soon...
           </p>
           </div>
         </div>
@@ -485,9 +507,12 @@ class ContentApp extends Torus.StyledComponent {
         jdom`
         <div class="w">
           <div>
-          <p>
-          10 sec video at Cologne Main Station
-          </p>
+            <p>
+              10 sec video screened at Cologne Main Station as part of ctrl-space by Christian Sievers
+            </p>
+            <p>
+              #spektrum is a convolution of identity questions that we face, including, but not only, the gender spectrum and autism spectrum. The fingers as an analog, imperfect medium with a color spectrum of nail polish count binary numbers mimicking a self-stimulatory behavior (stimming) to provoke and to challenge the stigma of "binariness" of autism.
+            </p>
           </div>
         </div>
         `,
@@ -514,11 +539,15 @@ class ContentApp extends Torus.StyledComponent {
           "GlitchMe3D",
           jdom`
           <div class="w">
-            <div>Project with Flor de Fuego</div>
-            <div>
-              <a href="https://www.youtube.com/watch?v=d0KMUUOrUvs" target="_blank">Video
-              </a>
-            </div>
+            <p>
+              Project with <a href="https://flordefuego.github.io/" target="_blank">Flor de Fuego</a> as part of fellowship at Academy for Theater and Digitality (Dortmund, Germany).
+            </p>
+            <p>
+              GlitchMe is a laboratory of witchcraft around composition of scenic objects and decomposition of algorithms invoking a network of feedback loops. Digitality can become dreams moving and interacting in multiple spaces in a non-linear time. Through feedback loops we create windows that can open new possibilities to narrate distorted and glitched worlds.
+            </p>
+            <p>
+              Details can be found on <a href="https://3d.glitches.me/" target="_blank">3d.glitches.me</a>.
+            </p>
           </div>
           `,
           ev);
@@ -549,10 +578,15 @@ class ContentApp extends Torus.StyledComponent {
             "#BestPracticesInContemporaryDance",
             jdom`
             <div class="w">
-              <div>Project with Jorge Guevara</div>
-              <div>
-              <a href="https://www.creativeapplications.net/member-submissions/best-practices-in-contemporary-dance/" target="_blank">Article on CreativeApplications.Net</a>
-              </div>
+              <p>
+                Project with <a href="https://jorgeguevara.myportfolio.com/" target="_blank">Jorge Guevara</a>
+              </p>
+              <p>
+                Jorge Guevara and Naoto Hieda met over the internet as part of a series of meetups that Naoto organized during lockdown in April 2020, which turned into focused sessions called “Best Practices in Contemporary Dance”. Since then, on a weekly basis, Naoto Hieda in Cologne and Jorge Guevara in Brussels meet online to “practice” for an hour. We stream, distort and alter the videos of ourselves and each other both using commercial and/or open-source software to blend our bodies in the “pixel space”. We do not define what tools and components are to be used, and the practice might include spontaneous reading, writing, eating or body painting. The project is not intended to produce a performance; the practice itself is the outcome and the objective is to create a fluid, queer form of conversation between technology and bodies. Another aspect of the process is a “chat”, a casual discussion to reflect on the practice. Both the practices and chats are recorded and uploaded on YouTube as a massive online archive. The project was presented at NODE20 Festival (Frankfurt), Performing Arts Forum (Saint-Erme, France), SEADS (Space Ecologies Art and Design), IDOCDE (ImPulsTanz, Vienna), NEW NOW (Essen), Hauptsache Frei (Hamburg) as (ever-)work-in-progress.
+              </p>
+              <p>
+              Details can be found on <a href="https://best-practices.glitch.me/" target="_blank">best-practices.glitch.me</a>.
+            </p>
             </div>
             `,
             ev);
@@ -577,7 +611,17 @@ class ContentApp extends Torus.StyledComponent {
         jdom`
         <div class="w">
           <div>
-          Project with Ekheo
+            <p>
+              Audiovisual with <a href="https://www.ekheo.com/" target="_blank">Ekheo (Aude Langlois and Belinda Sykora)</a>. Watch <a href="https://www.youtube.com/watch?v=MTmKFf6HImA" target="_blank">here</a>
+            </p>
+            <p>
+            <i>
+              The latest absolutely eye-popping work made with free Web live-coding tool Hydra comes from artist Naoto Hieda, with sound by the duo Ekheo (Aude Langlois and Belinda Sykora) and some eerie AI poetry. If that didn’t melt your brain entirely, you can follow along with tutorials to harness the powers of Hydra, too.
+              </i>
+            </p>
+            <p>
+              -- Quote from <a href="https://cdm.link/2021/11/livecoding-glitch-eye-searing-colors-ai-poetry-and-the-knowledge-to-make-it-yourself-for-free/" target="_blank">CDM article by Peter Kirn</a>
+            </p>
           </div>
         </div>
         `,
@@ -605,12 +649,15 @@ class ContentApp extends Torus.StyledComponent {
         jdom`
         <div class="w">
           <div>
-          <p>
-            Photo from exhibition documentation below
-          </p>
-          <p>
-            <a target="_blank" href="https://cwc.radical-openness.org">Link</a>
-          </p>
+            <p>
+              The show is the outcome of a <a href="https://core.servus.at/en/projekt/conversations-computers/review-silicon-friend-camp-2021" target="_blank">week-long worksession</a> with 15 international artists in the austrian alps organized by servus.at and Matthias Pitscher as part of the 2021 <a href="https://research.radical-openness.org/2021/" target="_blank">Art Meets Radical Openness Research Lab</a>
+            </p>
+            <p>
+              Photo from exhibition documentation below
+            </p>
+            <p>
+              Details <a target="_blank" href="https://cwc.radical-openness.org">here</a>
+            </p>
           </div>
         </div>
         `,
@@ -638,7 +685,15 @@ class ContentApp extends Torus.StyledComponent {
         jdom`
         <div class="w">
           <div>
-          Choreographic Coding Lab Online
+            <p>
+              Choreographic Coding Lab Online is a series of events organized and curated by Naoto Hieda as an official unconference that took place at <a target="_blank" href="https://20.nodeforum.org/">NODE20 (Frankfurt, Germany)</a>.
+            </p>
+            <p>
+              The sessions format depends on the host: there may be workshops, lectures, discussions, performative practices or formats in between. Topics will vary from somatic movements to programming bots, or even collective cooking. Festival participants are invited to all the sessions and may propose and host additional sessions.
+            </p>
+            <p>
+              Details can be found on <a href="https://cconline-node.glitch.me/" target="_blank">cconline-node.glitch.me</a>.
+            </p>
           </div>
         </div>
         `,
