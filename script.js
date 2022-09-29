@@ -164,8 +164,9 @@ class PopupApp extends Torus.StyledComponent {
               this.app.closePopup(this);
             }
           } }
-          ontouchend=${ () => {
+          ontouchstart=${ (ev) => {
             if (this.params.sticky !== true) {
+              ev.preventDefault();
               this.app.closePopup(this);
             }
           } }>x</>
