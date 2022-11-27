@@ -166,7 +166,7 @@ class PopupApp extends Torus.StyledComponent {
           } }
           ontouchstart=${ (ev) => {
             if (this.params.sticky !== true) {
-              ev.preventDefault();
+              // ev.preventDefault();
               this.app.closePopup(this);
             }
           } }>x</>
@@ -324,8 +324,8 @@ class ContentApp extends Torus.StyledComponent {
         <div>
           <img
           class="projects"
-          alt="a loft"
-          src="https://img.glitches.me/images/2022/09/12/IMG_2335.jpg"
+          alt="a funny poster for the semester-end show"
+          src="https://bild.glitches.me/images/2022/11/27/mitav-naoto-poster.png"
           style="width: 100%; height: auto"
           onclick=${ (ev) => {
             this.app.openPopup(
@@ -334,10 +334,7 @@ class ContentApp extends Torus.StyledComponent {
               <div class="w">
                 <div>
                   <p>
-                    Naoto is currently visiting Bogotá, Colombia
-                  </p>
-                  <p>
-                    Write to mail@naotohieda.com for booking
+                    <a href="https://solo.glitches.me/" target="_blank">solo.glitches.me</a>
                   </p>
                 </div>
               </div>
@@ -863,6 +860,9 @@ class App extends Torus.StyledComponent {
     this.updatePopups();
   }
   sortUp(popup) {
+    if (this.popups[this.popups.length - 1] === popup) {
+      return;
+    }
     this.closePopup(popup);
     this.popups = [...this.popups, popup];
     this.render();
