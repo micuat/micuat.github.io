@@ -896,23 +896,40 @@ class App extends Torus.StyledComponent {
 }
 
 const defaultCode = () => {
-  if (isMobile !== true) {
-    osc(20, 0.02, 1.5).rotate(0.1)
-      .hue(() => document.body.scrollTop / 1000)
-      .layer(
-        src(s0).repeat(3, 3).mask(
-          solid(1, 1, 1).sub(shape(4, 0.5, 0).scale(1, 1, 2).repeat(3, 3, 0.5).scale(1, 3).mult(src(s0).repeat(3, 3)))
-        )
-      )
-      .scale(() => (Math.sin(-document.body.scrollTop / 200) + 1) * 1)
-      .modulatePixelate(noise(8, 0.3).pixelate(32, 32).thresh(0.4, 0.2), -1000 + 32, 1000).out()
-  }
-  else {
-    osc(20, 0.02, 1.5).rotate(0.1)
-      .hue(() => document.body.scrollTop / 1000)
-      .scale(() => (Math.sin(-document.body.scrollTop / 200) + 1) * 1)
-      .modulatePixelate(noise(8, 0.3).pixelate(32, 32).thresh(0.4, 0.2), -1000 + 32, 1000).out()
-  }
+  // if (isMobile !== true) {
+  //   osc(20, 0.02, 1.5).rotate(0.1)
+  //     .hue(() => document.body.scrollTop / 1000)
+  //     .layer(
+  //       src(s0).repeat(3, 3).mask(
+  //         solid(1, 1, 1).sub(shape(4, 0.5, 0).scale(1, 1, 2).repeat(3, 3, 0.5).scale(1, 3).mult(src(s0).repeat(3, 3)))
+  //       )
+  //     )
+  //     .scale(() => (Math.sin(-document.body.scrollTop / 200) + 1) * 1)
+  //     .modulatePixelate(noise(8, 0.3).pixelate(32, 32).thresh(0.4, 0.2), -1000 + 32, 1000).out()
+  // }
+  // else {
+  //   osc(20, 0.02, 1.5).rotate(0.1)
+  //     .hue(() => document.body.scrollTop / 1000)
+  //     .scale(() => (Math.sin(-document.body.scrollTop / 200) + 1) * 1)
+  //     .modulatePixelate(noise(8, 0.3).pixelate(32, 32).thresh(0.4, 0.2), -1000 + 32, 1000).out()
+  // }
+  // solid(.3,.3,1)
+  osc(.2,0,1.5).modulate(solid(5,0),()=>-2+document.body.scrollTop / 2000)
+  .add(noise(3,0.01).add(noise(6,0.01)).thresh())
+  .layer(
+    shape(999,.1,.05).r().color(1,.5,0)
+    .modulate(solid(.75,0),1)
+    .rotate(()=>document.body.scrollTop / 2000)
+    .modulate(solid(.5,.1),-1))
+  .layer(
+    solid(0,1,0).mult(osc(7,0).rotate(-.5),.7)
+    .mask(shape(1,0,0)).modulate(
+      osc(3.5,0.01).brightness(-.5),.1)
+    .modulate(solid(1), ()=>-document.body.scrollTop / 2000)
+  )
+  .scale(1,()=>window.innerHeight/window.innerWidth)
+  .out()
+  
 }
 const app = new App();
 document.querySelector("div#main").appendChild(app.node);
