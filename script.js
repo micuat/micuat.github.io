@@ -324,8 +324,8 @@ class ContentApp extends Torus.StyledComponent {
         <div>
           <img
           class="projects"
-          alt="a funny poster for naoto's festival"
-          src="https://bild.glitches.me/images/2023/02/09/tdg-naoto-final.png"
+          alt="naoto standing in front of naoto banner"
+          src="https://bild.glitches.me/images/2023/03/03/621A898D-44FE-474E-9A33-56493200B999.jpg"
           style="width: 100%; height: auto"
           onclick=${ (ev) => {
             this.app.openPopup(
@@ -333,9 +333,7 @@ class ContentApp extends Torus.StyledComponent {
               jdom`
               <div class="w">
                 <div>
-                  <p>
-                    <a href="https://festival.naotohieda.com/" target="_blank">festival.naotohieda.com</a>
-                  </p>
+                  :)
                 </div>
               </div>
               `,
@@ -455,6 +453,39 @@ class ContentApp extends Torus.StyledComponent {
           .add(osc(60,0.03).thresh(.7,.1).color(0,0,1).modulate(noise(3),.01))
           .rotate().invert().hue().out()
         },
+      }),
+
+      new SectionApp({
+        title: "festival.naotohieda.com",
+        dom: () => jdom`
+        <div>
+          <img
+          class="projects"
+          alt="naoto banner hanging in an open space with two people sitting and chatting"
+          src="https://bild.glitches.me/images/2023/02/17/AD5CFFAC-99B4-4E8E-B06F-565B85A2EEDF.md.jpg"
+          style="width: 100%; height: auto"
+          onclick=${ (ev) => {
+            this.app.openPopup(
+              "festival.naotohieda.com",
+              jdom`
+              <div class="w">
+                <div>
+                  <p>
+                    <a href="https://festival.naotohieda.com/" target="_blank">festival.naotohieda.com</a>
+                  </p>
+                </div>
+              </div>
+              `,
+              ev);
+          } } />
+        </div>
+      `, nopad: true,
+      code: () => {
+          osc(60, 0.1, 1.5)
+            .modulate(
+              noise(3).modulatePixelate(noise(4).pixelate(32, 32).thresh(0, 0.5), 1024, 32)
+            ).out()
+        }
       }),
 
       new SectionApp({
@@ -594,115 +625,115 @@ class ContentApp extends Torus.StyledComponent {
     code: () => src(o0).modulate(osc(6,0,1.5).modulate(noise(3).sub(gradient()),1).brightness(-.5),0.01).layer(osc(80,0.1,1.5).mask(shape(4,0.3,0))).out()
       }),
 
-      new SectionApp({
-        title: "Leewa",
-        dom: () => jdom`
-    <div>
-    <img
-      class="projects"
-      alt="screen of live coding"
-      style="width: 100%; height: auto"
-      src="https://cdn.glitch.me/cada0ae2-f902-428d-81e3-6a68f5e589e5%2Fvlcsnap-2021-11-18-10h55m20s617.png?v=1637200592768"
-      onclick=${ (ev) => {
-      this.app.openPopup(
-        "Leewa",
-        jdom`
-        <div class="w">
-          <div>
-            <p>
-              Audiovisual with <a href="https://www.ekheo.com/" target="_blank">Ekheo (Aude Langlois and Belinda Sykora)</a>. Watch <a href="https://www.youtube.com/watch?v=MTmKFf6HImA" target="_blank">here</a>
-            </p>
-            <p>
-            <i>
-              The latest absolutely eye-popping work made with free Web live-coding tool Hydra comes from artist Naoto Hieda, with sound by the duo Ekheo (Aude Langlois and Belinda Sykora) and some eerie AI poetry. If that didn’t melt your brain entirely, you can follow along with tutorials to harness the powers of Hydra, too.
-              </i>
-            </p>
-            <p>
-              -- Quote from <a href="https://cdm.link/2021/11/livecoding-glitch-eye-searing-colors-ai-poetry-and-the-knowledge-to-make-it-yourself-for-free/" target="_blank">CDM article by Peter Kirn</a>
-            </p>
-          </div>
-        </div>
-        `,
-        ev);
-    } } />
-    </div>
-    `, nopad: true,
-        code: () => {
-          osc(30,0.03,1.5).out()
-        },
-      }),
+    //   new SectionApp({
+    //     title: "Leewa",
+    //     dom: () => jdom`
+    // <div>
+    // <img
+    //   class="projects"
+    //   alt="screen of live coding"
+    //   style="width: 100%; height: auto"
+    //   src="https://cdn.glitch.me/cada0ae2-f902-428d-81e3-6a68f5e589e5%2Fvlcsnap-2021-11-18-10h55m20s617.png?v=1637200592768"
+    //   onclick=${ (ev) => {
+    //   this.app.openPopup(
+    //     "Leewa",
+    //     jdom`
+    //     <div class="w">
+    //       <div>
+    //         <p>
+    //           Audiovisual with <a href="https://www.ekheo.com/" target="_blank">Ekheo (Aude Langlois and Belinda Sykora)</a>. Watch <a href="https://www.youtube.com/watch?v=MTmKFf6HImA" target="_blank">here</a>
+    //         </p>
+    //         <p>
+    //         <i>
+    //           The latest absolutely eye-popping work made with free Web live-coding tool Hydra comes from artist Naoto Hieda, with sound by the duo Ekheo (Aude Langlois and Belinda Sykora) and some eerie AI poetry. If that didn’t melt your brain entirely, you can follow along with tutorials to harness the powers of Hydra, too.
+    //           </i>
+    //         </p>
+    //         <p>
+    //           -- Quote from <a href="https://cdm.link/2021/11/livecoding-glitch-eye-searing-colors-ai-poetry-and-the-knowledge-to-make-it-yourself-for-free/" target="_blank">CDM article by Peter Kirn</a>
+    //         </p>
+    //       </div>
+    //     </div>
+    //     `,
+    //     ev);
+    // } } />
+    // </div>
+    // `, nopad: true,
+    //     code: () => {
+    //       osc(30,0.03,1.5).out()
+    //     },
+    //   }),
 
-      new SectionApp({
-        title: "Conversations with Computers",
-        dom: () => jdom`
-    <div>
-    <img
-      class="projects"
-      alt="exhibition view of a laptop and a banner"
-      style="width: 100%; height: auto"
-      src="https://cwc.radical-openness.org/html-space/img/exhibition/Exhibition(22).edit.jpg"
-      onclick=${ (ev) => {
-      this.app.openPopup(
-        "Conversations with Computers",
-        jdom`
-        <div class="w">
-          <div>
-            <p>
-              The show is the outcome of a <a href="https://core.servus.at/en/projekt/conversations-computers/review-silicon-friend-camp-2021" target="_blank">week-long worksession</a> with 15 international artists in the austrian alps organized by servus.at and Matthias Pitscher as part of the 2021 <a href="https://research.radical-openness.org/2021/" target="_blank">Art Meets Radical Openness Research Lab</a>
-            </p>
-            <p>
-              Photo from exhibition documentation below
-            </p>
-            <p>
-              Details <a target="_blank" href="https://cwc.radical-openness.org">here</a>
-            </p>
-          </div>
-        </div>
-        `,
-        ev);
-    } } />
-    </div>
-    `, nopad: true,
-        code: () => {
-          osc(30,0.03,1.5).out()
-        },
-      }),
+    //   new SectionApp({
+    //     title: "Conversations with Computers",
+    //     dom: () => jdom`
+    // <div>
+    // <img
+    //   class="projects"
+    //   alt="exhibition view of a laptop and a banner"
+    //   style="width: 100%; height: auto"
+    //   src="https://cwc.radical-openness.org/html-space/img/exhibition/Exhibition(22).edit.jpg"
+    //   onclick=${ (ev) => {
+    //   this.app.openPopup(
+    //     "Conversations with Computers",
+    //     jdom`
+    //     <div class="w">
+    //       <div>
+    //         <p>
+    //           The show is the outcome of a <a href="https://core.servus.at/en/projekt/conversations-computers/review-silicon-friend-camp-2021" target="_blank">week-long worksession</a> with 15 international artists in the austrian alps organized by servus.at and Matthias Pitscher as part of the 2021 <a href="https://research.radical-openness.org/2021/" target="_blank">Art Meets Radical Openness Research Lab</a>
+    //         </p>
+    //         <p>
+    //           Photo from exhibition documentation below
+    //         </p>
+    //         <p>
+    //           Details <a target="_blank" href="https://cwc.radical-openness.org">here</a>
+    //         </p>
+    //       </div>
+    //     </div>
+    //     `,
+    //     ev);
+    // } } />
+    // </div>
+    // `, nopad: true,
+    //     code: () => {
+    //       osc(30,0.03,1.5).out()
+    //     },
+    //   }),
 
-      new SectionApp({
-        title: "NODE20",
-        dom: () => jdom`
-    <div>
-    <img
-      class="projects"
-      alt="screenshot of mozila hubs with various 3d models"
-      style="width: 100%; height: auto"
-      src="https://cdn.glitch.com/e9f27e4f-87e5-46c9-8645-e03a6aedc236%2F201007node.png?v=1603140395893"
-      onclick=${ (ev) => {
-      this.app.openPopup(
-        "NODE20",
-        jdom`
-        <div class="w">
-          <div>
-            <p>
-              Choreographic Coding Lab Online is a series of events organized and curated by Naoto Hieda as an official unconference that took place at <a target="_blank" href="https://20.nodeforum.org/">NODE20 (Frankfurt, Germany)</a>.
-            </p>
-            <p>
-              The sessions format depends on the host: there may be workshops, lectures, discussions, performative practices or formats in between. Topics will vary from somatic movements to programming bots, or even collective cooking. Festival participants are invited to all the sessions and may propose and host additional sessions.
-            </p>
-            <p>
-              Details can be found on <a href="https://cconline-node.glitch.me/" target="_blank">cconline-node.glitch.me</a>.
-            </p>
-          </div>
-        </div>
-        `,
-        ev);
-    } } />
-    </div>
-    `, nopad: true,
-        code: () => {
-          osc(30,0.03,1.5).out()
-        },
-      }),
+    //   new SectionApp({
+    //     title: "NODE20",
+    //     dom: () => jdom`
+    // <div>
+    // <img
+    //   class="projects"
+    //   alt="screenshot of mozila hubs with various 3d models"
+    //   style="width: 100%; height: auto"
+    //   src="https://cdn.glitch.com/e9f27e4f-87e5-46c9-8645-e03a6aedc236%2F201007node.png?v=1603140395893"
+    //   onclick=${ (ev) => {
+    //   this.app.openPopup(
+    //     "NODE20",
+    //     jdom`
+    //     <div class="w">
+    //       <div>
+    //         <p>
+    //           Choreographic Coding Lab Online is a series of events organized and curated by Naoto Hieda as an official unconference that took place at <a target="_blank" href="https://20.nodeforum.org/">NODE20 (Frankfurt, Germany)</a>.
+    //         </p>
+    //         <p>
+    //           The sessions format depends on the host: there may be workshops, lectures, discussions, performative practices or formats in between. Topics will vary from somatic movements to programming bots, or even collective cooking. Festival participants are invited to all the sessions and may propose and host additional sessions.
+    //         </p>
+    //         <p>
+    //           Details can be found on <a href="https://cconline-node.glitch.me/" target="_blank">cconline-node.glitch.me</a>.
+    //         </p>
+    //       </div>
+    //     </div>
+    //     `,
+    //     ev);
+    // } } />
+    // </div>
+    // `, nopad: true,
+    //     code: () => {
+    //       osc(30,0.03,1.5).out()
+    //     },
+    //   }),
 
       new SectionApp({
         title: "misc",
