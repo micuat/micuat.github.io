@@ -461,8 +461,8 @@ class ContentApp extends Torus.StyledComponent {
         <div>
           <img
           class="projects"
-          alt="naoto banner hanging in an open space with two people sitting and chatting"
-          src="https://bild.glitches.me/images/2023/02/17/AD5CFFAC-99B4-4E8E-B06F-565B85A2EEDF.md.jpg"
+          alt="people sitting around and cutting vegetables"
+          src="https://bild.glitches.me/images/2023/03/09/_DSC1986fa8b502b7cfb68e8.jpg"
           style="width: 100%; height: auto"
           onclick=${ (ev) => {
             this.app.openPopup(
@@ -471,7 +471,8 @@ class ContentApp extends Torus.StyledComponent {
               <div class="w">
                 <div>
                   <p>
-                    <a href="https://festival.naotohieda.com/" target="_blank">festival.naotohieda.com</a>
+                    <a href="https://festival.naotohieda.com/" target="_blank">festival.naotohieda.com</a><br />
+                    Photo by Andrea Gamboa (IG @acciondevista)
                   </p>
                 </div>
               </div>
