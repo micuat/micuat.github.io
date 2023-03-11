@@ -324,8 +324,8 @@ class ContentApp extends Torus.StyledComponent {
         <div>
           <img
           class="projects"
-          alt="naoto standing in front of naoto banner"
-          src="https://bild.glitches.me/images/2023/03/03/621A898D-44FE-474E-9A33-56493200B999.jpg"
+          alt="naoto miming to code"
+          src="https://bild.glitches.me/images/2023/03/09/wannacomecloser_naoto.md.jpg"
           style="width: 100%; height: auto"
           onclick=${ (ev) => {
             this.app.openPopup(
@@ -333,7 +333,8 @@ class ContentApp extends Torus.StyledComponent {
               jdom`
               <div class="w">
                 <div>
-                  :)
+                Sharing at #TakeMoreCare<br />
+Photo by Jana Mila Lippitz
                 </div>
               </div>
               `,
@@ -347,43 +348,43 @@ class ContentApp extends Torus.StyledComponent {
             ).out()
         }
       }),
-      new SectionApp({
-        title: "Under Construction",
-        dom: () => jdom`
-    <div>
-      <img
-        class="projects"
-        alt="under construction"
-        src="./img/underconstruction.gif"
-        style="width: 100%; height: auto"
-        onclick=${ (ev) => {
-          this.app.openPopup(
-            "Under Construction",
-            jdom`
-            <div class="w">
-              <div>
-                <p>
-                GIF taken from
-                <a href="http://www.textfiles.com/underconstruction/" target="_blank">here</a> (beware - many images)
-                </p>
-                <p>
-                  This website is permanently under construction
-                </p>
-                <p>
-                <span class="naoto">Naoto</span> is permanently under pressure
-                </p>
-            </div>
-            `,
-            ev);
-        } } />
-        <p class="center-text">
-      </p>
-    </div>
-    `, code: () => {
-          osc(2, 0, 1.5).modulate(solid(2)).contrast(2).out()
+    //   new SectionApp({
+    //     title: "Under Construction",
+    //     dom: () => jdom`
+    // <div>
+    //   <img
+    //     class="projects"
+    //     alt="under construction"
+    //     src="./img/underconstruction.gif"
+    //     style="width: 100%; height: auto"
+    //     onclick=${ (ev) => {
+    //       this.app.openPopup(
+    //         "Under Construction",
+    //         jdom`
+    //         <div class="w">
+    //           <div>
+    //             <p>
+    //             GIF taken from
+    //             <a href="http://www.textfiles.com/underconstruction/" target="_blank">here</a> (beware - many images)
+    //             </p>
+    //             <p>
+    //               This website is permanently under construction
+    //             </p>
+    //             <p>
+    //             <span class="naoto">Naoto</span> is permanently under pressure
+    //             </p>
+    //         </div>
+    //         `,
+    //         ev);
+    //     } } />
+    //     <p class="center-text">
+    //   </p>
+    // </div>
+    // `, code: () => {
+    //       osc(2, 0, 1.5).modulate(solid(2)).contrast(2).out()
 
-        },
-      }),
+    //     },
+    //   }),
       new SectionApp({
         title: "#NaotoHieda",
         dom: () => jdom`
@@ -472,7 +473,7 @@ class ContentApp extends Torus.StyledComponent {
                 <div>
                   <p>
                     <a href="https://festival.naotohieda.com/" target="_blank">festival.naotohieda.com</a><br />
-                    Photo by Andrea Gamboa (IG @acciondevista)
+                    Photo by Andrea Gamboa (IG <a href="https://instagram.com/acciondevista" target="_blank">@acciondevista</a>)
                   </p>
                 </div>
               </div>
