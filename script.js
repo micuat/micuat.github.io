@@ -324,8 +324,8 @@ class ContentApp extends Torus.StyledComponent {
         <div>
           <img
           class="projects"
-          alt="naoto miming to code"
-          src="https://bild.glitches.me/images/2023/03/09/wannacomecloser_naoto.md.jpg"
+          alt="naoto coding"
+          src="https://cdn.glitch.global/cada0ae2-f902-428d-81e3-6a68f5e589e5/photo1682454956.jpeg?v=1683810904398"
           style="width: 100%; height: auto"
           onclick=${ (ev) => {
             this.app.openPopup(
@@ -333,8 +333,7 @@ class ContentApp extends Torus.StyledComponent {
               jdom`
               <div class="w">
                 <div>
-                Sharing at #TakeMoreCare<br />
-Photo by Jana Mila Lippitz
+                Workshop in April at Hauptsache Frei <br /> Photo by Bente Stachowske
                 </div>
               </div>
               `,
