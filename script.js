@@ -347,7 +347,36 @@ class ContentApp extends Torus.StyledComponent {
             ).out()
         }
       }),
-    //   new SectionApp({
+      new SectionApp({
+        title: "What's Up 2",
+        dom: () => jdom`
+        <div>
+          <img
+          class="projects"
+          alt="naoto desktop screen"
+          src="https://cdn.glitch.global/cada0ae2-f902-428d-81e3-6a68f5e589e5/2023-06-14-syms.jpg?v=1687102224701"
+          style="width: 100%; height: auto"
+          onclick=${ (ev) => {
+            this.app.openPopup(
+              "What's Up 2",
+              jdom`
+              <div class="w">
+                <div>
+                Some net art stuff
+                </div>
+              </div>
+              `,
+              ev);
+          } } />
+        </div>
+    `, code: () => {
+          osc(60, 0.1, 1.5)
+            .modulate(
+              noise(3).modulatePixelate(noise(4).pixelate(32, 32).thresh(0, 0.5), 1024, 32)
+            ).out()
+        }
+      }),
+          //   new SectionApp({
     //     title: "Under Construction",
     //     dom: () => jdom`
     // <div>
