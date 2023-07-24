@@ -348,7 +348,7 @@ class ContentApp extends Torus.StyledComponent {
         }
       }),
       new SectionApp({
-        title: "What's Up 2",
+        title: "Net Art",
         dom: () => jdom`
         <div>
           <img
@@ -358,7 +358,7 @@ class ContentApp extends Torus.StyledComponent {
           style="width: 100%; height: auto"
           onclick=${ (ev) => {
             this.app.openPopup(
-              "What's Up 2",
+              "Net Art",
               jdom`
               <div class="w">
                 <div>
@@ -376,7 +376,67 @@ class ContentApp extends Torus.StyledComponent {
             ).out()
         }
       }),
-          //   new SectionApp({
+      new SectionApp({
+        title: "New Banner",
+        dom: () => jdom`
+        <div>
+          <img
+          class="projects"
+          alt="naoto banner"
+          src="https://img.glitches.me/images/2023/07/24/20FE6AB9-1D44-484F-A375-C8108CCAE659.md.jpg"
+          style="width: 100%; height: auto"
+          onclick=${ (ev) => {
+            this.app.openPopup(
+              "New Banner",
+              jdom`
+              <div class="w">
+                <div>
+                New banner
+                </div>
+              </div>
+              `,
+              ev);
+          } } />
+        </div>
+    `, code: () => {
+          osc(60, 0.1, 1.5)
+            .modulate(
+              noise(3).modulatePixelate(noise(4).pixelate(32, 32).thresh(0, 0.5), 1024, 32)
+            ).out()
+        }
+      }),
+      new SectionApp({
+        title: "Naoto's Cards",
+        dom: () => jdom`
+        <div>
+          <img
+          class="projects"
+          alt="naoto's cards displayed"
+          src="https://bild.glitches.me/images/2023/05/25/6DEB253F-3CDD-4060-8664-4965779AE11C.md.jpg"
+          style="width: 100%; height: auto"
+          onclick=${ (ev) => {
+            this.app.openPopup(
+              "Naoto's Cards",
+              jdom`
+              <div class="w">
+                <div>
+                <a href="https://bild.glitches.me/image/6deb253f-3cdd-4060-8664-4965779ae11c.2DAu"
+                target="_blank">
+                My cards</a>
+                </div>
+              </div>
+              `,
+              ev);
+          } } />
+        </div>
+    `, code: () => {
+          osc(60, 0.1, 1.5)
+            .modulate(
+              noise(3).modulatePixelate(noise(4).pixelate(32, 32).thresh(0, 0.5), 1024, 32)
+            ).out()
+        }
+      }),
+    //   new SectionApp({
     //     title: "Under Construction",
     //     dom: () => jdom`
     // <div>
@@ -551,38 +611,38 @@ class ContentApp extends Torus.StyledComponent {
         },
       }),
 
-      new SectionApp({
-        title: "#spektrum",
-        dom: () => jdom`
-    <div>
-    <img
-      class="projects"
-      alt="video screened in a station"
-      style="width: 100%; height: auto"
-      src="https://bild.glitches.me/images/2022/09/24/naoto_spektrum.gif"
-      onclick=${ (ev) => {
-      this.app.openPopup(
-        "#spektrum",
-        jdom`
-        <div class="w">
-          <div>
-            <p>
-              10 sec video screened at Cologne Main Station as part of ctrl-space by Christian Sievers
-            </p>
-            <p>
-              #spektrum is a convolution of identity questions that we face, including, but not only, the gender spectrum and autism spectrum. The fingers as an analog, imperfect medium with a color spectrum of nail polish count binary numbers mimicking a self-stimulatory behavior (stimming) to provoke and to challenge the stigma of "binariness" of autism.
-            </p>
-          </div>
-        </div>
-        `,
-        ev);
-    } } />
-    </div>
-    `, nopad: true,
-        code: () => {
-          osc(30,0.03,1.5).out()
-        },
-      }),
+    //   new SectionApp({
+    //     title: "#spektrum",
+    //     dom: () => jdom`
+    // <div>
+    // <img
+    //   class="projects"
+    //   alt="video screened in a station"
+    //   style="width: 100%; height: auto"
+    //   src="https://bild.glitches.me/images/2022/09/24/naoto_spektrum.gif"
+    //   onclick=${ (ev) => {
+    //   this.app.openPopup(
+    //     "#spektrum",
+    //     jdom`
+    //     <div class="w">
+    //       <div>
+    //         <p>
+    //           10 sec video screened at Cologne Main Station as part of ctrl-space by Christian Sievers
+    //         </p>
+    //         <p>
+    //           #spektrum is a convolution of identity questions that we face, including, but not only, the gender spectrum and autism spectrum. The fingers as an analog, imperfect medium with a color spectrum of nail polish count binary numbers mimicking a self-stimulatory behavior (stimming) to provoke and to challenge the stigma of "binariness" of autism.
+    //         </p>
+    //       </div>
+    //     </div>
+    //     `,
+    //     ev);
+    // } } />
+    // </div>
+    // `, nopad: true,
+    //     code: () => {
+    //       osc(30,0.03,1.5).out()
+    //     },
+    //   }),
 
       new SectionApp({
         title: "GlitchMe3D",
