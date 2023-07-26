@@ -347,35 +347,35 @@ class ContentApp extends Torus.StyledComponent {
             ).out()
         }
       }),
-      new SectionApp({
-        title: "Net Art",
-        dom: () => jdom`
-        <div>
-          <img
-          class="projects"
-          alt="naoto desktop screen"
-          src="https://cdn.glitch.global/cada0ae2-f902-428d-81e3-6a68f5e589e5/2023-06-14-syms.jpg?v=1687102224701"
-          style="width: 100%; height: auto"
-          onclick=${ (ev) => {
-            this.app.openPopup(
-              "Net Art",
-              jdom`
-              <div class="w">
-                <div>
-                Some net art stuff
-                </div>
-              </div>
-              `,
-              ev);
-          } } />
-        </div>
-    `, code: () => {
-          osc(60, 0.1, 1.5)
-            .modulate(
-              noise(3).modulatePixelate(noise(4).pixelate(32, 32).thresh(0, 0.5), 1024, 32)
-            ).out()
-        }
-      }),
+    //   new SectionApp({
+    //     title: "Net Art",
+    //     dom: () => jdom`
+    //     <div>
+    //       <img
+    //       class="projects"
+    //       alt="naoto desktop screen"
+    //       src="https://cdn.glitch.global/cada0ae2-f902-428d-81e3-6a68f5e589e5/2023-06-14-syms.jpg?v=1687102224701"
+    //       style="width: 100%; height: auto"
+    //       onclick=${ (ev) => {
+    //         this.app.openPopup(
+    //           "Net Art",
+    //           jdom`
+    //           <div class="w">
+    //             <div>
+    //             Some net art stuff
+    //             </div>
+    //           </div>
+    //           `,
+    //           ev);
+    //       } } />
+    //     </div>
+    // `, code: () => {
+    //       osc(60, 0.1, 1.5)
+    //         .modulate(
+    //           noise(3).modulatePixelate(noise(4).pixelate(32, 32).thresh(0, 0.5), 1024, 32)
+    //         ).out()
+    //     }
+    //   }),
       new SectionApp({
         title: "New Banner",
         dom: () => jdom`
@@ -383,7 +383,7 @@ class ContentApp extends Torus.StyledComponent {
           <img
           class="projects"
           alt="naoto banner"
-          src="https://img.glitches.me/images/2023/07/24/20FE6AB9-1D44-484F-A375-C8108CCAE659.md.jpg"
+          src="https://img.glitches.me/images/2023/07/26/naoto-new-banner.jpg"
           style="width: 100%; height: auto"
           onclick=${ (ev) => {
             this.app.openPopup(
@@ -412,7 +412,7 @@ class ContentApp extends Torus.StyledComponent {
           <img
           class="projects"
           alt="naoto's cards displayed"
-          src="https://bild.glitches.me/images/2023/05/25/6DEB253F-3CDD-4060-8664-4965779AE11C.md.jpg"
+          src="https://img.glitches.me/images/2023/07/26/cards_sq.jpg"
           style="width: 100%; height: auto"
           onclick=${ (ev) => {
             this.app.openPopup(
@@ -420,9 +420,10 @@ class ContentApp extends Torus.StyledComponent {
               jdom`
               <div class="w">
                 <div>
-                <a href="https://bild.glitches.me/image/6deb253f-3cdd-4060-8664-4965779ae11c.2DAu"
+                My cards, spawned from the autobiographical project
+                <a href="https://soup.glitches.me"
                 target="_blank">
-                My cards</a>
+                soup.glitches.me</a>
                 </div>
               </div>
               `,
@@ -584,9 +585,9 @@ class ContentApp extends Torus.StyledComponent {
     <div>
     <img
       class="projects"
-      alt="left hand with black and iridescent nails"
+      alt="naoto painting nails"
       style="width: 100%; height: auto"
-      src="https://bild.glitches.me/images/2022/09/23/37247384-81A4-41D3-8DDE-DABFCDBA23FC.jpg"
+      src="https://img.glitches.me/images/2023/07/26/20230722_KHM_RundgangDSC_0739_c_Doerthe_Boxberg_sq.jpg"
       onclick=${ (ev) => {
       this.app.openPopup(
         "nail.glitches.me",
@@ -594,10 +595,13 @@ class ContentApp extends Torus.StyledComponent {
         <div class="w">
           <div>
           <p>
+          Photo: Dörthe Boxberg
+          </p>
+          <p>
             <a href="https://nail.glitches.me" target="_blank">Naoto's nail salon</a>
           </p>
           <p>
-            Details coming soon...
+            Naoto’s Nail Salon is a nail salon by Naoto. Everyone is invited to have nails done for free. It was founded on 28th September 2022 at the National University of Colombia, Bogotá during a writing seminar as a response to a topic around hands.
           </p>
           </div>
         </div>
