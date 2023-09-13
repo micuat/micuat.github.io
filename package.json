@@ -1,0 +1,39 @@
+{
+  "name": "micuat.github.io",
+  "version": "0.0.1",
+  "description": "What am I about?",
+  "main": "index.html",
+  "scripts": {
+    "start": "vite preview",
+    "dev": "vite dev",
+    "build": "vite build",
+    "release": "auto shipit"
+  },
+  "dependencies": {
+    "choo": "^7.1.0",
+    "@emotion/css": "^11.11.0",
+    "hydra-synth": "hydra-synth/hydra-synth#feature-vite"
+  },
+  "devDependencies": {
+    "vite": "^4.4.9"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead"
+  ],
+  "engines": {
+    "node": "16.x"
+  },
+  "repository": {
+    "url": "https://github.com/micuat/micuat.github.io"
+  },
+  "glitch": {
+    "projectType": "generated_static"
+  },
+  "license": "MIT",
+  "keywords": [
+    "node",
+    "glitch",
+    "static"
+  ]
+}
