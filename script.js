@@ -332,7 +332,7 @@ class ContentApp extends Torus.StyledComponent {
     `, className: "hidecanvas", pointer: true
       }),
       new TitleApp({
-        icon: "/favicon_32.png",
+        icon: "/favicon-32.png",
         title: "Name",
         dome: () => jdom`
     <h1>
