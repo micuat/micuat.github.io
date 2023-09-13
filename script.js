@@ -325,6 +325,7 @@ class ContentApp extends Torus.StyledComponent {
     this.app = app;
     this.s = [
       new SectionApp({
+        icon: "/img/favicon-32-settings.png",
         title: "Settings",
         dom: () => jdom`
     <div class="msg center-text">${showCanvas ? "😵Hide" : "😎Show"} background</div>
@@ -344,6 +345,7 @@ class ContentApp extends Torus.StyledComponent {
     `, pointer: true, code: defaultCode
       }),
       new SectionApp({
+        icon: "/img/favicon-32-new.png",
         title: "What's Up",
         dom: () => jdom`
         <div>
@@ -362,7 +364,9 @@ class ContentApp extends Torus.StyledComponent {
                 </div>
               </div>
               `,
-              ev);
+              ev,
+              "/img/favicon-32-new.png",
+            );
           } } />
         </div>
     `, code: () => {
@@ -506,6 +510,7 @@ class ContentApp extends Torus.StyledComponent {
     //     },
     //   }),
       new SectionApp({
+        icon: "/img/favicon-32-nh.png",
         title: "#NaotoHieda",
         dom: () => jdom`
     <div>
@@ -529,7 +534,9 @@ class ContentApp extends Torus.StyledComponent {
           </div>
         </div>
         `,
-        ev);
+        ev,
+        "/img/favicon-32-nh.png",
+      );
     } } />
 
     </div>
@@ -539,6 +546,7 @@ class ContentApp extends Torus.StyledComponent {
         },
       }),
       new SectionApp({
+        icon: "/img/favicon-32-riso.png",
         title: "riso.glitches.me",
         dom: () => jdom`
     <div>
@@ -565,7 +573,9 @@ class ContentApp extends Torus.StyledComponent {
             </div>
           </div>
           `,
-          ev);
+          ev,
+          "/img/favicon-32-riso.png",
+        );
       } } />
     </div>
     `, nopad: true,
