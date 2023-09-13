@@ -417,7 +417,7 @@ class ContentApp extends Torus.StyledComponent {
               jdom`
               <div class="w">
                 <div>
-                New banner
+                <a target="_blank" href="https://new-banner.glitch.me/">New banner</a>
                 </div>
               </div>
               `,
