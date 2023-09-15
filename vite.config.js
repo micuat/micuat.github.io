@@ -22,7 +22,7 @@ export default defineConfig(async ({ command, mode }) => {
     root: '.',
     build: {
       cssCodeSplit: false,
-      outDir: "dist",
+      outDir: "docs",
       rollupOptions: {
         input: {
           // the default entry point
