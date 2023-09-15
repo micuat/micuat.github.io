@@ -5,6 +5,10 @@ import { defineConfig } from "vite";
 export default defineConfig(async ({ command, mode }) => {
   return {
     root: '.',
+    define: {
+      // fix for hydra-synth
+      global: "window"
+    },  
     build: {
       cssCodeSplit: false,
       outDir: "dist",
