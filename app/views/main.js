@@ -67,13 +67,22 @@ img {
   position: fixed;
   left: 0;
   top: 0;
+  width: 100%;
   height: 100vh;
   margin: 0;
-  padding: 0 10px;
+  padding: 0;
   overflow-y: scroll;
+
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	justify-content: center;
+	align-items: center;
+	align-content: stretch;
   .window.full {
     position: relative;
     width: 100%;
+    max-width: 1024px;
     height: 100%;
     margin: 0;
     overflow-y: scroll;
@@ -88,10 +97,10 @@ img {
         }
       }
       display: flex;
-      flex-direction: row;
+      flex-direction: column;
       flex-wrap: nowrap;
       justify-content: flex-start;
-      align-items: stretch;
+      align-items: center;
       align-content: stretch;
     }
   }
@@ -158,8 +167,8 @@ class Element {
           </div>
         </div>
         <div class="window-body ${ this.minimized ? "no-display" : "" }">
-          ${ this.img ? html`<img alt="${ this.alt }" src="${ this.img }" />` : "" }
-          ${ this.text && this.maximized ? html`<div>${ this.text }</div>` : "" }
+          ${ this.img ? html`<img onclick=${ maximize } alt="${ this.alt }" src="${ this.img }" />` : "" }
+          ${ this.text && (this.maximized || this.img == null) ? html`<div>${ this.text }</div>` : "" }
         </div>
       </div>
     </div>
@@ -174,7 +183,13 @@ const contents = [
     icon: "/img/favicon-32-new.png",
     text: html`
     <div>
-      The website is currently (and forever) underconstruction. Finally it is upgraded to "7". But you can find the old "98" version <a href="/2022">here</a> (its contents will not be updated, though).
+      <div>
+        The website is currently (and forever) underconstruction. Finally it is upgraded to "7". But you can find the old "98" version <a href="/2022">here</a> (its contents will not be updated, though).
+      </div>
+      <div>
+        GIF taken from
+        <a href="http://www.textfiles.com/underconstruction/" target="_blank">here</a> (beware - many images)
+      </div>
     </div>`,
   },
   {
@@ -184,7 +199,9 @@ const contents = [
     icon: "/img/favicon-32-banner.png",
     text: html`
     <div>
-      I made a new banner at KHM.
+      <div>
+      <a target="_blank" href="https://new-banner.glitch.me/">New banner</a>
+      </div>
     </div>`,
   },
   {
@@ -194,7 +211,18 @@ const contents = [
     icon: "https://cdn.glitch.global/61984d65-52b6-418b-b420-2547b4acca3d/favicon-32.png?v=1694627304921",
     text: html`
     <div>
-      Here are Naoto's cards! More editions are coming.
+      <div>
+        My cards, spawned from the autobiographical project
+        <a href="https://soup.glitches.me"
+        target="_blank">
+        soup.glitches.me</a>.
+      </div>
+      <div>
+        A new edition and tutorial will be released at
+        <a href="https://www.interposed.de/"
+        target="_blank">
+        interposed</a> in October 2023.
+      </div>
     </div>`,
   },
   {
@@ -204,7 +232,14 @@ const contents = [
     icon: "/img/favicon-32-nh.png",
     text: html`
     <div>
-      This is a big banner I made in 2022 with a scaffolding!
+      <div>
+        <p>
+          #NaotoHieda is an artwork around a computer program and a body. A screenshot of a performance using the artist’s body and a custom-made web editor for live-coding is printed as a 12-meter-wide construction banner, exhibited at Pola Museum Annex in Tokyo, Japan.
+        </p>
+        <p>
+          Details can be found <a href="https://naotohieda.glitch.me/" target="_blank">naotohieda.glitch.me</a> as well as on <a href="https://www.creativeapplications.net/member-submissions/naotohieda-live-coding-on-a-construction-banner/" target="_blank">CreativeApplications.Net</a>.
+        </p>
+      </div>
     </div>`,
   },
   {
@@ -213,7 +248,15 @@ const contents = [
     icon: "/img/favicon-32-nail.png",
     text: html`
     <div>
-      Naoto's nail salon.
+      <p>
+      Photo: Dörthe Boxberg
+      </p>
+      <p>
+        <a href="https://nail.glitches.me" target="_blank">Naoto's nail salon log</a>
+      </p>
+      <p>
+        Naoto’s Nail Salon is a nail salon by Naoto. Everyone is invited to have nails done for free. It was founded on 28th September 2022 at the National University of Colombia, Bogotá during a writing seminar as a response to a topic around hands.
+      </p>
     </div>`,
   },
   {
@@ -223,7 +266,10 @@ const contents = [
     icon: "/img/favicon-32-festival.png",
     text: html`
     <div>
-      Naoto's Festival.
+      <p>
+        <a href="https://festival.naotohieda.com/" target="_blank">festival.naotohieda.com</a><br />
+        Photo by Andrea Gamboa (IG <a href="https://instagram.com/acciondevista" target="_blank">@acciondevista</a>)
+      </p>
     </div>`,
   },
   {
@@ -233,7 +279,33 @@ const contents = [
     icon: "/img/favicon-32-bp.png",
     text: html`
     <div>
-      Best Practices in Contemporary Dance is a project with Jorge Guevara.
+      <div>
+        NEWS! We are going to develop a new work SFDCANBAC++ at <a href="https://modina.eu/projects/sfdcanbac/" target="_blank">MODINA</a> this coming December-January.
+      </div>
+      <div>
+        Project with <a href="https://jorgeguevara.myportfolio.com/" target="_blank">Jorge Guevara</a>
+      </div>
+      <div>
+        Jorge Guevara and Naoto Hieda met over the internet as part of a series of meetups that Naoto organized during lockdown in April 2020, which turned into focused sessions called “Best Practices in Contemporary Dance”. Since then, on a weekly basis, Naoto Hieda in Cologne and Jorge Guevara in Brussels meet online to “practice” for an hour. We stream, distort and alter the videos of ourselves and each other both using commercial and/or open-source software to blend our bodies in the “pixel space”. We do not define what tools and components are to be used, and the practice might include spontaneous reading, writing, eating or body painting. The project is not intended to produce a performance; the practice itself is the outcome and the objective is to create a fluid, queer form of conversation between technology and bodies. Another aspect of the process is a “chat”, a casual discussion to reflect on the practice. Both the practices and chats are recorded and uploaded on YouTube as a massive online archive. The project was presented at NODE20 Festival (Frankfurt), Performing Arts Forum (Saint-Erme, France), SEADS (Space Ecologies Art and Design), IDOCDE (ImPulsTanz, Vienna), NEW NOW (Essen), Hauptsache Frei (Hamburg) as (ever-)work-in-progress.
+      </div>
+      <div>
+        Details can be found on <a href="https://best-practices.glitch.me/" target="_blank">best-practices.glitch.me</a>.
+      </div>
+    </div>`,
+  },
+  {
+    img: "https://bild.glitches.me/images/2022/09/24/naoto_spektrum.gif",
+    alt: "video screened in a station",
+    title: "#spektrum",
+    // icon: "/img/favicon-32-riso.png",
+    text: html`
+    <div>
+      <p>
+        10 sec video screened at Cologne Main Station as part of ctrl-space by Christian Sievers
+      </p>
+      <p>
+        #spektrum is a convolution of identity questions that we face, including, but not only, the gender spectrum and autism spectrum. The fingers as an analog, imperfect medium with a color spectrum of nail polish count binary numbers mimicking a self-stimulatory behavior (stimming) to provoke and to challenge the stigma of "binariness" of autism.
+      </p>
     </div>`,
   },
   {
@@ -243,7 +315,15 @@ const contents = [
     icon: "/img/favicon-32-riso.png",
     text: html`
     <div>
-      Risography prints generated by code and my brain.
+      <p>
+        riso.glitches.me is an artwork consisting of risograph prints of the artist’s brain and a custom-made computer program.
+      </p>
+      <p>
+        Image processing is applied to an MRI scan pattern of the brain, and the output is printed as 2-color risograph. The image processing is sophisticatedly designed so that the printing offset of risograph generates different shading for each print from the same set of master patterns. 
+      </p>
+      <p>
+        Details can be found on <a href="https://riso.glitches.me/" target="_blank">riso.glitches.me</a>. Photo by Pola Museum Annex.
+      </p>
     </div>`,
   },
   {
@@ -285,7 +365,7 @@ export default function(state, emit) {
             </div>
           </div>
           <div class="window-body">
-            Welcome to Naoto's homepage! Press maximize button on the top right of each window for more information.
+            Welcome to Naoto's homepage! Press image or maximize button on the top right of each window for more information.
 
           </div>
         </div>
