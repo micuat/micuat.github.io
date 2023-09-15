@@ -351,6 +351,14 @@ const contents = [
       You can find a complete list of my work in my <a href="https://naoto-portfolio.glitch.me/">portfolio</a>.
     </div>`,
   },
+  {
+    // img: "https://img.glitches.me/images/2022/08/31/IMG_1034.jpg",
+    title: "Credits",
+    text: html`
+    <div>
+      <p class="center-text"><span class="naoto">Naoto Hieda</span> - design by <a href="https://glitches.me" target="_blank">glitches.me</a></p>
+    </div>`,
+  },
 ].map(e => new Element(e));
 
 // export module
