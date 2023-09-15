@@ -176,8 +176,7 @@ const contents = [
     icon: "/img/favicon-32-new.png",
     text: html`
     <div>
-      The website is currently (and forever) underconstruction.
-      You can find the old version <a href="/2022">here</a>.
+      The website is currently (and forever) underconstruction. Finally it is upgraded to "7". But you can find the old "98" version <a href="/2022">here</a> (its contents will not be updated, though).
     </div>`,
   },
   {
@@ -271,7 +270,7 @@ export default function(state, emit) {
             </div>
           </div>
           <div class="window-body">
-            Welcome to Naoto's website! Press maximize button on the top right for more information.
+            Welcome to Naoto's homepage! Press maximize button on the top right of each window for more information.
 
           </div>
         </div>
