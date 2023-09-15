@@ -184,7 +184,7 @@ const contents = [
     text: html`
     <div>
       <div>
-        The website is currently (and forever) underconstruction. Finally it is upgraded to "7". But you can find the old "98" version <a href="/2022">here</a> (its contents will not be updated, though).
+        The website is currently (and forever) underconstruction. Finally it is upgraded to "XP". But you can find the old "98" version <a href="/2022">here</a> (its contents will not be updated, though).
       </div>
       <div>
         GIF taken from
