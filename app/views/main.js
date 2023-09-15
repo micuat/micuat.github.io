@@ -9,38 +9,84 @@ const w = 250;
 const mw = 30;
 
 const mainCss = css`
-@media only screen and (min-width: ${ (w + mw) * 2 }px) {
-  -moz-column-count: 2;
-  -webkit-column-count: 2;
-  column-count: 2;
-}
+display: flex;
+flex-direction: row;
+flex-wrap: nowrap;
+justify-content: center;
+align-items: center;
+align-content: center;
 
-@media only screen and (min-width: ${ (w + mw) * 3 }px) {
-  -moz-column-count: 3;
-  -webkit-column-count: 3;
-  column-count: 3;
-}
+.windows {
+  @media only screen and (min-width: ${ (w + mw) * 2 }px) {
+    -moz-column-count: 2;
+    -webkit-column-count: 2;
+    column-count: 2;
+  }
 
-@media only screen and (min-width: ${ (w + mw) * 4 }px) {
-  -moz-column-count: 4;
-  -webkit-column-count: 4;
-  column-count: 4;
-}
+  @media only screen and (min-width: ${ (w + mw) * 3 }px) {
+    -moz-column-count: 3;
+    -webkit-column-count: 3;
+    column-count: 3;
+  }
 
-@media only screen and (min-width: ${ (w + mw) * 5 }px) {
-  -moz-column-count: 5;
-  -webkit-column-count: 5;
-  column-count: 5;
-}
+  @media only screen and (min-width: ${ (w + mw) * 4 }px) {
+    -moz-column-count: 4;
+    -webkit-column-count: 4;
+    column-count: 4;
+  }
 
-.section {
-  margin: 2em 0;
+  @media only screen and (min-width: ${ (w + mw) * 5 }px) {
+    -moz-column-count: 5;
+    -webkit-column-count: 5;
+    column-count: 5;
+  }
 }
 img {
   width: 100%;
 }
+.title-bar-text {
+  .icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 5px;
+  }
+  display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	justify-content: flex-start;
+	align-items: center;
+	align-content: stretch;
+}
 .window {
   page-break-inside: avoid;
+  margin: ${ mw }px;
+  width: ${ w }px;
+}
+.window.full {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100vh;
+  margin: 0;
+  overflow-y: scroll;
+  .window-body {
+    img {
+      max-width: 50%;
+    }
+    @media only screen and (max-width: 600px) {
+      display: inherit;
+      img {
+        max-width: 100%;
+      }
+    }
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: stretch;
+    align-content: stretch;
+  }
 }
 .hydra-holder {
   z-index: -1;
@@ -54,8 +100,9 @@ img {
 `;
 
 class Element {
-  constructor({ img, title, text }) {
+  constructor({ img, icon, title, text }) {
     this.img = img;
+    this.icon = icon;
     this.title = title;
     this.text = text;
     this.minimized = false;
@@ -63,9 +110,11 @@ class Element {
   }
   toggleMinimize() {
     this.minimized = !this.minimized;
+    this.maximized = false;
   }
-  toggleMinimize() {
+  toggleMaximize() {
     this.maximized = !this.maximized;
+    this.minimized = false;
   }
   html(state, emit) {
     const minimize = (e) => {
@@ -78,10 +127,13 @@ class Element {
     }
 
     return html`
-      <div class="window" style="margin: ${ mw }px; width: ${ w }px">
+      <div class="window ${ this.maximized ? "full" : "" }">
         <div class="title-bar">
           <div class="title-bar-text">
-            ${ this.title ? html`<div>${ this.title }</div>` : "" }
+            ${ this.icon ? html`
+            <img class="icon" src="${ this.icon }" />
+            ` : "" }
+            ${ this.title ? this.title : "" }
           </div>
           <div class="title-bar-controls">
             <button aria-label="Minimize" onclick=${ minimize }></button>
@@ -101,6 +153,8 @@ const contents = [
   {
     img: underConstructionImg,
     title: "#UnderConstruction",
+    alt: "under construction 90s banner",
+    icon: "/img/favicon-32-new.png",
     text: html`
     <div>
       The website is currently (and forever) underconstruction.
@@ -110,6 +164,8 @@ const contents = [
   {
     img: "https://img.glitches.me/images/2023/07/26/naoto-new-banner.jpg",
     title: "New Banner",
+    alt: "banner of closeup of naoto's face displayed outside",
+    icon: "/img/favicon-32-banner.png",
     text: html`
     <div>
       I made a new banner at KHM.
@@ -118,6 +174,8 @@ const contents = [
   {
     img: "https://img.glitches.me/images/2023/07/26/cards_sq.jpg",
     title: "Naoto's Cards",
+    alt: "naoto's cards displayed",
+    icon: "https://cdn.glitch.global/61984d65-52b6-418b-b420-2547b4acca3d/favicon-32.png?v=1694627304921",
     text: html`
     <div>
       Here are Naoto's cards! More editions are coming.
@@ -126,6 +184,8 @@ const contents = [
   {
     img: "https://img.glitches.me/images/2022/02/13/banner.jpg",
     title: "#NaotoHieda",
+    alt: "hashtag naoto hieda, an artwork of a printed banner",
+    icon: "/img/favicon-32-nh.png",
     text: html`
     <div>
       This is a big banner I made in 2022 with a scaffolding!
@@ -134,14 +194,27 @@ const contents = [
   {
     img: "https://img.glitches.me/images/2023/07/26/20230722_KHM_RundgangDSC_0739_c_Doerthe_Boxberg_sq.jpg",
     title: "Naoto's Nail Salon",
+    icon: "/img/favicon-32-nail.png",
     text: html`
     <div>
       Naoto's nail salon.
     </div>`,
   },
   {
+    img: "https://bild.glitches.me/images/2023/03/09/_DSC1986fa8b502b7cfb68e8.jpg",
+    alt: "people sitting around and cutting vegetables",
+    title: "Naoto's Festival",
+    icon: "/img/favicon-32-festival.png",
+    text: html`
+    <div>
+      Naoto's Festival.
+    </div>`,
+  },
+  {
     img: "https://img.glitches.me/images/2022/08/31/IMG_1034.jpg",
+    alt: "naoto and jorge posing in front of best practices printed banner on a scaffold",
     title: "#BestPractices",
+    icon: "/img/favicon-32-bp.png",
     text: html`
     <div>
       Best Practices in Contemporary Dance is a project with Jorge Guevara.
@@ -161,19 +234,20 @@ const contents = [
 export default function(state, emit) {
   return html`
     <div class=${ mainCss }>
+      <div class="windows">
+        <div class="window" style="margin: 0 ${ mw }px; width: ${ w }px">
+          <div class="title-bar">
+            <div class="title-bar-text">
+              Hi!
+            </div>
+          </div>
+          <div class="window-body">
+            Hi! Welcome to Naoto's website!
 
-      <div class="window" style="margin: 0 ${ mw }px; width: ${ w }px">
-        <div class="title-bar">
-          <div class="title-bar-text">
-            Hi!
           </div>
         </div>
-        <div class="window-body">
-          Hi! Welcome to Naoto's website!
-
-        </div>
+        ${ contents.map(e => e.html(state, emit)) }
       </div>
-      ${ contents.map(e => e.html(state, emit)) }
       ${ state.cache(HydraElement, 'my-hydra').render(state, emit) }
     </div>
   `;
