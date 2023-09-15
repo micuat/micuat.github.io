@@ -16,6 +16,10 @@ export default defineConfig(async ({ command, mode }) => {
             src: 'img/',
             dest: ''
           }
+          {
+            src: 'CNAME',
+            dest: ''
+          }
         ]
       })
     ],
