@@ -84,6 +84,16 @@ class PopupApp extends Torus.StyledComponent {
     }
     .title {
       margin: 0 2px;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      justify-content: flex-start;
+      align-items: center;
+      align-content: stretch;
+      .icon {
+        height: 1em;
+        margin: 0.1em;
+      }
     }
     .header {
       display: flex;
@@ -139,7 +149,9 @@ class PopupApp extends Torus.StyledComponent {
           }
         } }
       >
-        <div class="title">${ this.params.title }</div>
+        <div class="title">${ this.params.icon ?
+          jdom`<img class="icon" src="${ this.params.icon }" />` :
+          "" }${ this.params.title }</div>
         <div class="button ${ this.closeState }"
           onmousedown=${ () => {
             if (this.params.sticky !== true) {
@@ -221,6 +233,16 @@ class SectionApp extends Torus.StyledComponent {
     }
     .title {
       margin: 0 2px;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      justify-content: flex-start;
+      align-items: center;
+      align-content: stretch;
+    }
+    .icon {
+      height: 1em;
+      margin: 0.1em;
     }
 
     img {
@@ -265,7 +287,9 @@ class SectionApp extends Torus.StyledComponent {
         onmouseup="${ev => this.onmouseup(ev)}"
       >
         <div class="header">
-          <div class="title">${ this.title }</div>
+          <div class="title">${ this.icon ?
+            jdom`<img class="icon" src="${ this.icon }" />` :
+            "" }${ this.title }</div>
           <div class="button" >x</>
         </div>
         <div class="content">
@@ -301,12 +325,14 @@ class ContentApp extends Torus.StyledComponent {
     this.app = app;
     this.s = [
       new SectionApp({
+        icon: "/img/favicon-32-settings.png",
         title: "Settings",
         dom: () => jdom`
     <div class="msg center-text">${showCanvas ? "😵Hide" : "😎Show"} background</div>
     `, className: "hidecanvas", pointer: true
       }),
       new TitleApp({
+        icon: "/favicon-32.png",
         title: "Name",
         dome: () => jdom`
     <h1>
@@ -319,6 +345,7 @@ class ContentApp extends Torus.StyledComponent {
     `, pointer: true, code: defaultCode
       }),
       new SectionApp({
+        icon: "/img/favicon-32-new.png",
         title: "What's Up",
         dom: () => jdom`
         <div>
@@ -337,7 +364,9 @@ class ContentApp extends Torus.StyledComponent {
                 </div>
               </div>
               `,
-              ev);
+              ev,
+              "/img/favicon-32-new.png",
+            );
           } } />
         </div>
     `, code: () => {
@@ -378,6 +407,7 @@ class ContentApp extends Torus.StyledComponent {
     //   }),
       new SectionApp({
         title: "New Banner",
+        icon: "img/favicon-32-banner.png",
         dom: () => jdom`
         <div>
           <img
@@ -391,11 +421,13 @@ class ContentApp extends Torus.StyledComponent {
               jdom`
               <div class="w">
                 <div>
-                New banner
+                <a target="_blank" href="https://new-banner.glitch.me/">New banner</a>
                 </div>
               </div>
               `,
-              ev);
+              ev,
+              "img/favicon-32-banner.png"
+            );
           } } />
         </div>
     `, code: () => {
@@ -406,6 +438,7 @@ class ContentApp extends Torus.StyledComponent {
         }
       }),
       new SectionApp({
+        icon: "https://cdn.glitch.global/61984d65-52b6-418b-b420-2547b4acca3d/favicon-32.png?v=1694627304921",
         title: "Naoto's Cards",
         dom: () => jdom`
         <div>
@@ -427,7 +460,9 @@ class ContentApp extends Torus.StyledComponent {
                 </div>
               </div>
               `,
-              ev);
+              ev,
+              "https://cdn.glitch.global/61984d65-52b6-418b-b420-2547b4acca3d/favicon-32.png?v=1694627304921",
+            );
           } } />
         </div>
     `, code: () => {
@@ -475,6 +510,7 @@ class ContentApp extends Torus.StyledComponent {
     //     },
     //   }),
       new SectionApp({
+        icon: "/img/favicon-32-nh.png",
         title: "#NaotoHieda",
         dom: () => jdom`
     <div>
@@ -498,7 +534,9 @@ class ContentApp extends Torus.StyledComponent {
           </div>
         </div>
         `,
-        ev);
+        ev,
+        "/img/favicon-32-nh.png",
+      );
     } } />
 
     </div>
@@ -508,6 +546,7 @@ class ContentApp extends Torus.StyledComponent {
         },
       }),
       new SectionApp({
+        icon: "/img/favicon-32-riso.png",
         title: "riso.glitches.me",
         dom: () => jdom`
     <div>
@@ -534,7 +573,9 @@ class ContentApp extends Torus.StyledComponent {
             </div>
           </div>
           `,
-          ev);
+          ev,
+          "/img/favicon-32-riso.png",
+        );
       } } />
     </div>
     `, nopad: true,
@@ -546,6 +587,7 @@ class ContentApp extends Torus.StyledComponent {
       }),
 
       new SectionApp({
+        icon: "/img/favicon-32-festival.png",
         title: "festival.naotohieda.com",
         dom: () => jdom`
         <div>
@@ -567,7 +609,9 @@ class ContentApp extends Torus.StyledComponent {
                 </div>
               </div>
               `,
-              ev);
+              ev,
+              "/img/favicon-32-festival.png",
+            );
           } } />
         </div>
       `, nopad: true,
@@ -580,6 +624,7 @@ class ContentApp extends Torus.StyledComponent {
       }),
 
       new SectionApp({
+        icon: "/img/favicon-32-nail.png",
         title: "nail.glitches.me",
         dom: () => jdom`
     <div>
@@ -606,7 +651,9 @@ class ContentApp extends Torus.StyledComponent {
           </div>
         </div>
         `,
-        ev);
+        ev,
+        "/img/favicon-32-nail.png",
+      );
     } } />
     </div>
     `, nopad: true,
@@ -688,6 +735,7 @@ class ContentApp extends Torus.StyledComponent {
       }),
 
       new SectionApp({
+        icon: "/img/favicon-32-bp.png",
         title: "#BestPracticesInContemporaryDance",
         dom: () => jdom`
     <div>
@@ -712,7 +760,9 @@ class ContentApp extends Torus.StyledComponent {
             </p>
             </div>
             `,
-            ev);
+            ev,
+            "/img/favicon-32-bp.png",
+          );
         } } />
       </div>
     `, nopad: true,
@@ -962,7 +1012,7 @@ class App extends Torus.StyledComponent {
     this.contentApp.render()
     this.render();
   }
-  openPopup(title, dom, ev) {
+  openPopup(title, dom, ev, icon) {
     if (this.popups.find(e => e.params.title === title)) return; // oops
     const params = {};
     params.x = ev.pageX;
@@ -971,6 +1021,7 @@ class App extends Torus.StyledComponent {
     }
     params.y = ev.pageY;
     params.title = title;
+    params.icon = icon;
     params.dom = dom;
     this.popups.push(new PopupApp(this, params));
     this.render();
