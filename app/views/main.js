@@ -62,6 +62,13 @@ img {
   width: ${ w }px;
   font-size: 10pt;
   box-sizing: border-box;
+
+	display: flex;
+	flex-direction: column;
+	flex-wrap: nowrap;
+	justify-content: space-between;
+	align-items: stretch;
+	align-content: stretch;
 }
 .window-wrap.full {
   position: fixed;
@@ -83,7 +90,7 @@ img {
     position: relative;
     width: 100%;
     max-width: 1024px;
-    height: 100%;
+    // height: 100%;
     margin: 0;
     overflow-y: scroll;
     .window-body {
@@ -114,15 +121,22 @@ img {
 .no-display {
   display: none;
 }
+.status-bar-field.progress {
+  display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	justify-content: center;
+	align-items: stretch;
+	align-content: stretch;
+}
+.status-bar-field.year {
+  text-align: right;
+}
 `;
 
 class Element {
-  constructor({ img, alt, icon, title, text }) {
-    this.img = img;
-    this.alt = alt;
-    this.icon = icon;
-    this.title = title;
-    this.text = text;
+  constructor(params) {
+    this.params = params;
     this.minimized = false;
     this.maximized = false;
   }
@@ -155,10 +169,10 @@ class Element {
       <div class="window ${ this.maximized ? "full" : "" }">
         <div class="title-bar">
           <div class="title-bar-text">
-            ${ this.icon ? html`
-            <img class="icon" src="${ this.icon }" />
+            ${ this.params.icon ? html`
+            <img class="icon" src="${ this.params.icon }" />
             ` : "" }
-            ${ this.title ? this.title : "" }
+            ${ this.params.title ? this.params.title : "" }
           </div>
           <div class="title-bar-controls">
             <button aria-label="Minimize" onclick=${ minimize }></button>
@@ -167,8 +181,20 @@ class Element {
           </div>
         </div>
         <div class="window-body ${ this.minimized ? "no-display" : "" }">
-          ${ this.img ? html`<img onclick=${ maximize } alt="${ this.alt }" src="${ this.img }" />` : "" }
-          ${ this.text && (this.maximized || this.img == null) ? html`<div>${ this.text }</div>` : "" }
+          ${ this.params.img ? html`<img onclick=${ maximize } alt="${ this.alt }" src="${ this.params.img }" />` : "" }
+          ${ this.params.text && (this.maximized || this.params.img == null) ? html`<div>${ this.params.text }</div>` : "" }
+        </div>
+        <div class="status-bar">
+          <div class="status-bar-field">
+            ${ this.params.media }
+          </div>
+          ${ this.params.progress ? html`
+          <div class="status-bar-field progress">
+            <progress></progress>
+          </div>` : "" }
+          <div class="status-bar-field year">
+            ${ this.params.year }
+          </div>
         </div>
       </div>
     </div>
@@ -181,6 +207,9 @@ const contents = [
     title: "#UnderConstruction",
     alt: "under construction 90s banner",
     icon: "/img/favicon-32-new.png",
+    media: "GIF",
+    progress: 1,
+    year: "2023-",
     text: html`
     <div>
       <div>
@@ -197,6 +226,8 @@ const contents = [
     title: "New Banner",
     alt: "banner of closeup of naoto's face displayed outside",
     icon: "/img/favicon-32-banner.png",
+    media: "Banner",
+    year: "2023",
     text: html`
     <div>
       <div>
@@ -209,6 +240,8 @@ const contents = [
     title: "Naoto's Cards",
     alt: "naoto's cards displayed",
     icon: "https://cdn.glitch.global/61984d65-52b6-418b-b420-2547b4acca3d/favicon-32.png?v=1694627304921",
+    media: "Printed cards",
+    year: "2022-",
     text: html`
     <div>
       <div>
@@ -230,6 +263,8 @@ const contents = [
     title: "#NaotoHieda",
     alt: "hashtag naoto hieda, an artwork of a printed banner",
     icon: "/img/favicon-32-nh.png",
+    media: "Banner",
+    year: "2022",
     text: html`
     <div>
       <div>
@@ -246,6 +281,8 @@ const contents = [
     img: "https://img.glitches.me/images/2023/07/26/20230722_KHM_RundgangDSC_0739_c_Doerthe_Boxberg_sq.jpg",
     title: "Naoto's Nail Salon",
     icon: "/img/favicon-32-nail.png",
+    media: "Performance",
+    year: "2022-",
     text: html`
     <div>
       <p>
@@ -264,6 +301,8 @@ const contents = [
     alt: "people sitting around and cutting vegetables",
     title: "Naoto's Festival",
     icon: "/img/favicon-32-festival.png",
+    media: "Exhibition, Performance",
+    year: "2023",
     text: html`
     <div>
       <p>
@@ -277,6 +316,8 @@ const contents = [
     alt: "naoto and jorge posing in front of best practices printed banner on a scaffold",
     title: "#BestPractices",
     icon: "/img/favicon-32-bp.png",
+    media: "Media dance",
+    year: "2020-",
     text: html`
     <div>
       <div>
@@ -298,6 +339,8 @@ const contents = [
     alt: "video screened in a station",
     title: "#spektrum",
     // icon: "/img/favicon-32-riso.png",
+    media: "Video",
+    year: "2021",
     text: html`
     <div>
       <p>
@@ -313,6 +356,8 @@ const contents = [
     alt: "riso.glitches.me, a mass printed risograph work",
     title: "riso.glitches.me",
     icon: "/img/favicon-32-riso.png",
+    media: "Risography print",
+    year: "2022",
     text: html`
     <div>
       <p>
@@ -330,6 +375,8 @@ const contents = [
     img: "https://img.glitches.me/images/2022/02/26/glitchme.jpg",
     alt: "glitch me with flor de fuego",
     title: "GlitchMe3D",
+    media: "Mixed media",
+    year: "2020-2022",
     text: html`
     <div>
       <p>
@@ -346,6 +393,8 @@ const contents = [
   {
     // img: "https://img.glitches.me/images/2022/08/31/IMG_1034.jpg",
     title: "Portfolio",
+    media: "Net art",
+    year: "2014-",
     text: html`
     <div>
       You can find a complete list of my work in my <a href="https://naoto-portfolio.glitch.me/">portfolio</a>.
@@ -354,6 +403,8 @@ const contents = [
   {
     // img: "https://img.glitches.me/images/2022/08/31/IMG_1034.jpg",
     title: "Credits",
+    media: "Net art",
+    year: "2023",
     text: html`
     <div>
       <p class="center-text"><span class="naoto">Naoto Hieda</span> - design by <a href="https://glitches.me" target="_blank">glitches.me</a></p>
