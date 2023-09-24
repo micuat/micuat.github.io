@@ -1,5 +1,8 @@
 import html from "choo/html";
+import raw from "choo/html/raw";
 import { css } from "@emotion/css";
+
+import twemoji from "@discordapp/twemoji";
 
 import HydraElement from "../components/hydra-element.js";
 
@@ -14,8 +17,18 @@ justify-content: center;
 align-items: center;
 align-content: center;
 padding: 10px;
-
+img.emoji {
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
+}
 .windows {
+  // display: flex;
+  // flex-direction: row;
+  // flex-wrap: wrap;
+  // justify-content: flex-start;
+  // align-items: baseline;
+  // align-content: flex-start;
   @media only screen and (min-width: ${ (w + mw) * 2 }px) {
     -moz-column-count: 2;
     -webkit-column-count: 2;
@@ -55,6 +68,10 @@ img {
 	justify-content: flex-start;
 	align-items: center;
 	align-content: stretch;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  padding: 0;
 }
 .window {
   page-break-inside: avoid;
@@ -137,7 +154,7 @@ img {
 class Element {
   constructor(params) {
     this.params = params;
-    this.minimized = false;
+    this.minimized = !!params.featured === false;
     this.maximized = false;
   }
   toggleMinimize() {
@@ -172,7 +189,7 @@ class Element {
             ${ this.params.icon ? html`
             <img class="icon" src="${ this.params.icon }" />
             ` : "" }
-            ${ this.params.title ? this.params.title : "" }
+            ${ raw(twemoji.parse(this.params.title ? this.params.title : "")) }
           </div>
           <div class="title-bar-controls">
             <button aria-label="Minimize" onclick=${ minimize }></button>
@@ -203,6 +220,7 @@ class Element {
 }
 const contents = [
   {
+    featured: false,
     img: "/img/underconstruction.gif",
     title: "#UnderConstruction",
     alt: "under construction 90s banner",
@@ -222,6 +240,7 @@ const contents = [
     </div>`,
   },
   {
+    featured: true,
     img: "https://img.glitches.me/images/2023/07/26/naoto-new-banner.jpg",
     title: "New Banner",
     alt: "banner of closeup of naoto's face displayed outside",
@@ -236,6 +255,7 @@ const contents = [
     </div>`,
   },
   {
+    featured: true,
     img: "https://img.glitches.me/images/2023/07/26/cards_sq.jpg",
     title: "Naoto's Cards",
     alt: "naoto's cards displayed",
@@ -259,6 +279,24 @@ const contents = [
     </div>`,
   },
   {
+    featured: false,
+    img: "https://cdn.glitch.global/cada0ae2-f902-428d-81e3-6a68f5e589e5/2023-06-14-syms.jpg?v=1687102224701",
+    title: "📺Show You My Screen",
+    alt: "many windows I don't understand",
+    media: "Net Art",
+    year: "2023",
+    text: html`
+    <div>
+      <div>
+        Some net art performance. You can find the video 
+        <a href="https://www.youtube.com/watch?v=rQzWtLS43mc"
+        target="_blank">
+        here</a>.
+      </div>
+    </div>`,
+  },
+  {
+    featured: false,
     img: "https://img.glitches.me/images/2022/02/13/banner.jpg",
     title: "#NaotoHieda",
     alt: "hashtag naoto hieda, an artwork of a printed banner",
@@ -278,6 +316,7 @@ const contents = [
     </div>`,
   },
   {
+    featured: true,
     img: "https://img.glitches.me/images/2023/07/26/20230722_KHM_RundgangDSC_0739_c_Doerthe_Boxberg_sq.jpg",
     title: "Naoto's Nail Salon",
     icon: "/img/favicon-32-nail.png",
@@ -297,6 +336,7 @@ const contents = [
     </div>`,
   },
   {
+    featured: false,
     img: "https://bild.glitches.me/images/2023/03/09/_DSC1986fa8b502b7cfb68e8.jpg",
     alt: "people sitting around and cutting vegetables",
     title: "Naoto's Festival",
@@ -312,6 +352,7 @@ const contents = [
     </div>`,
   },
   {
+    featured: true,
     img: "https://img.glitches.me/images/2022/08/31/IMG_1034.jpg",
     alt: "naoto and jorge posing in front of best practices printed banner on a scaffold",
     title: "#BestPractices",
@@ -335,9 +376,38 @@ const contents = [
     </div>`,
   },
   {
+    featured: false,
+    img: "https://cdn.glitch.global/cada0ae2-f902-428d-81e3-6a68f5e589e5/thesis.jpg?v=1695584746655",
+    title: "📕Neuroqueerness and Decolonization in Media art",
+    alt: "tbd",
+    media: "Publication",
+    year: "2023",
+    text: html`
+    <div>
+      <div>
+        <a href="https://docs.google.com/document/d/1q2okYdz25a3lfPT4wGKN_CO2bsBR0cZN8vF8MpYPuZ0/edit?usp=sharing">read on google docs</a>
+      </div>
+    </div>`,
+  },
+  {
+    featured: false,
+    img: "https://bild.glitches.me/images/2022/11/05/IMG_4392.jpg",
+    title: "🍊Lulogear",
+    alt: "lithography print of a gear mixed with fruit",
+    media: "Lithography",
+    year: "2022",
+    text: html`
+    <div>
+      <div>
+        Lithography print made at National University of Colombia at Vanessa Nieto's class. The motif is gears and lulo, a colombian fruit.
+      </div>
+    </div>`,
+  },
+  {
+    featured: false,
     img: "https://bild.glitches.me/images/2022/09/24/naoto_spektrum.gif",
     alt: "video screened in a station",
-    title: "#spektrum",
+    title: "🌈#spektrum",
     // icon: "/img/favicon-32-riso.png",
     media: "Video",
     year: "2021",
@@ -352,6 +422,7 @@ const contents = [
     </div>`,
   },
   {
+    featured: false,
     img: "https://img.glitches.me/images/2022/03/15/riso_.jpg",
     alt: "riso.glitches.me, a mass printed risograph work",
     title: "riso.glitches.me",
@@ -372,9 +443,10 @@ const contents = [
     </div>`,
   },
   {
+    featured: false,
     img: "https://img.glitches.me/images/2022/02/26/glitchme.jpg",
     alt: "glitch me with flor de fuego",
-    title: "GlitchMe3D",
+    title: "🤖GlitchMe3D",
     media: "Mixed media",
     year: "2020-2022",
     text: html`
@@ -391,8 +463,9 @@ const contents = [
     </div>`,
   },
   {
+    featured: false,
     // img: "https://img.glitches.me/images/2022/08/31/IMG_1034.jpg",
-    title: "Portfolio",
+    title: "🖼Portfolio",
     media: "Net art",
     year: "2014-",
     text: html`
@@ -401,13 +474,19 @@ const contents = [
     </div>`,
   },
   {
+    featured: true,
     // img: "https://img.glitches.me/images/2022/08/31/IMG_1034.jpg",
-    title: "Credits",
+    title: "🎥Credits",
     media: "Net art",
     year: "2023",
     text: html`
     <div>
-      <p class="center-text"><span class="naoto">Naoto Hieda</span> - design by <a href="https://glitches.me" target="_blank">glitches.me</a></p>
+      <div class="center-text">
+        <span class="naoto">Naoto Hieda</span> - design by <a href="https://glitches.me" target="_blank">glitches.me</a>
+      </div>
+      <div>
+      The emojis are from <a href="https://www.npmjs.com/package/@discordapp/twemoji" target="_blank">@discord/twemoji</a>.
+      </div>
     </div>`,
   },
 ].map(e => new Element(e));
@@ -420,7 +499,7 @@ export default function(state, emit) {
         <div class="window" style="margin: 0 ${ mw }px; width: ${ w }px">
           <div class="title-bar">
             <div class="title-bar-text">
-              Hi!
+              ${ raw(twemoji.parse("👋")) }Hi!
             </div>
           </div>
           <div class="window-body">
