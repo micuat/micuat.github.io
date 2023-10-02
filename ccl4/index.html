@@ -1,0 +1,105 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="GENERATOR" content="VIM [en] (X11; I; Linux 2.4.21 i686)">
+  <TITLE>Cellular Body (No Time To Fly)</TITLE>
+
+  <link rel='stylesheet' href='../project.css'>
+
+</head>
+<body>
+<div id="main">
+<div id="content">
+
+<h1>Cellular Body (No Time To Fly)</h1>
+
+<div class="row">
+
+<div class="f">
+<img alt="ccl" width="560" height="315" src="../img/ccl4smalt.png">
+</div>
+
+</div>
+
+<div class="row">
+
+<div class="f">
+<img alt="ccl" width="560" height="315" src="../img/ccl4.png">
+</div>
+
+</div>
+
+<p class="seriouswriting">
+At the 4th Choreographic Coding Lab (New York City, 2015),
+the participants were provided with motion data and videos of No Time To Fly (2012),
+choreographed by Deborah Hay and performed individually by
+Jeanine Durning, Juliette Mapp and Ros Warby.<br />
+<br />
+Deborah's choreography score consists of questions, which makes each dancer perform uniquely.
+Extensive research has been done on each dancer's motion, particularly, the travel path 
+to understand their <a href="http://scores.motionbank.org/dh/#/set/movement-character" target="_blank">movement characteristics</a> by Florian Jenett and others.<br />
+</p>
+
+<blockquote class="seriouswriting">
+"My body is limited in what it can do so I'm not interested in what it can do. I'm interested in how I can raise the threshold of my attention and energy when I break it down to the cellular body. And it's the whole body at once. All that cellular body is contained, like in a silhouette, of the human body. (...) And it's the multi-cellular body I attend to when I'm dancing."<br />
+<br />
+-- <a href="http://scores.motionbank.org/dh/#/set/sets" target="_blank">Deborah Hay lecture to score team February 2011</a><br />
+</blockquote>
+
+<p class="seriouswriting">
+In response to Deborah's comments, I decided to build a real-life particle system
+as a metaphor for a cellular body. Since visualization of the body movement
+has been done already, I focused on interpretation of the choreography in a
+different dimension, real-life particles. Particles are scattered by
+SPIDAR-mouse, originally designed as a haptic device but modified to respond to
+dancer's movement. Several kinds of material are tested:
+flour, ground seeds, ice, sugar and black glass pieces, and I ended up
+using glass on white paper and sugar on black paper with videos performed by
+Jeanine Durning and Ros Warby, respectively.<br />
+<br />
+As for implementation, the dancer's position provided by Motion Bank
+is input to a Kalman filter to compute a smoothed velocity.
+A force proportional to the velocity is applied to a pin by the haptic device
+to scatter the particles. The position of the pin is not measured by the system
+and is affected by the applied force, the size of the device and friction
+between the pin and paper, which blurs the correlation between the performer
+appears in the video and pin movement.<br />
+<br />
+Thanks to the organizers of the Choregraphic Coding Lab, and special thanks to all the participants at CCL for giving me valuable comments.
+
+</p>
+
+<div class="row">
+<div class="f">
+<iframe src="https://player.vimeo.com/video/138406465" width="560" height="315" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+</div>
+</div>
+
+<div class="row">
+<div class="f">
+<iframe src="https://player.vimeo.com/video/138406671" width="560" height="315" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+</div>
+</div>
+
+<h2>Links</h2>
+
+<p>
+<a href="https://github.com/micuat/cellularBody" target="_blank">Github</a><br />
+<a href="http://motionbank.org/en/content/deborah-hay" target="_blank">Motion Bank</a><br />
+<a href="https://vimeo.com/282845286" target="_blank">Documentary of CCL New York City by Motion Bank</a>
+</p>
+
+<p class="right">
+<a href="..">Back</a>
+</p>
+
+<div class="copyright">
+  Naoto Hieda 2019
+</div>
+
+</div>
+</div>
+
+</body>
+</html>

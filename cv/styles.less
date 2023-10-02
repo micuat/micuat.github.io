@@ -1,0 +1,183 @@
+@font-face {
+  font-family: "ApfelGrotezk Regular";
+  src: url("https://cdn.glitches.me/ApfelGrotezk-Regular.woff2") format("woff2"),
+    url("https://cdn.glitches.me/ApfelGrotezk-Regular.woff") format("woff");
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  padding: 0px 10px 0px 10px;
+  background: white;
+  color: black;
+  font-family: "ApfelGrotezk Regular", Arial, sans-serif;
+  font-size: 11pt;
+}
+
+.download {
+  display: none;
+}
+
+.right-align {
+  float: right;
+}
+
+.left-align {
+  float: left;
+}
+
+.clear {
+  clear: both;
+}
+
+a,
+a:visited {
+  color: black;
+  text-decoration: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  border: 0;
+  margin-top: 1em;
+}
+
+h1 {
+  font-size: 170%;
+  margin: 10px;
+}
+
+h1:first-child {
+  font-size: 210%;
+}
+
+h2 {
+  font-size: 150%;
+  border-top: 3px solid #E0E0E0;
+  margin-left: 0px;
+  padding-left: 80px;
+  margin-bottom: 15px;
+}
+
+h3 {
+  margin-top: 0em;
+  font-size: 110%;
+  margin-bottom: 0.6em;
+  font-weight: normal;
+}
+
+.weight-bold-left {
+  margin-left: 10px;
+  font-weight: bold;
+  float: left;
+}
+
+h4 {
+  font-weight: normal;
+  margin-top: 0.6em;
+  font-size: 105%;
+  margin-bottom: 0;
+  margin-left: 15px;
+}
+
+p {
+  margin: 0.6em 0 0 10px;
+  line-height: 1.5em;
+}
+
+blockquote {
+  margin: 1.5em 0 !important;
+  padding-left: 0.6em !important;
+  padding-top: 1.2em;
+  border-top: 3px solid #E0E0E0;
+}
+
+li {
+  list-style: none;
+  margin: 0.5em 0 0.5em 15px;
+}
+
+/* Timeline https://codepen.io/alanhouser/pen/aErrQJ */
+@spacing: 0px;
+
+.timeline {
+  margin: @spacing 0px @spacing 50px;
+  padding: @spacing;
+  list-style: none;
+  text-align: left;
+  max-width: 90%;
+  .event {
+    margin-bottom: @spacing;
+    position: relative;
+    &:before,
+    &:after {
+      position: absolute;
+      display: block;
+      top: 0;
+    }
+    &:before {
+      left: -3.5em;
+      content: attr(data-date);
+    }
+  }
+}
+
+a,
+a:visited {
+  text-decoration: none;
+}
+
+a.line,
+a:visited.line {
+  text-decoration: underline;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+pre {
+  margin: 1em 0;
+  font-size: 12px;
+  border: 1px solid #dedede;
+  padding: .5em;
+  line-height: 1.5em;
+  overflow: auto;
+}
+
+pre code {
+  padding: 0;
+  font-size: 12px;
+  border: none;
+}
+
+code {
+  font-size: 12px;
+  padding: 0 .2em;
+  border: 1px solid #dedede;
+}
+
+img {
+  max-width: 100%;
+}
+
+dt {
+  font-weight: bold;
+  margin-left: 1em;
+}
+
+dd {
+  margin-left: 2em;
+  margin-bottom: 1em;
+}
+
+p.bottom-space {
+  margin-bottom: 1.5em;
+}
