@@ -9,11 +9,11 @@ export default defineConfig(async ({ command, mode }) => {
       viteStaticCopy({
         targets: [
           {
-            src: '2022/',
+            src: 'img/',
             dest: ''
           },
           {
-            src: 'img/',
+            src: 'static/*',
             dest: ''
           },
           {
