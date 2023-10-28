@@ -271,10 +271,13 @@ const contents = [
         soup.glitches.me</a>.
       </div>
       <div>
-        A new edition and tutorial will be released at
+        Exhibited at
         <a href="https://www.interposed.de/"
         target="_blank">
-        interposed</a> in October 2023.
+        interposed</a>in October 2023, accompanied by
+        <a href="https://re-coding.technology/heartbreak-cards/"
+          target="_blank">
+        web publication</a>.
       </div>
     </div>`,
   },
@@ -332,6 +335,21 @@ const contents = [
       </p>
       <p>
         Naoto’s Nail Salon is a nail salon by Naoto. Everyone is invited to have nails done for free. It was founded on 28th September 2022 at the National University of Colombia, Bogotá during a writing seminar as a response to a topic around hands.
+      </p>
+    </div>`,
+  },
+  {
+    featured: true,
+    img: "https://img.glitches.me/images/2023/10/28/A9D20F93-BC08-42FC-8095-78A45D64BBDA.jpg",
+    alt: "media installation with construction fences, prints and projections",
+    title: "Code, Remix, Break & Glitch",
+    icon: "https://cdn.glitch.global/4ed2e6eb-1ae4-42f7-8a32-18f73e5c825b/favicon-32-dw.png",
+    media: "Workshop, Exhibition",
+    year: "2023",
+    text: html`
+    <div>
+      <p>
+      <div>Youth workshop by Naoto Hieda & Franka Osthoff took place at <a href="https://www.digitale-welten.org" target="_blank">Digitale Welten 2023</a>
       </p>
     </div>`,
   },
@@ -482,10 +500,10 @@ const contents = [
     text: html`
     <div>
       <div class="center-text">
-        <span class="naoto">Naoto Hieda</span> - design by <a href="https://glitches.me" target="_blank">glitches.me</a>
+        <span class="naoto">Naoto Hieda</span> / design by <a href="https://glitches.me" target="_blank">glitches.me</a>
       </div>
       <div>
-      The emojis are from <a href="https://www.npmjs.com/package/@discordapp/twemoji" target="_blank">@discord/twemoji</a>.
+      Emojis are from <a href="https://www.npmjs.com/package/@discordapp/twemoji" target="_blank">@discord/twemoji</a>.
       </div>
     </div>`,
   },
