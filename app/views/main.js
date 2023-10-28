@@ -500,10 +500,13 @@ const contents = [
     text: html`
     <div>
       <div class="center-text">
-        <span class="naoto">Naoto Hieda</span> / design by <a href="https://glitches.me" target="_blank">glitches.me</a>
+        <span class="naoto">Naoto Hieda - full stack net artist</span>
+      </div>
+      <div class="center-text">
+        design by <a href="https://glitches.me" target="_blank">glitches.me</a>
       </div>
       <div>
-      Emojis are from <a href="https://www.npmjs.com/package/@discordapp/twemoji" target="_blank">@discord/twemoji</a>.
+      Emojis from <a href="https://www.npmjs.com/package/@discordapp/twemoji" target="_blank">@discord/twemoji</a>.
       </div>
     </div>`,
   },
