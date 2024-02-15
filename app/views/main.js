@@ -182,8 +182,8 @@ class Element {
     }
 
     return html`
-    <div class="window-wrap ${ this.maximized ? "full" : "" }">
-      <div class="window ${ this.maximized ? "full" : "" }">
+    <div class="window-wrap">
+      <div class="window">
         <div class="title-bar">
           <div class="title-bar-text">
             ${ this.params.icon ? html`
@@ -274,10 +274,10 @@ const contents = [
         Exhibited at
         <a href="https://www.interposed.de/"
         target="_blank">
-        interposed</a>in October 2023, accompanied by
+        interposed</a> in October 2023, accompanied by
         <a href="https://re-coding.technology/heartbreak-cards/"
           target="_blank">
-        web publication</a>.
+        a web publication</a>.
       </div>
     </div>`,
   },
