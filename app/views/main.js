@@ -29,25 +29,25 @@ img.emoji {
   // justify-content: flex-start;
   // align-items: baseline;
   // align-content: flex-start;
-  @media only screen and (min-width: ${ (w + mw) * 2 }px) {
+  @media only screen and (min-width: ${ (w + mw) * 2.2 }px) {
     -moz-column-count: 2;
     -webkit-column-count: 2;
     column-count: 2;
   }
 
-  @media only screen and (min-width: ${ (w + mw) * 3 }px) {
+  @media only screen and (min-width: ${ (w + mw) * 3.3 }px) {
     -moz-column-count: 3;
     -webkit-column-count: 3;
     column-count: 3;
   }
 
-  @media only screen and (min-width: ${ (w + mw) * 4 }px) {
+  @media only screen and (min-width: ${ (w + mw) * 4.4 }px) {
     -moz-column-count: 4;
     -webkit-column-count: 4;
     column-count: 4;
   }
 
-  @media only screen and (min-width: ${ (w + mw) * 5 }px) {
+  @media only screen and (min-width: ${ (w + mw) * 5.5 }px) {
     -moz-column-count: 5;
     -webkit-column-count: 5;
     column-count: 5;
@@ -154,7 +154,7 @@ img {
 class Element {
   constructor(params) {
     this.params = params;
-    this.minimized = !!params.featured === false;
+    this.minimized = false//!!params.featured === false;
     this.maximized = false;
   }
   toggleMinimize() {
@@ -192,7 +192,7 @@ class Element {
             ${ raw(twemoji.parse(this.params.title ? this.params.title : "")) }
           </div>
           <div class="title-bar-controls">
-            <button aria-label="Minimize" onclick=${ minimize }></button>
+            <!-- <button aria-label="Minimize" onclick=${ minimize }></button> -->
             <button aria-label="Maximize" onclick=${ maximize }></button>
             <button aria-label="Close" class="no-display"></button>
           </div>
@@ -222,9 +222,9 @@ const contents = [
   {
     featured: false,
     img: "/img/underconstruction.gif",
-    title: "#UnderConstruction",
+    title: "🚧#UnderConstruction",
     alt: "under construction 90s banner",
-    icon: "/img/favicon-32-new.png",
+    // icon: "/img/favicon-32-new.png",
     media: "GIF",
     progress: 1,
     year: "2023-",
@@ -282,22 +282,40 @@ const contents = [
     </div>`,
   },
   {
-    featured: false,
-    img: "https://cdn.glitch.global/cada0ae2-f902-428d-81e3-6a68f5e589e5/2023-06-14-syms.jpg?v=1687102224701",
-    title: "📺Show You My Screen",
-    alt: "many windows I don't understand",
-    media: "Net Art",
-    year: "2023",
+    featured: true,
+    img: "https://cdn.glitch.global/cada0ae2-f902-428d-81e3-6a68f5e589e5/vlcsnap-2024-02-15-10h04m52s963.webp?v=1708009694398",
+    alt: "naoto and jorge on the stage performing in front of a green screen and a projection surface",
+    title: "SFDCANBAC++",
+    icon: "/img/favicon-32-bp.png",
+    media: "Media dance",
+    year: "2024",
     text: html`
     <div>
-      <div>
-        Some net art performance. You can find the video 
-        <a href="https://www.youtube.com/watch?v=rQzWtLS43mc"
-        target="_blank">
-        here</a>.
-      </div>
+      <p> Bodies, colorful objects, live-codes and glitter pixels continuously change their constellations on the stage – superimposing and subtracting, grouping and ungrouping – while the abundance of “actors” never arrives to a specific form.</p>
+      <p> Artists: Jorge Guevara and Naoto Hieda</p>
+      <p> Technical Mentorship and development: Andreia Matos, William Primett and Nuno N. Correia</p>
+      <p> Tech support: Kino Šiška</p>
+      <p> The work is created within the framework of the <a href="https://modina.eu/projects/sfdcanbac/" target="_blank">MODINA</a> project.</p>
+      <p>Try the interactive version <a href="https://sfdcanbac-ux.glitch.me/" target="_blank">here</a>!</p>
     </div>`,
   },
+  // {
+  //   featured: false,
+  //   img: "https://cdn.glitch.global/cada0ae2-f902-428d-81e3-6a68f5e589e5/2023-06-14-syms.jpg?v=1687102224701",
+  //   title: "📺Show You My Screen",
+  //   alt: "many windows I don't understand",
+  //   media: "Net Art",
+  //   year: "2023",
+  //   text: html`
+  //   <div>
+  //     <div>
+  //       Some net art performance. You can find the video 
+  //       <a href="https://www.youtube.com/watch?v=rQzWtLS43mc"
+  //       target="_blank">
+  //       here</a>.
+  //     </div>
+  //   </div>`,
+  // },
   {
     featured: false,
     img: "https://img.glitches.me/images/2022/02/13/banner.jpg",
@@ -380,9 +398,6 @@ const contents = [
     text: html`
     <div>
       <div>
-        NEWS! We are going to develop a new work SFDCANBAC++ at <a href="https://modina.eu/projects/sfdcanbac/" target="_blank">MODINA</a> this coming December-January.
-      </div>
-      <div>
         Project with <a href="https://jorgeguevara.myportfolio.com/" target="_blank">Jorge Guevara</a>
       </div>
       <div>
@@ -407,20 +422,20 @@ const contents = [
       </div>
     </div>`,
   },
-  {
-    featured: false,
-    img: "https://bild.glitches.me/images/2022/11/05/IMG_4392.jpg",
-    title: "🍊Lulogear",
-    alt: "lithography print of a gear mixed with fruit",
-    media: "Lithography",
-    year: "2022",
-    text: html`
-    <div>
-      <div>
-        Lithography print made at National University of Colombia at Vanessa Nieto's class. The motif is gears and lulo, a colombian fruit.
-      </div>
-    </div>`,
-  },
+  // {
+  //   featured: false,
+  //   img: "https://bild.glitches.me/images/2022/11/05/IMG_4392.jpg",
+  //   title: "🍊Lulogear",
+  //   alt: "lithography print of a gear mixed with fruit",
+  //   media: "Lithography",
+  //   year: "2022",
+  //   text: html`
+  //   <div>
+  //     <div>
+  //       Lithography print made at National University of Colombia at Vanessa Nieto's class. The motif is gears and lulo, a colombian fruit.
+  //     </div>
+  //   </div>`,
+  // },
   {
     featured: false,
     img: "https://bild.glitches.me/images/2022/09/24/naoto_spektrum.gif",
