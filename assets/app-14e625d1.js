@@ -477,8 +477,8 @@ img {
 }
 `;class jv{constructor(t){this.params=t,this.minimized=!1;//!!params.featured === false;
 this.maximized=!1}toggleMinimize(){this.maximized?(this.minimized=!1,this.maximized=!1):(this.minimized=!this.minimized,this.maximized=!1)}toggleMaximize(){this.maximized=!this.maximized,this.minimized=!1}html(t,r){const i=o=>{this.toggleMinimize(),r("render")},u=o=>{this.toggleMaximize(),r("render")};return st`
-    <div class="window-wrap ${this.maximized?"full":""}">
-      <div class="window ${this.maximized?"full":""}">
+    <div class="window-wrap">
+      <div class="window">
         <div class="title-bar">
           <div class="title-bar-text">
             ${this.params.icon?st`
@@ -536,10 +536,10 @@ this.maximized=!1}toggleMinimize(){this.maximized?(this.minimized=!1,this.maximi
         Exhibited at
         <a href="https://www.interposed.de/"
         target="_blank">
-        interposed</a>in October 2023, accompanied by
+        interposed</a> in October 2023, accompanied by
         <a href="https://re-coding.technology/heartbreak-cards/"
           target="_blank">
-        web publication</a>.
+        a web publication</a>.
       </div>
     </div>`},{featured:!0,img:"https://cdn.glitch.global/cada0ae2-f902-428d-81e3-6a68f5e589e5/vlcsnap-2024-02-15-10h04m52s963.webp?v=1708009694398",alt:"naoto and jorge on the stage performing in front of a green screen and a projection surface",title:"SFDCANBAC++",icon:"/img/favicon-32-bp.png",media:"Media dance",year:"2024",text:st`
     <div>
