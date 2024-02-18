@@ -283,7 +283,7 @@ const contents = [
   },
   {
     featured: true,
-    img: "https://cdn.glitch.global/cada0ae2-f902-428d-81e3-6a68f5e589e5/vlcsnap-2024-02-15-10h04m52s963.webp?v=1708009694398",
+    img: "https://cdn.glitch.global/cada0ae2-f902-428d-81e3-6a68f5e589e5/J.GUEVARA-N.%20HIEDA-MODINA_urska%20boljkovac%20(72).jpeg?v=1708247688292",
     alt: "naoto and jorge on the stage performing in front of a green screen and a projection surface",
     title: "SFDCANBAC++",
     icon: "/img/favicon-32-bp.png",
@@ -295,6 +295,9 @@ const contents = [
       <p> Artists: Jorge Guevara and Naoto Hieda</p>
       <p> Technical Mentorship and development: Andreia Matos, William Primett and Nuno N. Correia</p>
       <p> Tech support: Kino Šiška</p>
+      <p>
+      Photo: Urška Boljkovac/Kino Šiška
+      </p>
       <p> The work is created within the framework of the <a href="https://modina.eu/projects/sfdcanbac/" target="_blank">MODINA</a> project.</p>
       <p>Try the interactive version <a href="https://sfdcanbac-ux.glitch.me/" target="_blank">here</a>!</p>
     </div>`,
