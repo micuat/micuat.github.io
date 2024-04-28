@@ -394,6 +394,9 @@ const contents = [
       Watch the video on <a href="https://www.youtube.com/watch?v=QX6ddYl-F8g" target="_blank">Youtube</a>
       </p>
       <p>
+      To be screened at the Festival Internacional de la Imagen (Manizales, Colombia)
+      </p>
+      <p>
       Article on <a href="https://www.creativeapplications.net/sound/iioana-aqua-park-underground-demo-music-video/g" target="_blank">CreativeApplications.Net</a>
       </p>
     </div>`,
