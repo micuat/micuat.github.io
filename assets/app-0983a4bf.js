@@ -590,6 +590,9 @@ this.maximized=!1}toggleMinimize(){this.maximized?(this.minimized=!1,this.maximi
       Watch the video on <a href="https://www.youtube.com/watch?v=QX6ddYl-F8g" target="_blank">Youtube</a>
       </p>
       <p>
+      To be screened at the Festival Internacional de la Imagen (Manizales, Colombia)
+      </p>
+      <p>
       Article on <a href="https://www.creativeapplications.net/sound/iioana-aqua-park-underground-demo-music-video/g" target="_blank">CreativeApplications.Net</a>
       </p>
     </div>`},{featured:!1,img:"https://bild.glitches.me/images/2023/03/09/_DSC1986fa8b502b7cfb68e8.jpg",alt:"people sitting around and cutting vegetables",title:"Naoto's Festival",icon:"/img/favicon-32-festival.png",media:"Exhibition, Performance",year:"2023",text:bt`
