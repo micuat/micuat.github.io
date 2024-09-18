@@ -17,7 +17,7 @@
     "vite-plugin-static-copy": "^0.17.0"
   },
   "devDependencies": {
-    "vite": "^4.5.3"
+    "vite": "^4.5.5"
   },
   "browserslist": [
     ">0.2%",
