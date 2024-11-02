@@ -252,6 +252,9 @@ const contents = [
       <div>
       <a target="_blank" href="https://new-banner.glitch.me/">New banner</a>
       </div>
+      <div>
+        First shown at KHM Rundgang 2023, then at Kunstpreis 2024 der Freunde der KHM exhibition.
+      </div>
     </div>`,
   },
   {
@@ -278,6 +281,9 @@ const contents = [
         <a href="https://re-coding.technology/heartbreak-cards/"
           target="_blank">
         a web publication</a>.
+        Then at Kunstpreis 2024 der Freunde der KHM exhibition.
+      </div>
+
       </div>
     </div>`,
   },
@@ -291,6 +297,7 @@ const contents = [
     year: "2024",
     text: html`
     <div>
+      <p>Currently on tour: <a href="https://cndb.ro/new_events/stage-for-digital-contagious-and-networked-bodies-and-code-sfdcanbac/" target="_blank">CNDB</a> & <a href="https://www.kinosiska.si/en/dogodek/cofestival-2024/" target="_blank">Kino Šiška</a></p>
       <p> Bodies, colorful objects, live-codes and glitter pixels continuously change their constellations on the stage – superimposing and subtracting, grouping and ungrouping – while the abundance of “actors” never arrives to a specific form.</p>
       <p> Artists: Jorge Guevara and Naoto Hieda</p>
       <p> Technical Mentorship and development: Andreia Matos, William Primett and Nuno N. Correia</p>
