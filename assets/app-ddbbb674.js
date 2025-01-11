@@ -577,7 +577,7 @@ Who is Naoto Hieda? Seems to me, is the essential, existential question that Nao
           Details can be found <a href="https://naotohieda.glitch.me/" target="_blank">naotohieda.glitch.me</a> as well as on <a href="https://www.creativeapplications.net/member-submissions/naotohieda-live-coding-on-a-construction-banner/" target="_blank">CreativeApplications.Net</a>.
         </p>
       </div>
-    </div>`},{featured:!1,img:"https://img.glitches.me/images/2023/07/26/20230722_KHM_RundgangDSC_0739_c_Doerthe_Boxberg_sq.jpg",title:"Naoto's Nail Salon",icon:"/img/favicon-32-nail.png",media:"Performance",year:"2022-",text:bt`
+    </div>`},{featured:!1,img:"https://img.glitches.me/images/2023/07/26/20230722_KHM_RundgangDSC_0739_c_Doerthe_Boxberg_sq.jpg",title:"Naoto's Nail Salon",icon:"/img/favicon-32-nail.png",media:"Performance",year:"2022-2023",text:bt`
     <div>
       <p>
       Photo: Dörthe Boxberg
@@ -618,7 +618,7 @@ Who is Naoto Hieda? Seems to me, is the essential, existential question that Nao
     </div>`},{featured:!1,title:"🖼Portfolio",media:"Net art",year:"2014-",text:bt`
     <div>
       You can find a complete list of my work in my <a href="https://naoto-portfolio.glitch.me/">portfolio</a>.
-    </div>`},{featured:!0,title:"🎥Credits",media:"Net art",year:"2023",text:bt`
+    </div>`},{featured:!0,title:"🎥Credits",media:"Net art",year:"2025",text:bt`
     <div>
       <div class="center-text">
         <span class="naoto">Naoto Hieda - full stack net artist</span>
