@@ -369,7 +369,7 @@ Who is Naoto Hieda? Seems to me, is the essential, existential question that Nao
     title: "Naoto's Nail Salon",
     icon: "/img/favicon-32-nail.png",
     media: "Performance",
-    year: "2022-",
+    year: "2022-2023",
     text: html`
     <div>
       <p>
@@ -565,7 +565,7 @@ Who is Naoto Hieda? Seems to me, is the essential, existential question that Nao
     // img: "https://img.glitches.me/images/2022/08/31/IMG_1034.jpg",
     title: "🎥Credits",
     media: "Net art",
-    year: "2023",
+    year: "2025",
     text: html`
     <div>
       <div class="center-text">
