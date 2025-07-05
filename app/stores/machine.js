@@ -4,7 +4,7 @@ import html from "choo/html";
 export default (state, emitter) => {
   function initHydra() {
     const bgImg = new Image();
-    bgImg.src = "/img/xp.jpg";
+    bgImg.src = "/xp.jpg";
     bgImg.onload = () => {
       s0.init({ src: bgImg });
       src(o1).colorama(.015)
