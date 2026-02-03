@@ -360,7 +360,7 @@ The project card.glitches.me, which merges the web technology with embodied danc
 Who is Naoto Hieda? Seems to me, is the essential, existential question that Naoto ask themself in every new artistic endeavor they engage into.
       </blockquote>
       <blockquote>
-- Camilo Sandoval
+- <a href="https://camilosandoval.de/" target="_blank">Camilo Sandoval</a>
       </blockquote>
     </div>`,
   },
