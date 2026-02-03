@@ -221,10 +221,10 @@ class Element {
 const contents = [
   {
     featured: false,
-    img: "/img/underconstruction.gif",
+    img: "/underconstruction.gif",
     title: "🚧#UnderConstruction",
     alt: "under construction 90s banner",
-    // icon: "/img/favicon-32-new.png",
+    // icon: "/favicon-32-new.png",
     media: "GIF",
     progress: 1,
     year: "2023-",
@@ -244,7 +244,7 @@ const contents = [
     img: "https://img.glitches.me/images/2023/07/26/naoto-new-banner.jpg",
     title: "New Banner",
     alt: "banner of closeup of naoto's face displayed outside",
-    icon: "/img/favicon-32-banner.png",
+    icon: "/favicon-32-banner.png",
     media: "Banner",
     year: "2023",
     text: html`
@@ -259,7 +259,25 @@ const contents = [
   },
   {
     featured: true,
-    img: "https://img.glitches.me/images/2023/07/26/cards_sq.jpg",
+    img: "https://naoto-portfolio.glitches.me/lace.jpg",
+    title: "♠️card.glitches.me",
+    alt: "A photo taken during a workshop. Many cards are laid on green dance floor in a random fashion. A bare foot is seen at the top.",
+    // icon: "/favicon-32-banner.png",
+    media: "Cards, Net art",
+    year: "2025-",
+    text: html`
+    <div>
+      <div>
+The project card.glitches.me, which merges the web technology with embodied dance practices, began its trajectory by evolving the format of collectible cards created as Naoto Hieda’s artistic practice since 2022. Initially, these cards resembled trading cards with printed photos, often centered around their autobiographical content and personal memory. In 2025, Naoto decided to adapt the artistic cards in order to develop the current hybrid format: small, physical blank cards designed for quick, handwritten entries, each featuring a unique QR code to link the physical artifact to an online web counterpart.
+      </div>
+      <div>
+      <a target="_blank" href="https://card.glitches.me/">card.glitches.me</a>
+      </div>
+    </div>`,
+  },
+  {
+    featured: true,
+    img: "https://naoto-portfolio.glitches.me/2025-11-14-yoshino.jpg",
     title: "Naoto's Cards",
     alt: "naoto's cards displayed",
     icon: "/favicon-32.png",
@@ -274,41 +292,44 @@ const contents = [
         soup.glitches.me</a>.
       </div>
       <div>
-        Exhibited at
+        Exhibited at 
         <a href="https://www.interposed.de/"
         target="_blank">
         interposed</a> in October 2023, accompanied by
         <a href="https://re-coding.technology/heartbreak-cards/"
           target="_blank">
         a web publication</a>.
-        Then at Kunstpreis 2024 der Freunde der KHM exhibition.
+        Then at Kunstpreis 2024 der Freunde der KHM exhibition
+        and <a href="https://www.spiral.co.jp/topics/yoshino_art_connect"
+        target="_blank">
+        Yoshino Art Connect Vol. 4</a> in 2025.
       </div>
 
       </div>
     </div>`,
   },
-  {
-    featured: false,
-    img: "/J.GUEVARA-N.%20HIEDA-MODINA_urska%20boljkovac%20(72).jpeg",
-    alt: "naoto and jorge on the stage performing in front of a green screen and a projection surface",
-    title: "SFDCANBAC++",
-    icon: "/img/favicon-32-bp.png",
-    media: "Media dance",
-    year: "2024",
-    text: html`
-    <div>
-      <p>Currently on tour: <a href="https://cndb.ro/new_events/stage-for-digital-contagious-and-networked-bodies-and-code-sfdcanbac/" target="_blank">CNDB</a> & <a href="https://www.kinosiska.si/en/dogodek/cofestival-2024/" target="_blank">Kino Šiška</a></p>
-      <p> Bodies, colorful objects, live-codes and glitter pixels continuously change their constellations on the stage – superimposing and subtracting, grouping and ungrouping – while the abundance of “actors” never arrives to a specific form.</p>
-      <p> Artists: Jorge Guevara and Naoto Hieda</p>
-      <p> Technical Mentorship and development: Andreia Matos, William Primett and Nuno N. Correia</p>
-      <p> Tech support: Kino Šiška</p>
-      <p>
-      Photo: Urška Boljkovac/Kino Šiška
-      </p>
-      <p> The work is created within the framework of the <a href="https://modina.eu/projects/sfdcanbac/" target="_blank">MODINA</a> project.</p>
-      <p>Try the interactive version <a href="https://sfdcanbac-ux.glitch.me/" target="_blank">here</a>!</p>
-    </div>`,
-  },
+  // {
+  //   featured: false,
+  //   img: "/J.GUEVARA-N.%20HIEDA-MODINA_urska%20boljkovac%20(72).jpeg",
+  //   alt: "naoto and jorge on the stage performing in front of a green screen and a projection surface",
+  //   title: "SFDCANBAC++",
+  //   icon: "/favicon-32-bp.png",
+  //   media: "Media dance",
+  //   year: "2024",
+  //   text: html`
+  //   <div>
+  //     <p>Currently on tour: <a href="https://cndb.ro/new_events/stage-for-digital-contagious-and-networked-bodies-and-code-sfdcanbac/" target="_blank">CNDB</a> & <a href="https://www.kinosiska.si/en/dogodek/cofestival-2024/" target="_blank">Kino Šiška</a></p>
+  //     <p> Bodies, colorful objects, live-codes and glitter pixels continuously change their constellations on the stage – superimposing and subtracting, grouping and ungrouping – while the abundance of “actors” never arrives to a specific form.</p>
+  //     <p> Artists: Jorge Guevara and Naoto Hieda</p>
+  //     <p> Technical Mentorship and development: Andreia Matos, William Primett and Nuno N. Correia</p>
+  //     <p> Tech support: Kino Šiška</p>
+  //     <p>
+  //     Photo: Urška Boljkovac/Kino Šiška
+  //     </p>
+  //     <p> The work is created within the framework of the <a href="https://modina.eu/projects/sfdcanbac/" target="_blank">MODINA</a> project.</p>
+  //     <p>Try the interactive version <a href="https://sfdcanbac-ux.glitch.me/" target="_blank">here</a>!</p>
+  //   </div>`,
+  // },
   // {
   //   featured: false,
   //   img: "/2023-06-14-syms.jpg",
@@ -330,7 +351,7 @@ const contents = [
     featured: true,
     title: "🔮Who is Naoto?",
     alt: "under construction 90s banner",
-    // icon: "/img/favicon-32-new.png",
+    // icon: "/favicon-32-new.png",
     media: "Quote",
     year: "2024",
     text: html`
@@ -348,7 +369,7 @@ Who is Naoto Hieda? Seems to me, is the essential, existential question that Nao
     img: "https://img.glitches.me/images/2022/02/13/banner.jpg",
     title: "#NaotoHieda",
     alt: "hashtag naoto hieda, an artwork of a printed banner",
-    icon: "/img/favicon-32-nh.png",
+    icon: "/favicon-32-nh.png",
     media: "Banner",
     year: "2022",
     text: html`
@@ -367,7 +388,7 @@ Who is Naoto Hieda? Seems to me, is the essential, existential question that Nao
     featured: false,
     img: "https://img.glitches.me/images/2023/07/26/20230722_KHM_RundgangDSC_0739_c_Doerthe_Boxberg_sq.jpg",
     title: "Naoto's Nail Salon",
-    icon: "/img/favicon-32-nail.png",
+    icon: "/favicon-32-nail.png",
     media: "Performance",
     year: "2022-2023",
     text: html`
@@ -430,7 +451,7 @@ Who is Naoto Hieda? Seems to me, is the essential, existential question that Nao
     img: "https://bild.glitches.me/images/2023/03/09/_DSC1986fa8b502b7cfb68e8.jpg",
     alt: "people sitting around and cutting vegetables",
     title: "Naoto's Festival",
-    icon: "/img/favicon-32-festival.png",
+    icon: "/favicon-32-festival.png",
     media: "Exhibition, Performance",
     year: "2023",
     text: html`
@@ -446,7 +467,7 @@ Who is Naoto Hieda? Seems to me, is the essential, existential question that Nao
   //   img: "https://img.glitches.me/images/2022/08/31/IMG_1034.jpg",
   //   alt: "naoto and jorge posing in front of best practices printed banner on a scaffold",
   //   title: "#BestPractices",
-  //   icon: "/img/favicon-32-bp.png",
+  //   icon: "/favicon-32-bp.png",
   //   media: "Media dance",
   //   year: "2020-",
   //   text: html`
@@ -495,7 +516,7 @@ Who is Naoto Hieda? Seems to me, is the essential, existential question that Nao
     img: "https://bild.glitches.me/images/2022/09/24/naoto_spektrum.gif",
     alt: "video screened in a station",
     title: "🌈#spektrum",
-    // icon: "/img/favicon-32-riso.png",
+    // icon: "/favicon-32-riso.png",
     media: "Video",
     year: "2021",
     text: html`
@@ -513,7 +534,7 @@ Who is Naoto Hieda? Seems to me, is the essential, existential question that Nao
   //   img: "https://img.glitches.me/images/2022/03/15/riso_.jpg",
   //   alt: "riso.glitches.me, a mass printed risograph work",
   //   title: "riso.glitches.me",
-  //   icon: "/img/favicon-32-riso.png",
+  //   icon: "/favicon-32-riso.png",
   //   media: "Risography print",
   //   year: "2022",
   //   text: html`
@@ -565,7 +586,7 @@ Who is Naoto Hieda? Seems to me, is the essential, existential question that Nao
     // img: "https://img.glitches.me/images/2022/08/31/IMG_1034.jpg",
     title: "🎥Credits",
     media: "Net art",
-    year: "2025",
+    year: "2026",
     text: html`
     <div>
       <div class="center-text">
