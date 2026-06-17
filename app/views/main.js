@@ -241,6 +241,21 @@ const contents = [
   },
   {
     featured: true,
+    img: "/2026-06-07-data-mama.jpg",
+    title: "🤖Data Trash Snack Bar",
+    alt: "Naoto on a stage in a flashy costume, walking through words projected on a wall",
+    // icon: "/favicon-32-banner.png",
+    media: "Performance",
+    year: "2026",
+    text: html`
+    <div>
+      <div>
+        Showing of the TalentLAB residency as a collective Data Mama (Dan Xu, Yurika Yamamoto, Pinyao Liu and Naoto Hieda). Photo: Bohumil Kostohryz
+      </div>
+    </div>`,
+  },
+  {
+    featured: true,
     img: "https://img.glitches.me/images/2023/07/26/naoto-new-banner.jpg",
     title: "New Banner",
     alt: "banner of closeup of naoto's face displayed outside",
