@@ -256,19 +256,19 @@ const contents = [
   },
   {
     featured: true,
-    img: "https://img.glitches.me/images/2023/07/26/naoto-new-banner.jpg",
-    title: "New Banner",
-    alt: "banner of closeup of naoto's face displayed outside",
+    img: "/2026-07-14-banner.jpeg",
+    title: "Banner Series",
+    alt: "banner of naoto overlaid on gif images, displayed outside",
     icon: "/favicon-32-banner.png",
     media: "Banner",
-    year: "2023",
+    year: "2021",
     text: html`
     <div>
       <div>
-      <a target="_blank" href="https://new-banner.glitch.me/">New banner</a>
+        Best Practices in Under Construction: First shown at KHMN 2021, then at KHM Rundgang 2026 (shown above).
       </div>
       <div>
-        First shown at KHM Rundgang 2023, then at Kunstpreis 2024 der Freunde der KHM exhibition.
+        New Banner: First shown at KHM Rundgang 2023, then at Kunstpreis 2024 der Freunde der KHM exhibition.
       </div>
     </div>`,
   },
